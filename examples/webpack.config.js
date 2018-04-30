@@ -19,10 +19,8 @@ module.exports = {
   }, {}),
 
   output: {
-    path: path.join(__dirname, '__build__'),
+    path: path.join(__dirname, 'generated'),
     filename: '[name].js',
-    // chunkFileName: '[id].chunk.js'
-    // publicPath: '/__build__/'
   },
 
   module: {
