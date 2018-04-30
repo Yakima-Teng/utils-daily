@@ -53,7 +53,7 @@ function genConfig (opts) {
       file: opts.file,
       format: opts.format,
       banner,
-      name: 'UtilsDaily'
+      name: '$utils'
     }
   }
 
