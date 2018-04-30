@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# ignore configuration file for IntelliJ IDEA
+.idea
+
+dist
+./index.js
