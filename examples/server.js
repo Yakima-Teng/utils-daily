@@ -19,7 +19,7 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
 
 fs.readdirSync(__dirname).forEach(file => {
   if (fs.statSync(path.join(__dirname, file)).isDirectory()) {
-    app.use(rewrite(`/${file}/*`, `/${file}/index.html`))
+    app.use(rewrite(`/${file}/*.html`, `/${file}/index.html`))
   }
 })
 

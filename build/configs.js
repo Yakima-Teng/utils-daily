@@ -1,7 +1,5 @@
 const path = require('path')
 const buble = require('rollup-plugin-buble')
-const babel = require('rollup-plugin-babel')
-
 const flow = require('rollup-plugin-flow-no-whitespace')
 const cjs = require('rollup-plugin-commonjs')
 const node = require('rollup-plugin-node-resolve')
@@ -12,7 +10,7 @@ const banner = `
  * utils-daily v${version}
  * (c) ${new Date().getFullYear()} Yakima Teng
  * @license MIT
- * /
+ */
 `
 
 const resolve = _path => path.resolve(__dirname, '../', _path)
@@ -26,7 +24,7 @@ module.exports = [
   },
   {
     file: resolve('dist/libs-utils.min.js'),
-    format: 'iife',
+    format: 'umd',
     env: 'production'
   },
   {
@@ -48,9 +46,6 @@ function genConfig (opts) {
         node(),
         cjs(),
         replace({ __VERSION__: version }),
-        // babel({
-        //   exclude: 'node_modules/**',
-        // })
         buble()
       ]
     },

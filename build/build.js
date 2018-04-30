@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const zlib = require('zlib')
-const uglify = require('uglify-es')
+const uglify = require('uglify-js')
 const rollup = require('rollup')
 const configs = require('./configs')
 
@@ -34,12 +34,6 @@ function buildEntry ({ input, output }) {
       if (isProd) {
         // `minified` is the minified code
         const minified = uglify.minify(code, {
-          parse: {
-            // Allow return outside of functions.
-            // Useful when minifying CommonJS modules and Userscripts
-            // that may be anonymous function wrapped (IIFE) by the .user.js engine `caller`.
-            bare_returns: true
-          },
           output: {
             // when passed it must be a string and it will be prepended to the output literally.
             // The source map will adjust for this text.
@@ -72,6 +66,12 @@ function write (dest, code, zip) {
       resolve()
     }
 
+    function reportExamples (extra) {
+      console.log(blue(path.relative(process.cwd(), dest.replace('dist', 'examples'))) + ' ' + getSize(code) + (extra || ''))
+      resolve()
+    }
+
+
     fs.writeFile(dest, code, err => {
       if (err) return reject(err)
       if (zip) {
@@ -81,6 +81,18 @@ function write (dest, code, zip) {
         })
       } else {
         report()
+      }
+    })
+
+    fs.writeFile(dest.replace('dist', 'examples'), code, err => {
+      if (err) return reject(err)
+      if (zip) {
+        zlib.gzip(code, (err, zipped) => {
+          if (err) return reject(err)
+          reportExamples(' (gzipped: ' + getSize(zipped) + ')')
+        })
+      } else {
+        reportExamples()
       }
     })
   })

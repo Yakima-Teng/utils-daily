@@ -1,4 +1,4 @@
 {
-  "presets": [["env", { "modules": false }], "flow", "es2015-rollup"],
-  "plugins": ["syntax-dynamic-import"]
+  "presets": ["env", "flow"],
+  "plugins": []
 }
