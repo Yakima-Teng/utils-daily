@@ -19,8 +19,9 @@ module.exports = {
   }, {}),
 
   output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js',
+    // file built by webpack-dev-server is stored in memory
+    path: __dirname,
+    filename: '[name]/index.js',
   },
 
   module: {
