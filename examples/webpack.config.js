@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 
@@ -22,6 +23,7 @@ module.exports = {
     // file built by webpack-dev-server is stored in memory
     path: __dirname,
     filename: '[name]/index.js',
+    // chunkFilename: '[name]/[name].chunk.js',
   },
 
   module: {
@@ -57,6 +59,14 @@ module.exports = {
     //   name: 'shared',
     //   filename: 'shared-[hash].min.js'
     // }),
+    new HtmlWebpackPlugin({
+      filename: './basic/index.html',
+      template: './basic/index-template.html',
+      // 允许插件修改哪些内容，包括head与body
+      inject: true,
+      // 为静态资源生成hash值
+      hash: true
+    }),
     new webpack.DefinePlugin({
       // JSON.stringify('development') will generate string like "'development'" (quotes in quotes)
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),

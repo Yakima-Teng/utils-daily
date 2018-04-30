@@ -13,7 +13,7 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
     // `webpack --colors` equivalent
     colors: true,
     // Add chunk information (setting this to `false` allows for a less verbose output)
-    chunks: false
+    chunks: true
   }
 }))
 
@@ -21,6 +21,10 @@ fs.readdirSync(__dirname).forEach(file => {
   if (fs.statSync(path.join(__dirname, file)).isDirectory()) {
     app.use(rewrite(`/${file}/*.html`, `/${file}/index.html`))
   }
+})
+
+app.get('/', (req, res, next) => {
+  res.redirect('/basic/index.html')
 })
 
 app.use(express.static(__dirname))
