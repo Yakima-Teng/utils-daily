@@ -1,7 +1,5 @@
 # utils-daily
 
-*This project is currently not available!*
-
 A simple yet useful frontend utility library. The aims of this project are:
 
 - include all functions from lodash library;

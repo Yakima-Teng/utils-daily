@@ -14,7 +14,8 @@ module.exports = {
     const entry = path.join(fullDir, 'app.js')
     // judge whether dir is a directory and whether there is a `app.js` in it in case that it's a directory
     if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
-      entries[dir] = ['es6-promise/auto', entry]
+      // entries[dir] = ['es6-promise/auto', entry]
+      entries[dir] = entry
     }
     return entries
   }, {}),

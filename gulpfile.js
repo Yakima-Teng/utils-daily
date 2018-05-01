@@ -6,7 +6,7 @@ let arrFileNames = []
 
 // 自动生成/index.js文件（手动生成该文件太麻烦了-_-）
 gulp.task('generateIndexJS', () => {
-  const srcArr = ['./*.js', '!./*.default.js', '!./function.js', '!./index.js', '!./gulpfile.js']
+  const srcArr = ['./*.js', '!./_*.js', '!./*.default.js', '!./function.js', '!./index.js', '!./gulpfile.js']
   return gulp.src(srcArr)
     .on('data', file => {
       const filePath = file.history[0]
