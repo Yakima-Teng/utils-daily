@@ -60,5 +60,4 @@ typings/
 # ignore configuration file for IntelliJ IDEA
 .idea
 
-dist
 ./index.js
