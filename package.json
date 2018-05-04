@@ -17,6 +17,8 @@
     "url": "git+https://github.com/Yakima-Teng/utils-daily.git"
   },
   "keywords": [
+    "javascript library",
+    "utility function",
     "daily",
     "dom",
     "utils"
