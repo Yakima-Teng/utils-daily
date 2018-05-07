@@ -7,6 +7,7 @@ const path = require('path')
 const gulpJsdoc2md = require('gulp-jsdoc-to-markdown')
 const rename = require('gulp-rename')
 const chalk = require('chalk')
+const del = require('del')
 const config = require('./config')
 const objFileNames = {
   // '_root': false
@@ -135,7 +136,7 @@ gulp.task('generateIndexJS', () => {
     })
 })
 
-gulp.task('jsdocToMarkdown', function () {
+gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
   return gulp.src(jsdocSourceFiles)
     // .pipe(gulpJsdoc2md({ template: fs.readFileSync('./readme.hbs', 'utf8') }))
     .pipe(gulpJsdoc2md())
@@ -146,4 +147,10 @@ gulp.task('jsdocToMarkdown', function () {
       path.extname = '.md'
     }))
     .pipe(gulp.dest('docs'))
+})
+
+gulp.task('clearDocsFolder', function () {
+  return del(['docs/_book', 'docs/*.md', '!docs/README.md', '!docs/SUMMARY.md']).then(paths => {
+    console.log('Deleted files and folders:\n', paths.join('\n'));
+  })
 })

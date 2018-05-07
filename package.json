@@ -47,6 +47,7 @@
     "codecov.io": "^0.1.6",
     "coveralls": "^3.0.0",
     "curl-amd": "^0.8.12",
+    "del": "^3.0.0",
     "docdown": "^0.7.3",
     "dojo": "^1.13.0",
     "ecstatic": "^3.2.0",
