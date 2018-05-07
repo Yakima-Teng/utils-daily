@@ -26,6 +26,8 @@
 
 ## Development
 
+Source code is hoisted in Github: [utils-daily](https://github.com/Yakima-Teng/utils-daily).
+
 If you want to add a new function called `tryIt`, you should create a file `tryIt.js` under the root directory with appropriate comment. Common commands:
 
 - `npm run generateIndexJSAndBuild`: build the library file.
