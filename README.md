@@ -12,12 +12,30 @@
   </a>
 </p>
 
-> A simple yet useful frontend utility library. The aims of this project are:
+> A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
 
-- include all functions from lodash library;
 
-- export only frequently-used functions in case of browser environment, otherwise the generated file is too large;
+## Features
 
-- add my some functions I think useful but not included in lodash;
+- Online documetation is available: [utils-daily](http://www.lookmaths.com/) or [utils-daily on github pages](https://yakima-teng.github.io/utils-daily/).
 
-- use flow and eslint to test code;
+- Use `rollup.js` with the technology called `tree-shaking` in order to make the size of the generated library file as small as possible.
+
+- use flow and eslint to test code.
+
+
+## Development
+
+If you want to add a new function called `tryIt`, you should create a file `tryIt.js` under the root directory with appropriate comment. Common commands:
+
+- `npm run generateIndexJSAndBuild`: build the library file.
+
+- `npm run docs:generateSummary`: update `docs/SUMMARY.md`.
+
+- `npm run docs:dev`: see documentation locally for easy development.
+
+- `npm run deploy`: deploy documentation files to both the `gh-pages` branch and your own server.
+
+## License
+
+[MIT](./LICENSE)
