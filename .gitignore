@@ -60,11 +60,10 @@ typings/
 # ignore configuration file for IntelliJ IDEA
 .idea
 
-./index.js
-./examples/libs-utils.*
+/examples/libs-utils.*
 .DS_Store
-./config.js
-./docs
-!./docs/book.json
-!./docs/README.md
-!./docs/SUMMARY.md
+/config.js
+/docs
+!/docs/book.json
+!/docs/README.md
+!/docs/SUMMARY.md
