@@ -1,0 +1,19 @@
+{
+  "title": "utils-daily",
+  "author": "Yakima Teng",
+  "authorHomepage": "https://github.com/Yakima-Teng",
+  "description": "日常常用函数",
+  "language": "zh-hans",
+  "plugins": [
+    "theme-code",
+    "splitter",
+    "prism",
+    "folding-chapters",
+    "-sharing"
+  ],
+  "pluginsConfig": {
+    "theme-default": {
+      "showLevel": true
+    }
+  }
+}

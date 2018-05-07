@@ -63,3 +63,4 @@ typings/
 ./index.js
 ./examples/libs-utils.*
 .DS_Store
+./config.js
