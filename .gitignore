@@ -64,3 +64,4 @@ typings/
 ./examples/libs-utils.*
 .DS_Store
 ./config.js
+./docs/_book
