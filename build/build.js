@@ -67,7 +67,7 @@ function write (dest, code, zip) {
     }
 
     function reportExamples (extra) {
-      console.log(blue(path.relative(process.cwd(), dest.replace('dist', 'examples'))) + ' ' + getSize(code) + (extra || ''))
+      // console.log(blue(path.relative(process.cwd(), dest.replace('dist', 'examples'))) + ' ' + getSize(code) + (extra || ''))
       resolve()
     }
 

@@ -9,6 +9,7 @@ const banner = `
 /**
  * utils-daily v${version}
  * (c) ${new Date().getFullYear()} Yakima Teng
+ * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
  */
 `

@@ -2,6 +2,7 @@
 
 * [Preface](README.md)
 * [getCookie](./getCookie.md)
+* [getLocalStorage](./getLocalStorage.md)
 * [hasValue](./hasValue.md)
 * [setCookie](./setCookie.md)
 * [setLocalStorage](./setLocalStorage.md)

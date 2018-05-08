@@ -2,6 +2,7 @@
 /**
  * utils-daily v0.0.3
  * (c) 2018 Yakima Teng
+ * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
  */
 
@@ -33,6 +34,19 @@
   }
 
   /**
+   * Get the value of localStorage item of specified key/name
+   * @param key the specified key/name of the storage item
+   * @returns {object | null}
+   */
+  function getLocalStorage (key) {
+    if ('localStorage' in window) {
+      return window.localStorage.getItem(key) ? JSON.parse(window.decodeURI(window.localStorage.getItem(key))) : null
+    } else {
+      throw new Error('localStorage is not supported!')
+    }
+  }
+
+  /**
    * Judge whether a variable is valuable
    * - ''、null、'null'、undefined、'undefined' is regarded as invaluable
    * - number 0 is regarded as valuable
@@ -57,8 +71,9 @@
 
   /**
    * Save a key:value pair in localStorage
-   * @param key the key of the storage item
-   * @param val the value of the storage item
+   * - the value should itself be an object of key:value pairs
+   * @param key {string} the key of the storage item
+   * @param val {object} the value of the storage item
    */
   function setLocalStorage (key, val) {
     if ('localStorage' in window) {
@@ -139,6 +154,7 @@
 
   var index = {
     getCookie: getCookie,
+    getLocalStorage: getLocalStorage,
     hasValue: hasValue,
     setCookie: setCookie,
     setLocalStorage: setLocalStorage,

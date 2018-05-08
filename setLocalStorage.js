@@ -1,7 +1,8 @@
 /**
  * Save a key:value pair in localStorage
- * @param key the key of the storage item
- * @param val the value of the storage item
+ * - the value should itself be an object of key:value pairs
+ * @param key {string} the key of the storage item
+ * @param val {object} the value of the storage item
  */
 function setLocalStorage (key, val) {
   if ('localStorage' in window) {

@@ -5,15 +5,15 @@
   "main": "index.js",
   "scripts": {
     "deploy": "npm-run-all --serial docs:generateSummary docs:deploy deployToServer",
-    "docs:dev": "cd docs && gitbook serve",
+    "generateIndexJSAndBuild": "npm-run-all --serial generateIndexJS build",
     "docs:generateSummary": "gulp docs:generateSummary",
+    "docs:dev": "cd docs && gitbook serve",
     "docs:deploy": "bash ./deploy-docs.sh",
     "docs:installGitbookPlugins": "cd docs && gitbook install",
     "deployToServer": "gulp deployToServer",
     "generateIndexJS": "gulp generateIndexJS",
     "dev": "node examples/server.js",
     "build": "node build/build.js",
-    "generateIndexJSAndBuild": "npm-run-all --serial generateIndexJS build",
     "flow": "flow check",
     "flow-init": "flow init",
     "test": "npm run lint && npm run flow && npm run test:unit && npm run test:e2e && npm run test:types"
