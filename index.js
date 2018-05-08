@@ -3,11 +3,13 @@
 import getCookie from './getCookie.js'
 import hasValue from './hasValue.js'
 import setCookie from './setCookie.js'
+import setLocalStorage from './setLocalStorage.js'
 import validateIdCardNo from './validateIdCardNo.js'
 
 export default {
   getCookie,
   hasValue,
   setCookie,
+  setLocalStorage,
   validateIdCardNo
 }
