@@ -15,6 +15,29 @@
 > A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
 
 
+## Usage
+
+### Via `script` tag in html
+
+```html
+<script src="./dist/libs-utils.min.js"></script>
+```
+
+### Via npm
+
+First, install it:
+
+```bash
+npm i -S utils-daily
+```
+
+Then import it:
+
+```javascript
+import utils from 'utils-daily'
+```
+
+
 ## Features
 
 - Online documetation is available: [utils-daily](http://www.lookmaths.com/) or [utils-daily on github pages](https://yakima-teng.github.io/utils-daily/).

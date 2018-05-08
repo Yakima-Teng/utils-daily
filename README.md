@@ -24,6 +24,29 @@
 - use flow and eslint to test code.
 
 
+## Usage
+
+### Via `script` tag in html
+
+```html
+<script src="./dist/libs-utils.min.js"></script>
+```
+
+### Via npm
+
+First, install it:
+
+```bash
+npm i -S utils-daily
+```
+
+Then import it:
+
+```javascript
+import utils from 'utils-daily'
+```
+
+
 ## Development
 
 Source code is hoisted in Github: [utils-daily](https://github.com/Yakima-Teng/utils-daily).
