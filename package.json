@@ -4,6 +4,10 @@
   "description": "A simple yet useful frontend utility library",
   "main": "index.js",
   "scripts": {
+    "useThisToDev": "npm-run-all --serial docs:generateSummary docs:dev",
+    "useThisToBuild": "npm run generateIndexJSAndBuild",
+    "useThisToDeploy": "npm run deploy",
+    "useThisToBuildAndDeploy": "npm-run-all --serial useThisToBuild useThisToDeploy",
     "deploy": "npm-run-all --serial docs:generateSummary docs:deploy deployToServer",
     "generateIndexJSAndBuild": "npm-run-all --serial generateIndexJS build",
     "docs:generateSummary": "gulp docs:generateSummary",
