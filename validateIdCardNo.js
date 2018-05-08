@@ -1,7 +1,7 @@
 /**
- * 验证身份证号
- * @param idCardNo {string} 身份证号
- * @returns {boolean} 是否满足校验规则
+ * Validate the accuracy of a ID card number
+ * @param idCardNo {string} ID card number
+ * @returns {boolean} whether the ID card number is valid
  */
 function validateIdCardNo (idCardNo) {
   function checkDate (ID) {

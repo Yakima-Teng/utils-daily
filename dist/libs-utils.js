@@ -12,20 +12,32 @@
 }(this, (function () { 'use strict';
 
   /**
-   * 判断变量是否有值
-   * - 空字符串、null、'null'、undefined、'undefined'均视为无值
-   * - 数字0算有值
-   * @param val 变量
-   * @returns {boolean} 是否有值
+   * Judge whether a variable is valuable
+   * - ''、null、'null'、undefined、'undefined' is regarded as invaluable
+   * - number 0 is regarded as valuable
+   * @param val variable
+   * @returns {boolean} whether a variable is valuable
    */
   function hasValue (val) {
     return val !== '' && val !== null && val !== undefined && val !== 'undefined' && val !== 'null' && val !== 'undefined'
   }
 
   /**
-   * 验证身份证号
-   * @param idCardNo {string} 身份证号
-   * @returns {boolean} 是否满足校验规则
+   * Set cookie
+   * @param name the key/name of the cookie item
+   * @param val the value of the cookit item
+   * @param expireDays [optional] if set, the cookie item will be outdated after the specified number of days
+   */
+  function setCookie (name, val, expireDays) {
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + expireDays);
+    window.document.cookie = name + '=' + window.encodeURI(val) + (expireDays ? ';expires=' + expireDate.toGMTString() : '');
+  }
+
+  /**
+   * Validate the accuracy of a ID card number
+   * @param idCardNo {string} ID card number
+   * @returns {boolean} whether the ID card number is valid
    */
   function validateIdCardNo (idCardNo) {
     function checkDate (ID) {
@@ -85,6 +97,7 @@
 
   var index = {
     hasValue: hasValue,
+    setCookie: setCookie,
     validateIdCardNo: validateIdCardNo
   }
 

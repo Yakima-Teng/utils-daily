@@ -53,9 +53,9 @@ gulp.task('docs:generateSummary', ['jsdocToMarkdown'], () => {
       arrFileNames.forEach(item => item.fileNames.sort())
     })
     .on('end', function () {
-      let textToWrite = '# 目录\n' +
+      let textToWrite = '# TOC\n' +
         '\n' +
-        '* [前言](README.md)\n' +
+        '* [Preface](README.md)\n' +
         arrFileNames.map(folder => {
           const folderName = folder.folderName
           if (folderName !== '_root') {
