@@ -2,7 +2,10 @@
   "name": "utils-daily",
   "version": "0.0.4",
   "description": "A simple yet useful frontend utility library",
-  "main": "index.js",
+  "main": "dist/libs-utils.common.js",
+  "module": "dist/libs-utils.esm.js",
+  "unpkg": "dist/libs-utils.js",
+  "jsdelivr": "dist/libs-utils.js",
   "scripts": {
     "useThisToDev": "npm-run-all --serial docs:generateSummary docs:dev",
     "useThisToBuild": "npm-run-all --parallel docs:generateSummary generateIndexJSAndBuild",
