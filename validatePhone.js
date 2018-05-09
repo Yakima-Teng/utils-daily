@@ -6,7 +6,7 @@
  * @returns {boolean} whether it's a valid phone number
  */
 function validatePhone (phone) {
-  return /^13[0-9]{9}|15[0-9][0-9]{8}|18[0-9][0-9]{8}|147[0-9]{8}|145[0-9]{8}|17[0-9]{9}$/.test(phone);
+  return /^13[0-9]{9}|15[0-9][0-9]{8}|18[0-9][0-9]{8}|147[0-9]{8}|145[0-9]{8}|17[0-9]{9}$/.test(phone)
 }
 
 export default validatePhone

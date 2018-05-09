@@ -76,9 +76,9 @@ gulp.task('docs:generateSummary', ['jsdocToMarkdown'], () => {
         mode: '0666'
       }, function (err) {
         if (err) {
-          console.log("file IO failed")
+          console.log('file IO failed')
         } else {
-          console.log("file IO succeeded");
+          console.log('file IO succeeded')
         }
       })
     })
@@ -98,7 +98,6 @@ gulp.task('deployToServer', () => {
       console.log(e)
     })
 })
-
 
 // 自动生成/index.js文件（手动生成该文件太麻烦了-_-）
 const jsdocSourceFiles = ['./*.js', '!./_*.js', '!./index.js', '!./gulpfile.js', '!./config-example.js', '!./config.js']
@@ -128,9 +127,9 @@ gulp.task('generateIndexJS', () => {
         mode: '0666'
       }, function (err) {
         if (err) {
-          console.log("file IO failed")
+          console.log('file IO failed')
         } else {
-          console.log("file IO succeed");
+          console.log('file IO succeed')
         }
       })
     })
@@ -151,6 +150,6 @@ gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
 
 gulp.task('clearDocsFolder', function () {
   return del(['docs/_book', 'docs/*.md', '!docs/README.md', '!docs/SUMMARY.md']).then(paths => {
-    console.log('Deleted files and folders:\n', paths.join('\n'));
+    console.log('Deleted files and folders:\n', paths.join('\n'))
   })
 })

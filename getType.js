@@ -4,7 +4,7 @@
  * @returns {string} 'array', 'object', 'function', 'null', 'undefined', 'string', 'number'
  */
 function getType (val) {
-  return ({}).toString.call(input).slice(8, -1).toLowerCase()
+  return ({}).toString.call(val).slice(8, -1).toLowerCase()
 }
 
 export default getType

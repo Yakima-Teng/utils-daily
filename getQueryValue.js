@@ -4,7 +4,7 @@
  * @returns {string} the value of specified query parameter
  */
 function getQueryValue (key) {
-  const search = location.href.indexOf('?') !== -1 ? location.href.replace(/^.*\?/, '') : ''
+  const search = window.location.href.indexOf('?') !== -1 ? window.location.href.replace(/^.*\?/, '') : ''
   if (!search) {
     return ''
   }
