@@ -1,6 +1,6 @@
 {
   "name": "utils-daily",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple yet useful frontend utility library",
   "main": "index.js",
   "scripts": {
