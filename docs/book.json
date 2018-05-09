@@ -2,7 +2,7 @@
   "title": "utils-daily",
   "author": "Yakima Teng",
   "authorHomepage": "https://github.com/Yakima-Teng",
-  "description": "日常常用函数",
+  "description": "utility functions used in daily work",
   "language": "zh-hans",
   "plugins": [
     "theme-code",
@@ -13,7 +13,7 @@
   ],
   "pluginsConfig": {
     "theme-default": {
-      "showLevel": false
+      "showLevel": true
     }
   }
 }

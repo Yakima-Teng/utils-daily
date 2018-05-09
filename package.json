@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "useThisToDev": "npm-run-all --serial docs:generateSummary docs:dev",
-    "useThisToBuild": "npm run generateIndexJSAndBuild",
-    "useThisToDeploy": "npm run deploy",
+    "useThisToBuild": "npm-run-all --parallel docs:generateSummary generateIndexJSAndBuild",
+    "useThisToDeploy": "npm-run-all --serial docs:deploy deployToServer",
     "useThisToBuildAndDeploy": "npm-run-all --serial useThisToBuild useThisToDeploy",
     "deploy": "npm-run-all --serial docs:generateSummary docs:deploy deployToServer",
     "generateIndexJSAndBuild": "npm-run-all --serial generateIndexJS build",

@@ -17,7 +17,7 @@ let arrFileNames = [
   // .etc.
 ]
 
-// 自动生成docs/SUMMARY.md文件（手动生成该文件太麻烦了-_-）
+// generate docs/SUMMARY.md automatically
 gulp.task('docs:generateSummary', ['jsdocToMarkdown'], () => {
   const srcArr = ['./docs/**/*.md', '!./docs/README.md', '!./docs/SUMMARY.md', '!./docs/_book/**/*', '!./docs/node_modules/**/*']
   return gulp.src(srcArr)
@@ -76,9 +76,9 @@ gulp.task('docs:generateSummary', ['jsdocToMarkdown'], () => {
         mode: '0666'
       }, function (err) {
         if (err) {
-          console.log("文件写入失败")
+          console.log("file IO failed")
         } else {
-          console.log("文件写入成功");
+          console.log("file IO succeeded");
         }
       })
     })
@@ -128,9 +128,9 @@ gulp.task('generateIndexJS', () => {
         mode: '0666'
       }, function (err) {
         if (err) {
-          console.log("文件写入失败")
+          console.log("file IO failed")
         } else {
-          console.log("文件写入成功");
+          console.log("file IO succeed");
         }
       })
     })

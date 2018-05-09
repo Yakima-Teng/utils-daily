@@ -1,7 +1,7 @@
 /**
  * Get the value of localStorage item of specified key/name
  * @param key the specified key/name of the storage item
- * @returns {object | null}
+ * @returns {object | null} value of localStorage item
  */
 function getLocalStorage (key) {
   if ('localStorage' in window) {
