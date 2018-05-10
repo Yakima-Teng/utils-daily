@@ -42,7 +42,7 @@
   /**
    * Make a number less than 10 to be prefixed with an '0'
    * - the same as `fillLeft(m, 2, '0')`
-   * @param num {string|number} a number, or number in string format
+   * @param num {string|number} a number, or number in string format (number should be integer)
    * @returns {string} string after prefixed with '0' is less than 10
    */
   function toDouble (num) {
@@ -144,7 +144,7 @@
   /**
    * Get the type of a variable
    * @param val {any} the variable
-   * @returns {string} 'array', 'object', 'function', 'null', 'undefined', 'string', 'number'
+   * @returns {string} 'array', 'object', 'function', 'null', 'undefined', 'string', 'number', 'boolean', 'date', 'regexp' and etc.
    */
   function getType (val) {
     return ({}).toString.call(val).slice(8, -1).toLowerCase()
@@ -315,65 +315,47 @@
 
   /**
    * Validate whether the car plate number is valid
+   * - This method is only available in China
    * - The validation method is copied from http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx
    * @param plateNo the car plate number
    * @returns {boolean} whether the car plate number is valid
    */
   function validateCarPlate (plateNo) {
-    var per = /^[京津沪渝蒙新藏桂黑吉辽冀晋青鲁豫苏皖浙闽赣湘鄂粤琼甘陕川贵云宁]{1}[A-Z]{1}[A-Za-z0-9]{5,6}$/;
-    var per1 = /^[京]{1}[A-Z]{1}[A-Za-z0-9]{5,6}$/;
-    var per2 = /[`~!@#$%^&*()_+<>?:"{},.\\/;'[\]]/im;
-    var fanti = /^[滬遼晉魯蘇閩贛粵瓊陝貴雲甯]{1}/;
-    var per3 = /^[京]{1}[A-Z]{1}/;
+    /**
+     * 普通汽车
+     * 车牌号格式：汉字 + A-Z + 5位A-Z或0-9(  车牌号不存在字母I和O防止和1、0混淆)
+     */
+    var reNormalVehicle = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]$/;
 
-    if (plateNo.charAt(0) === 'L' && plateNo.charAt(1) === 'S') {
-      // 车牌号不能以LS开头
-      return false
-    } else if (per2.test(plateNo) || fanti.test(plateNo)) {
-      // 车牌号不能包含繁体字、特殊字符
-      return false
-    }
-    if (per3.test(plateNo)) {
-      // 如果是京开头的车牌则允许后面多一位车牌号（个性车牌）
-      if (!per1.test(plateNo)) {
-        return false
-      }
-    } else if (!per.test(plateNo)) {
-      return false
-    }
-    return true
+    /**
+     * 新能源号码车牌编码规则
+     *
+     * 新能源汽车号牌号码增加一位，与普通汽车号牌相比，
+     * 新能源汽车号牌号码由5位升为6位，号牌号码容量增大、资源更加丰富，
+     * 可以满足“少使用字母、多使用数字”的编排需要。
+     *
+     * 具体编码规则是省份简称（1位汉字）+发牌机关代号（1位字母）+序号（6位）。
+     *
+     * - 小型新能源汽车号牌的第一位必须使用字母D、F（D代表纯电动新能源汽车，F代表非纯电动新能源汽车），
+     * 第二位可以使用字母或者数字，后四位必须使用数字。
+     *
+     * - 大型新能源汽车号牌的第六位必须使用字母D、F（D代表纯电动新能源汽车，F代表非纯电动新能源汽车），
+     * 前五位必须使用数字。
+     *
+     * 序号中英文字母I和O不能使用。
+     */
+    var reNewEngineVehicle = /[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z][A-Z](([0-9]{5}[DF])|([DF][A-HJ-NP-Z0-9][0-9]{4}))/;
+
+    return reNormalVehicle.test(plateNo) || reNewEngineVehicle.test(plateNo)
   }
 
   /**
    * Validate the accuracy of a ID card number
+   * - This function is only available for Chinese
    * @param idCardNo {string} ID card number
    * @returns {boolean} whether the ID card number is valid
    */
   function validateIdCardNo (idCardNo) {
-    function checkDate (ID) {
-      var year, month, day, tempDate;
-      var length18Or15 = ID.length;
-      if (length18Or15 === 18) {
-        year = ID.substring(6, 10);
-        month = ID.substring(10, 12);
-        day = ID.substring(12, 14);
-        // with parseInt, 05 will be 5
-        tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-        return !(tempDate.getFullYear() !== parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
-      } else if (length18Or15 === 15) {
-        year = ID.substring(6, 8);
-        month = ID.substring(8, 10);
-        day = ID.substring(10, 12);
-        // with parseInt, 05 will be 5
-        tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-        // .getYear() is not recommended for use any longer,
-        // so here getFullYear() is used although it may seem not simple enough
-        return !(('' + tempDate.getFullYear()).substring(2) !== parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
-      } else {
-        console.log('Unknown error!');
-        // return
-      }
-    }
     var ID = '' + idCardNo;
     if (/^[1-9][0-9]{16}([0-9]|[xX])$/.test(ID)) {
       if (checkDate(ID)) {
@@ -400,6 +382,31 @@
       return checkDate(ID)
     } else {
       return false
+    }
+  }
+
+  function checkDate (ID) {
+    var year, month, day, tempDate;
+    var length18Or15 = ID.length;
+    if (length18Or15 === 18) {
+      year = ID.substring(6, 10);
+      month = ID.substring(10, 12);
+      day = ID.substring(12, 14);
+      // with parseInt, 05 will be 5
+      tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      return !(tempDate.getFullYear() !== parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
+    } else if (length18Or15 === 15) {
+      year = ID.substring(6, 8);
+      month = ID.substring(8, 10);
+      day = ID.substring(10, 12);
+      // with parseInt, 05 will be 5
+      tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      // .getYear() is not recommended for use any longer,
+      // so here getFullYear() is used although it may seem not simple enough
+      return !(('' + tempDate.getFullYear()).substring(2) !== '' + parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
+    } else {
+      console.log('Unknown error!');
+      // return
     }
   }
 

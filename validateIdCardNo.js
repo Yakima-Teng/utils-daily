@@ -1,33 +1,10 @@
 /**
  * Validate the accuracy of a ID card number
+ * - This function is only available for Chinese
  * @param idCardNo {string} ID card number
  * @returns {boolean} whether the ID card number is valid
  */
 function validateIdCardNo (idCardNo) {
-  function checkDate (ID) {
-    let year, month, day, tempDate
-    let length18Or15 = ID.length
-    if (length18Or15 === 18) {
-      year = ID.substring(6, 10)
-      month = ID.substring(10, 12)
-      day = ID.substring(12, 14)
-      // with parseInt, 05 will be 5
-      tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
-      return !(tempDate.getFullYear() !== parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
-    } else if (length18Or15 === 15) {
-      year = ID.substring(6, 8)
-      month = ID.substring(8, 10)
-      day = ID.substring(10, 12)
-      // with parseInt, 05 will be 5
-      tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
-      // .getYear() is not recommended for use any longer,
-      // so here getFullYear() is used although it may seem not simple enough
-      return !(('' + tempDate.getFullYear()).substring(2) !== parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
-    } else {
-      console.log('Unknown error!')
-      // return
-    }
-  }
   let ID = '' + idCardNo
   if (/^[1-9][0-9]{16}([0-9]|[xX])$/.test(ID)) {
     if (checkDate(ID)) {
@@ -54,6 +31,31 @@ function validateIdCardNo (idCardNo) {
     return checkDate(ID)
   } else {
     return false
+  }
+}
+
+function checkDate (ID) {
+  let year, month, day, tempDate
+  let length18Or15 = ID.length
+  if (length18Or15 === 18) {
+    year = ID.substring(6, 10)
+    month = ID.substring(10, 12)
+    day = ID.substring(12, 14)
+    // with parseInt, 05 will be 5
+    tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+    return !(tempDate.getFullYear() !== parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
+  } else if (length18Or15 === 15) {
+    year = ID.substring(6, 8)
+    month = ID.substring(8, 10)
+    day = ID.substring(10, 12)
+    // with parseInt, 05 will be 5
+    tempDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+    // .getYear() is not recommended for use any longer,
+    // so here getFullYear() is used although it may seem not simple enough
+    return !(('' + tempDate.getFullYear()).substring(2) !== '' + parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
+  } else {
+    console.log('Unknown error!')
+    // return
   }
 }
 
