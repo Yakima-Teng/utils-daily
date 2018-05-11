@@ -1,6 +1,6 @@
 
 /**
- * utils-daily v0.0.4
+ * utils-daily v0.0.5
  * (c) 2018 Yakima Teng
  * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
@@ -134,6 +134,8 @@ function getQueryValue (url, key) {
 function getSessionStorage (key) {
   return window.sessionStorage.getItem(key) ? JSON.parse(window.decodeURI(window.sessionStorage.getItem(key))) : null
 }
+
+// 
 
 /**
  * Get the type of a variable

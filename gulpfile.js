@@ -4,10 +4,12 @@ const gulp = require('gulp')
 const fs = require('fs')
 const scp = require('gulp-scp2')
 const path = require('path')
-const gulpJsdoc2md = require('gulp-jsdoc-to-markdown')
+const jsdoc2md = require('jsdoc-to-markdown')
+const fsThenNative = require('fs-then-native')
 const rename = require('gulp-rename')
 const chalk = require('chalk')
 const del = require('del')
+const through = require('through')
 const config = require('./config')
 const objFileNames = {
   // '_root': false
@@ -137,15 +139,31 @@ gulp.task('generateIndexJS', () => {
 
 gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
   return gulp.src(jsdocSourceFiles)
-    // .pipe(gulpJsdoc2md({ template: fs.readFileSync('./readme.hbs', 'utf8') }))
-    .pipe(gulpJsdoc2md())
-    .on('error', function (err) {
-      console.log(chalk.red('jsdoc2md failed'), err.message)
-    })
-    .pipe(rename(function (path) {
-      path.extname = '.md'
-    }))
-    .pipe(gulp.dest('docs'))
+    .pipe(through(function write (data) {
+        const fileName = data.history[0].split(/[\/\\]/).reverse()[0]
+        const srcFilePath = './' + fileName
+        const targetFilePath = './docs/' + fileName.replace(/js$/, 'md')
+        jsdoc2md
+          .render({
+            files: srcFilePath,
+            configure: './jsdoc2md.json',
+            'heading-depth': 2,
+            'example-lang': 'English'
+          })
+          .then(output => {
+            fsThenNative.writeFile(targetFilePath, output)
+            // data.contents = output
+            this.emit('data', data)
+          })
+      }, function end () {
+        this.emit('end')
+      })
+    )
+    // .pipe(rename(function (path) {
+    //   console.log(path)
+    //   path.extname = '.md'
+    // }))
+    // .pipe(gulp.dest('docs'))
 })
 
 gulp.task('clearDocsFolder', function () {
