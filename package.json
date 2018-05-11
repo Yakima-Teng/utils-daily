@@ -25,7 +25,7 @@
     "flow-init": "flow init",
     "jasmine:init": "jasmine init",
     "jasmine": "babel-node ./spec/run.js",
-    "lint": "standard --fix '*.js'",
+    "lint": "standard --fix '*.js' --parser babel-eslint --plugin flowtype",
     "test": "npm run jasmine && npm run lint"
   },
   "repository": {
@@ -49,6 +49,7 @@
     "async": "^2.6.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-env": "^1.6.1",
@@ -65,6 +66,7 @@
     "dojo": "^1.13.0",
     "ecstatic": "^3.2.0",
     "es6-promise": "^4.2.4",
+    "eslint-plugin-flowtype": "^2.46.3",
     "express": "^4.16.3",
     "express-urlrewrite": "^1.2.0",
     "flow-bin": "^0.70.0",
