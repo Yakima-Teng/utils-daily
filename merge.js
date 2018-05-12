@@ -1,3 +1,5 @@
+// @flow
+
 import getType from './getType'
 
 /**
@@ -7,7 +9,7 @@ import getType from './getType'
  * @param objB {object} object B
  * @returns {object} object A after merging
  */
-function merge (objA, objB) {
+function merge (objA: Object, objB: Object): Object {
   if (objA && objB) {
     for (let p in objB) {
       if (objB.hasOwnProperty(p)) {

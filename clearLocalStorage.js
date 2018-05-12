@@ -1,7 +1,9 @@
+// @flow
+
 /**
  * Clear all localStorage items
  */
-function clearLocalStorage () {
+function clearLocalStorage (): void {
   window.localStorage.clear()
 }
 

@@ -1,3 +1,5 @@
+// @flow
+
 import serializeParams from './_serializeParams'
 
 /**
@@ -5,7 +7,7 @@ import serializeParams from './_serializeParams'
  * @param path {string} the target path to go to
  * @param query {object} the target query parameter in format of object containing key:value pairs
  */
-function goPage (path, query) {
+function goPage (path: string, query: ?Object): void {
   window.location.href = path + (query ? ('?' + serializeParams(query)) : '')
 }
 

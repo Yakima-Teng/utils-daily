@@ -1,10 +1,12 @@
+// @flow
+
 /**
  * Validate the accuracy of a ID card number
  * - This function is only available for Chinese
  * @param idCardNo {string} ID card number
  * @returns {boolean} whether the ID card number is valid
  */
-function validateIdCardNo (idCardNo) {
+function validateIdCardNo (idCardNo: string): boolean {
   let ID = '' + idCardNo
   if (/^[1-9][0-9]{16}([0-9]|[xX])$/.test(ID)) {
     if (checkDate(ID)) {
@@ -17,8 +19,9 @@ function validateIdCardNo (idCardNo) {
       let sum = 0
       // if the 18th digit is the letter X (or x), change it to be the digit 10
       if (arrID[17].toLowerCase() === 'x') {
-        arrID[17] = 10
+        arrID[17] = '10'
       }
+      arrID = arrID.map(item => parseInt(item, 10))
       // multiply first 17 ID digits by corresponding factor elements, and sum these results
       for (let i = 16; i >= 0; i--) {
         sum += arrID[i] * factor[i]
@@ -34,7 +37,13 @@ function validateIdCardNo (idCardNo) {
   }
 }
 
-function checkDate (ID) {
+/**
+ * validate date part in ID card number
+ * @ignore
+ * @param ID {string} ID card number
+ * @returns {boolean} whether date part in ID card number is valid
+ */
+function checkDate (ID: string): boolean {
   let year, month, day, tempDate
   let length18Or15 = ID.length
   if (length18Or15 === 18) {
@@ -54,8 +63,7 @@ function checkDate (ID) {
     // so here getFullYear() is used although it may seem not simple enough
     return !(('' + tempDate.getFullYear()).substring(2) !== '' + parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
   } else {
-    console.log('Unknown error!')
-    // return
+    return false
   }
 }
 

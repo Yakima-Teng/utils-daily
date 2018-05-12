@@ -1,3 +1,5 @@
+// @flow
+
 import dateToShortString from './dateToShortString'
 
 /**
@@ -5,7 +7,7 @@ import dateToShortString from './dateToShortString'
  * @param ts timestamp
  * @returns {string}
  */
-function timestampToShortString (ts) {
+function timestampToShortString (ts: number): string {
   return dateToShortString(new Date(ts))
 }
 

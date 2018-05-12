@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Validate whether the car plate number is valid
  * - This method is only available in China
@@ -5,14 +7,16 @@
  * @param plateNo the car plate number
  * @returns {boolean} whether the car plate number is valid
  */
-function validateCarPlate (plateNo) {
+function validateCarPlate (plateNo: string): boolean {
   /**
+   * @ignore
    * 普通汽车
    * 车牌号格式：汉字 + A-Z + 5位A-Z或0-9(  车牌号不存在字母I和O防止和1、0混淆)
    */
   const reNormalVehicle = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]$/
 
   /**
+   * @ignore
    * 新能源号码车牌编码规则
    *
    * 新能源汽车号牌号码增加一位，与普通汽车号牌相比，

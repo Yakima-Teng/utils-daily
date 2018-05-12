@@ -1,10 +1,12 @@
+// @flow
+
 /**
  * Get value of specified query parameter in specified url
  * @param {string} url the url, usually got from window.location.href
  * @param key the parameter
  * @returns {string} the value of specified query parameter
  */
-function getQueryValue (url, key) {
+function getQueryValue (url: string, key: string): string {
   const search = url.indexOf('?') !== -1 ? url.replace(/^.*\?/, '') : ''
   if (!search) {
     return ''

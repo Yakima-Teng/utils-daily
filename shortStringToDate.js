@@ -1,3 +1,5 @@
+// @flow
+
 import longStringToDate from './longStringToDate'
 
 /**
@@ -6,7 +8,7 @@ import longStringToDate from './longStringToDate'
  * @param dateString string in format like `YYYY-MM-DD`
  * @returns {Date} date object
  */
-function shortStringToDate (dateString) {
+function shortStringToDate (dateString: string): Date {
   if (dateString && dateString.length === 10) {
     return longStringToDate(dateString + ' 00:00:00')
   }

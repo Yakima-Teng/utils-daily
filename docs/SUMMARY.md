@@ -23,3 +23,6 @@
 * [timestampToLongString](./timestampToLongString.md)
 * [timestampToShortString](./timestampToShortString.md)
 * [toDouble](./toDouble.md)
+* [validateCarPlate](./validateCarPlate.md)
+* [validateIdCardNo](./validateIdCardNo.md)
+* [validatePhone](./validatePhone.md)

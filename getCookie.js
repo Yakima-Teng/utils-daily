@@ -1,9 +1,11 @@
+// @flow
+
 /**
  * Get value of the cookie item of specified name
  * @param name name of the cookie item
  * @returns {string} value of the cookie item
  */
-function getCookie (name) {
+function getCookie (name: string): string {
   if (document.cookie.length > 0) {
     let start = document.cookie.indexOf(name + '=')
     if (start !== -1) {

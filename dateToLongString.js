@@ -1,3 +1,5 @@
+// @flow
+
 import toDouble from './toDouble'
 import dateToShortString from './dateToShortString'
 
@@ -6,7 +8,7 @@ import dateToShortString from './dateToShortString'
  * @param date date object
  * @returns {string}  string in format like `YYYY-MM-DD hh:mm:ss`
  */
-function dateToLongString (date = new Date()) {
+function dateToLongString (date: Date = new Date()): string {
   const hour = toDouble(date.getHours())
   const minute = toDouble(date.getMinutes())
   const second = toDouble(date.getSeconds())

@@ -5,11 +5,9 @@ const fs = require('fs')
 const scp = require('gulp-scp2')
 const path = require('path')
 const jsdoc2md = require('jsdoc-to-markdown')
-const fsThenNative = require('fs-then-native')
-// const rename = require('gulp-rename')
-// const chalk = require('chalk')
+const rename = require('gulp-rename')
 const del = require('del')
-const through = require('through')
+const through2 = require('through2')
 const config = require('./config')
 const objFileNames = {
   // '_root': false
@@ -139,10 +137,10 @@ gulp.task('generateIndexJS', () => {
 
 gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
   return gulp.src(jsdocSourceFiles)
-    .pipe(through(function write (data) {
-      const fileName = data.history[0].split(/[/\\]/).reverse()[0]
+    .pipe(through2.obj(function (file, enc, callback) {
+      const self = this
+      const fileName = file.history[0].split(/[/\\]/).reverse()[0]
       const srcFilePath = './' + fileName
-      const targetFilePath = './docs/' + fileName.replace(/js$/, 'md')
       jsdoc2md
         .render({
           files: srcFilePath,
@@ -151,19 +149,17 @@ gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
           'example-lang': 'English'
         })
         .then(output => {
-          fsThenNative.writeFile(targetFilePath, output)
-          // data.contents = output
-          this.emit('data', data)
+          // fsThenNative.writeFile(targetFilePath, output)
+          // const buf = new Buffer(0)
+          file.contents = Buffer.from(output, 'utf8')
+          self.push(file)
+          callback()
         })
-    }, function end () {
-      this.emit('end')
-    })
-    )
-    // .pipe(rename(function (path) {
-    //   console.log(path)
-    //   path.extname = '.md'
-    // }))
-    // .pipe(gulp.dest('docs'))
+    }))
+    .pipe(rename(function (path) {
+      path.extname = '.md'
+    }))
+    .pipe(gulp.dest('docs'))
 })
 
 gulp.task('clearDocsFolder', function () {

@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * fill a string or number to specified length with specified symbol from left on
  * @param val {string|number}
@@ -5,7 +7,7 @@
  * @param symbol {string} used to fill string/number
  * @returns {string} string after filling
  */
-function fillLeft (val, len, symbol = '0') {
+function fillLeft (val: string | number, len: number, symbol: string = '0'): string {
   val = '' + val
   const diffInLength = len - val.length
   if (diffInLength > 0) {

@@ -1,10 +1,12 @@
+// @flow
+
 /**
  * Save a key:value pair in localStorage
  * - the value should itself be an object of key:value pairs
  * @param key {string} the key of the storage item
  * @param val {object} the value of the storage item
  */
-function setLocalStorage (key, val) {
+function setLocalStorage (key: string, val: Object): void {
   if ('localStorage' in window) {
     try {
       window.localStorage.setItem(key, window.encodeURI(JSON.stringify(val)))

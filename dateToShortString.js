@@ -1,3 +1,5 @@
+// @flow
+
 import toDouble from './toDouble'
 
 /**
@@ -5,7 +7,7 @@ import toDouble from './toDouble'
  * @param date the date object
  * @returns {string} string in format like `YYYY-MM-DD`
  */
-function dateToShortString (date = new Date()) {
+function dateToShortString (date: Date = new Date()): string {
   const y = date.getFullYear()
   const m = date.getMonth() + 1
   const d = date.getDate()

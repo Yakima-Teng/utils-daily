@@ -6,12 +6,16 @@
  * @license MIT
  */
 
+// 
+
 /**
  * Clear all localStorage items
  */
 function clearLocalStorage () {
   window.localStorage.clear();
 }
+
+// 
 
 /**
  * fill a string or number to specified length with specified symbol from left on
@@ -33,6 +37,8 @@ function fillLeft (val, len, symbol) {
   return val
 }
 
+// 
+
 /**
  * Make a number less than 10 to be prefixed with an '0'
  * - the same as `fillLeft(m, 2, '0')`
@@ -42,6 +48,8 @@ function fillLeft (val, len, symbol) {
 function toDouble (num) {
   return fillLeft(num, 2, '0')
 }
+
+// 
 
 /**
  * Transform a date object to string in format like `YYYY-MM-DD`
@@ -57,6 +65,8 @@ function dateToShortString (date) {
   return (y + "-" + (toDouble(m)) + "-" + (toDouble(d)))
 }
 
+// 
+
 /**
  * Transform a date object to string in format like `YYYY-MM-DD hh:mm:ss`
  * @param date date object
@@ -70,6 +80,8 @@ function dateToLongString (date) {
   var second = toDouble(date.getSeconds());
   return dateToShortString(date) + " " + hour + ":" + minute + ":" + second
 }
+
+// 
 
 /**
  * Get value of the cookie item of specified name
@@ -92,6 +104,7 @@ function getCookie (name) {
   return ''
 }
 
+// 
 /**
  * Get the value of localStorage item of specified key/name
  * @param key the specified key/name of the storage item
@@ -104,6 +117,8 @@ function getLocalStorage (key) {
     throw new Error('localStorage is not supported!')
   }
 }
+
+// 
 
 /**
  * Get value of specified query parameter in specified url
@@ -126,9 +141,11 @@ function getQueryValue (url, key) {
   return ''
 }
 
+// 
+
 /**
  * Get value of sessionStorage item specified the key
- * @param key
+ * @param key {string} the name of the sessionStorage item
  * @returns {object | null} value of sessionStorage item
  */
 function getSessionStorage (key) {
@@ -146,6 +163,8 @@ function getType (val) {
   return ({}).toString.call(val).slice(8, -1).toLowerCase()
 }
 
+// 
+
 /**
  * Serialize params from object to string
  * @example serializeParams({ a: 3, b: 4 }) => 'a=3&b=4'
@@ -162,6 +181,8 @@ function serializeParams (params) {
   return str.replace(/^&/, '')
 }
 
+// 
+
 /**
  * Go to specified path with specified query parameters
  * @param path {string} the target path to go to
@@ -170,6 +191,8 @@ function serializeParams (params) {
 function goPage (path, query) {
   window.location.href = path + (query ? ('?' + serializeParams(query)) : '');
 }
+
+// 
 
 /**
  * Judge whether a variable is valuable
@@ -182,6 +205,8 @@ function hasValue (val) {
   return val !== '' && val !== null && val !== undefined && val !== 'undefined' && val !== 'null' && val !== 'undefined'
 }
 
+// 
+
 /**
  * Judge whether the OS of current device is iOS
  * @returns {boolean} whether the OS of current device is iOS
@@ -190,6 +215,7 @@ function isIOS () {
   return (/iphone/i).test(window.navigator.userAgent.toLowerCase())
 }
 
+// 
 /**
  * Transform string in format like `YYYY-MM-DD hh:mm:ss` to date object
  * @param dateString string in format like `YYYY-MM-DD hh:mm:ss`
@@ -200,10 +226,12 @@ function longStringToDate (dateString) {
     // Attention: there is a space between regular expression
     var tempArr = dateString.split(/[- :]/);
     // 部分IOS设备中new Date('yyyy-mm-dd hh:mm:ss')不会生成日期对象，如下这般处理适用于所有设备
-    return new Date(tempArr[0], tempArr[1] - 1, tempArr[2], tempArr[3], tempArr[4], tempArr[5])
+    return new Date(parseInt(tempArr[0], 10), parseInt(tempArr[1], 10) - 1, parseInt(tempArr[2], 10), parseInt(tempArr[3], 10), parseInt(tempArr[4], 10), parseInt(tempArr[5], 10))
   }
   throw new Error('not valid parameter for function longStringToDate')
 }
+
+// 
 
 /**
  * Merge properties of object B to object A
@@ -227,6 +255,8 @@ function merge (objA, objB) {
   return objA
 }
 
+// 
+
 /**
  * Remove the localStorage item of specified key/name
  * @param key the key/name of the localStorage item to remove
@@ -235,6 +265,8 @@ function removeLocalStorage (key) {
   window.localStorage.removeItem(key);
 }
 
+// 
+
 /**
  * Set cookie
  * @param name the key/name of the cookie item
@@ -242,10 +274,14 @@ function removeLocalStorage (key) {
  * @param expireDays [optional] if set, the cookie item will be outdated after the specified number of days
  */
 function setCookie (name, val, expireDays) {
+  if ( expireDays === void 0 ) expireDays = 0;
+
   var expireDate = new Date();
   expireDate.setDate(expireDate.getDate() + expireDays);
-  window.document.cookie = name + '=' + window.encodeURI(val) + (expireDays ? ';expires=' + expireDate.toGMTString() : '');
+  window.document.cookie = name + '=' + window.encodeURI(val) + (expireDays ? ';expires=' + expireDate.toUTCString() : '');
 }
+
+// 
 
 /**
  * Save a key:value pair in localStorage
@@ -269,6 +305,8 @@ function setLocalStorage (key, val) {
   }
 }
 
+// 
+
 /**
  * Set a key:value pair in sessionStorage
  * @param key the key of the sessionStorage item
@@ -277,6 +315,8 @@ function setLocalStorage (key, val) {
 function setSessionStorage (key, val) {
   window.sessionStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
 }
+
+// 
 
 /**
  * Transform string in format like `YYYY-MM-DD` to date object
@@ -291,14 +331,18 @@ function shortStringToDate (dateString) {
   throw new Error('invalid parameter for function shortStringToDate')
 }
 
+// 
+
 /**
  * Transform timestamp to string in format like `YYYY-MM-DD hh:mm:ss`
- * @param ts timestamp
+ * @param ts {number} timestamp
  * @returns {string}
  */
 function timestampToLongString (ts) {
   return dateToLongString(new Date(ts))
 }
+
+// 
 
 /**
  * Transform timestamp to string in format like `YYYY-MM-DD`
@@ -309,6 +353,8 @@ function timestampToShortString (ts) {
   return dateToShortString(new Date(ts))
 }
 
+// 
+
 /**
  * Validate whether the car plate number is valid
  * - This method is only available in China
@@ -318,12 +364,14 @@ function timestampToShortString (ts) {
  */
 function validateCarPlate (plateNo) {
   /**
+   * @ignore
    * 普通汽车
    * 车牌号格式：汉字 + A-Z + 5位A-Z或0-9(  车牌号不存在字母I和O防止和1、0混淆)
    */
   var reNormalVehicle = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]$/;
 
   /**
+   * @ignore
    * 新能源号码车牌编码规则
    *
    * 新能源汽车号牌号码增加一位，与普通汽车号牌相比，
@@ -345,6 +393,8 @@ function validateCarPlate (plateNo) {
   return reNormalVehicle.test(plateNo) || reNewEngineVehicle.test(plateNo)
 }
 
+// 
+
 /**
  * Validate the accuracy of a ID card number
  * - This function is only available for Chinese
@@ -364,8 +414,9 @@ function validateIdCardNo (idCardNo) {
       var sum = 0;
       // if the 18th digit is the letter X (or x), change it to be the digit 10
       if (arrID[17].toLowerCase() === 'x') {
-        arrID[17] = 10;
+        arrID[17] = '10';
       }
+      arrID = arrID.map(function (item) { return parseInt(item, 10); });
       // multiply first 17 ID digits by corresponding factor elements, and sum these results
       for (var i = 16; i >= 0; i--) {
         sum += arrID[i] * factor[i];
@@ -381,6 +432,12 @@ function validateIdCardNo (idCardNo) {
   }
 }
 
+/**
+ * validate date part in ID card number
+ * @ignore
+ * @param ID {string} ID card number
+ * @returns {boolean} whether date part in ID card number is valid
+ */
 function checkDate (ID) {
   var year, month, day, tempDate;
   var length18Or15 = ID.length;
@@ -401,16 +458,17 @@ function checkDate (ID) {
     // so here getFullYear() is used although it may seem not simple enough
     return !(('' + tempDate.getFullYear()).substring(2) !== '' + parseInt(year) || tempDate.getMonth() !== parseInt(month) - 1 || tempDate.getDate() !== parseInt(day))
   } else {
-    console.log('Unknown error!');
-    // return
+    return false
   }
 }
+
+// 
 
 /**
  * Judge whether it's a valid phone number
  * - This function is only available for Chinese cars
  * - The regular expression is copied from webpage: http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx
- * @param phone phone number
+ * @param phone {string} phone number
  * @returns {boolean} whether it's a valid phone number
  */
 function validatePhone (phone) {
