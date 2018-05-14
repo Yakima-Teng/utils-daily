@@ -11,6 +11,60 @@
 // 
 
 /**
+ * Judge whether a variable is valuable
+ * - ''、null、'null'、undefined、'undefined' is regarded as invaluable
+ * - number 0 is regarded as valuable
+ * @param val variable
+ * @returns {boolean} whether a variable is valuable
+ */
+function hasValue (val) {
+  return val !== '' && val !== null && val !== undefined && val !== 'undefined' && val !== 'null' && val !== 'undefined'
+}
+
+// 
+
+/**
+ * Calculate sum of members in an Array
+ * @param arr {Array<number>} an array of numbers
+ * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
+ * @returns {string} sum of these numbers
+ */
+function add (arr, numOfDecimalPlaces) {
+  if ( arr === void 0 ) arr = [];
+
+  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
+    return floatAdd(preVal, curVal)
+  }, 0);
+  return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+}
+
+/**
+ * Add two number
+ * @ignore
+ * @param  {number} a        number a
+ * @param  {number} b        number b
+ * @return {number}    sum of number a and number b
+ */
+function floatAdd (a, b) {
+  var numOfDecimalPlacesInA;
+  var numOfDecimalPlacesInB;
+  try {
+    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
+  } catch (e) {
+    numOfDecimalPlacesInA = 0;
+  }
+  try {
+    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
+  } catch (e) {
+    numOfDecimalPlacesInB = 0;
+  }
+  var m = Math.pow(10, Math.max(numOfDecimalPlacesInA, numOfDecimalPlacesInB));
+  return (a * m + b * m) / m
+}
+
+// 
+
+/**
  * Clear all localStorage items
  */
 function clearLocalStorage () {
@@ -81,6 +135,44 @@ function dateToLongString (date) {
   var minute = toDouble(date.getMinutes());
   var second = toDouble(date.getSeconds());
   return dateToShortString(date) + " " + hour + ":" + minute + ":" + second
+}
+
+// 
+
+/**
+ * Calculate quotient of members in an Array
+ * @param arr {Array<number>} an array of numbers
+ * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
+ * @returns {string} quotient of these numbers (number of decimal places not larger than 10)
+ */
+function divide (arr, numOfDecimalPlaces) {
+  if ( arr === void 0 ) arr = [];
+
+  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
+    return floatDivide(preVal, curVal)
+  });
+  return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+}
+
+/**
+ * Divide number a by number b
+ * @ignore
+ * @param  {number} a number a
+ * @param  {number} b number b
+ * @return {number}   quotient of number a divided by number b
+ */
+function floatDivide (a, b) {
+  var numOfDecimalPlacesInA = 0;
+  var numOfDecimalPlacesInB = 0;
+  try {
+    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
+  } catch (e) {}
+  try {
+    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
+  } catch (e) {}
+  var newA = Number(a.toString().replace('.', ''));
+  var newB = Number(b.toString().replace('.', ''));
+  return (newA / newB) * Math.pow(10, numOfDecimalPlacesInB - numOfDecimalPlacesInA)
 }
 
 // 
@@ -267,19 +359,6 @@ function goPage (path, query) {
 // 
 
 /**
- * Judge whether a variable is valuable
- * - ''、null、'null'、undefined、'undefined' is regarded as invaluable
- * - number 0 is regarded as valuable
- * @param val variable
- * @returns {boolean} whether a variable is valuable
- */
-function hasValue (val) {
-  return val !== '' && val !== null && val !== undefined && val !== 'undefined' && val !== 'null' && val !== 'undefined'
-}
-
-// 
-
-/**
  * Judge whether the OS of current device is iOS
  * @returns {boolean} whether the OS of current device is iOS
  */
@@ -325,6 +404,43 @@ function merge (objA, objB) {
     }
   }
   return objA
+}
+
+// 
+
+/**
+ * Calculate sum of members in an Array
+ * @param  {Array<number>} arr an array of numbers
+ * @param  {number} numOfDecimalPlaces number of decimal places to leave; determined automatically if not provided
+ * @return {string}  sum of these numbers
+ */
+function multiply (arr, numOfDecimalPlaces) {
+  if ( arr === void 0 ) arr = [];
+
+  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
+    return floatMultiply(preVal, curVal)
+  });
+  return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+}
+
+/**
+ * Multiply two number
+ * @ignore
+ * @param  {number} a number a
+ * @param  {number} b number b
+ * @return {number}   product of number a and number b
+ */
+function floatMultiply (a, b) {
+  var m = 0;
+  var strA = a.toString();
+  var strB = b.toString();
+  try {
+    m += strA.split('.')[1].length;
+  } catch (e) {}
+  try {
+    m += strB.split('.')[1].length;
+  } catch (e) {}
+  return Number(strA.replace('.', '')) * Number(strB.replace('.', '')) / Math.pow(10, m)
 }
 
 // 
@@ -401,6 +517,49 @@ function shortStringToDate (dateString) {
     return longStringToDate(dateString + ' 00:00:00')
   }
   throw new Error('invalid parameter for function shortStringToDate')
+}
+
+// 
+
+/**
+ * Calculate difference of members in an Array
+ * @param arr {Array<number>} an array of numbers
+ * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
+ * @returns {string} difference of these numbers
+ */
+function subtract (arr, numOfDecimalPlaces) {
+  if ( arr === void 0 ) arr = [];
+
+  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
+    return floatSubtract(parseFloat(preVal), parseFloat(curVal))
+  });
+  return hasValue(numOfDecimalPlaces) ? parseFloat(result).toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test(result) ? parseFloat(result).toFixed(10) : result)
+}
+
+/**
+ * Subtract number a by number b
+ * @ignore
+ * @param  {number} a number a
+ * @param  {number} b number b
+ * @return {string} difference between a and b, in string format with automatical precision
+ */
+function floatSubtract (a, b) {
+  var numOfDecimalPlacesInA;
+  var numOfDecimalPlacesInB;
+  try {
+    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
+  } catch (e) {
+    numOfDecimalPlacesInA = 0;
+  }
+  try {
+    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
+  } catch (e) {
+    numOfDecimalPlacesInB = 0;
+  }
+  var m = Math.pow(10, Math.max(numOfDecimalPlacesInA, numOfDecimalPlacesInB));
+  // 动态控制精度长度
+  var automaticPrecisionForDecimalPlaces = (numOfDecimalPlacesInA >= numOfDecimalPlacesInB) ? numOfDecimalPlacesInA : numOfDecimalPlacesInB;
+  return ((a * m - b * m) / m).toFixed(automaticPrecisionForDecimalPlaces)
 }
 
 // 
@@ -550,9 +709,11 @@ function validatePhone (phone) {
 // this file is generated by gulp task ^_^
 
 var index = {
+  add: add,
   clearLocalStorage: clearLocalStorage,
   dateToLongString: dateToLongString,
   dateToShortString: dateToShortString,
+  divide: divide,
   fillLeft: fillLeft,
   generateWechatRedirectUrl: generateWechatRedirectUrl,
   getCookie: getCookie,
@@ -566,11 +727,13 @@ var index = {
   isIOS: isIOS,
   longStringToDate: longStringToDate,
   merge: merge,
+  multiply: multiply,
   removeLocalStorage: removeLocalStorage,
   setCookie: setCookie,
   setLocalStorage: setLocalStorage,
   setSessionStorage: setSessionStorage,
   shortStringToDate: shortStringToDate,
+  subtract: subtract,
   timestampToLongString: timestampToLongString,
   timestampToShortString: timestampToShortString,
   toDouble: toDouble,
