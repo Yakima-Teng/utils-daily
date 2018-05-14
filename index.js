@@ -7,6 +7,7 @@ import fillLeft from './fillLeft.js'
 import getCookie from './getCookie.js'
 import getLocalStorage from './getLocalStorage.js'
 import getQueryValue from './getQueryValue.js'
+import getRelativeDateString from './getRelativeDateString.js'
 import getSessionStorage from './getSessionStorage.js'
 import getType from './getType.js'
 import goPage from './goPage.js'
@@ -34,6 +35,7 @@ export default {
   getCookie,
   getLocalStorage,
   getQueryValue,
+  getRelativeDateString,
   getSessionStorage,
   getType,
   goPage,

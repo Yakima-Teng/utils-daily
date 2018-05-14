@@ -8,6 +8,7 @@
 * [getCookie](./getCookie.md)
 * [getLocalStorage](./getLocalStorage.md)
 * [getQueryValue](./getQueryValue.md)
+* [getRelativeDateString](./getRelativeDateString.md)
 * [getSessionStorage](./getSessionStorage.md)
 * [getType](./getType.md)
 * [goPage](./goPage.md)
