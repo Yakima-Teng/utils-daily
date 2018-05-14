@@ -90,6 +90,23 @@
   // 
 
   /**
+   * Return Wechat redirect Url where Wechat will pass code query parameter to us
+   * @param appId {string} appId for the Wechat account
+   * @param targetUrl {string} entire url including the preceding `http` or `https`
+   * @returns {string}
+   */
+  function generateWechatRedirectUrl (appId, targetUrl) {
+    if (/(^http)|(^https)/.test(targetUrl)) {
+      var encodedUrl = encodeURIComponent(targetUrl);
+      return ("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + encodedUrl + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect")
+    } else {
+      throw new Error('parameter targetUrl for function generateWechatRedirectUrl should be preceding with `http` or `https`')
+    }
+  }
+
+  // 
+
+  /**
    * Get value of the cookie item of specified name
    * @param name name of the cookie item
    * @returns {string} value of the cookie item
@@ -150,7 +167,7 @@
   // 
 
   /**
-   * get date string of calculating specific date with specific difference in year, month, date, hours, minutes and seconds
+   * Get date string of calculating specific date with specific difference in year, month, date, hours, minutes and seconds
    * @param dat {Date} date object used as the base for calculation
    * @param yDiff {number} difference in year, negative value is acceptable
    * @param mDiff {number} difference in month, negative value is acceptable
@@ -190,13 +207,13 @@
     var d = toDouble(date.getDate());
     if (arguments.length === 4) {
       return (y + "-" + m + "-" + d)
-    } else if (arguments.length > 4) {
+    } else if (arguments.length === 7) {
       var h = toDouble(date.getHours());
       var mi = toDouble(date.getMinutes());
       var s = toDouble(date.getSeconds());
       return (y + "-" + m + "-" + d + " " + h + ":" + mi + ":" + s)
     } else {
-      throw new Error('length of arguments for function getRelativeDateString should be either 3 or 6')
+      throw new Error('length of arguments for function getRelativeDateString should be either 4 or 7')
     }
   }
 
@@ -541,6 +558,7 @@
     dateToLongString: dateToLongString,
     dateToShortString: dateToShortString,
     fillLeft: fillLeft,
+    generateWechatRedirectUrl: generateWechatRedirectUrl,
     getCookie: getCookie,
     getLocalStorage: getLocalStorage,
     getQueryValue: getQueryValue,

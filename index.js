@@ -4,6 +4,7 @@ import clearLocalStorage from './clearLocalStorage.js'
 import dateToLongString from './dateToLongString.js'
 import dateToShortString from './dateToShortString.js'
 import fillLeft from './fillLeft.js'
+import generateWechatRedirectUrl from './generateWechatRedirectUrl.js'
 import getCookie from './getCookie.js'
 import getLocalStorage from './getLocalStorage.js'
 import getQueryValue from './getQueryValue.js'
@@ -32,6 +33,7 @@ export default {
   dateToLongString,
   dateToShortString,
   fillLeft,
+  generateWechatRedirectUrl,
   getCookie,
   getLocalStorage,
   getQueryValue,

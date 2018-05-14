@@ -3,7 +3,7 @@
 import toDouble from './toDouble'
 
 /**
- * get date string of calculating specific date with specific difference in year, month, date, hours, minutes and seconds
+ * Get date string of calculating specific date with specific difference in year, month, date, hours, minutes and seconds
  * @param dat {Date} date object used as the base for calculation
  * @param yDiff {number} difference in year, negative value is acceptable
  * @param mDiff {number} difference in month, negative value is acceptable
@@ -35,13 +35,13 @@ function getRelativeDateString (
   const d: string = toDouble(date.getDate())
   if (arguments.length === 4) {
     return `${y}-${m}-${d}`
-  } else if (arguments.length > 4) {
+  } else if (arguments.length === 7) {
     const h: string = toDouble(date.getHours())
     const mi: string = toDouble(date.getMinutes())
     const s: string = toDouble(date.getSeconds())
     return `${y}-${m}-${d} ${h}:${mi}:${s}`
   } else {
-    throw new Error('length of arguments for function getRelativeDateString should be either 3 or 6')
+    throw new Error('length of arguments for function getRelativeDateString should be either 4 or 7')
   }
 }
 

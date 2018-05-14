@@ -5,6 +5,7 @@
 * [dateToLongString](./dateToLongString.md)
 * [dateToShortString](./dateToShortString.md)
 * [fillLeft](./fillLeft.md)
+* [generateWechatRedirectUrl](./generateWechatRedirectUrl.md)
 * [getCookie](./getCookie.md)
 * [getLocalStorage](./getLocalStorage.md)
 * [getQueryValue](./getQueryValue.md)
