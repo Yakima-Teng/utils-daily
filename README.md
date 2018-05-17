@@ -26,7 +26,7 @@
 * 🚦 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
 * 🚦 Use flow to do the type check work
 * 🚦 Use eslint to lint code
-* 🚦 2kb mini library (use `rollup.js` with the technology called `tree-shaking`)
+* 🚦 2kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
 * 🚦 All browsers supported
 
 
