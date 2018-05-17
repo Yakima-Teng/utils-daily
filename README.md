@@ -6,11 +6,7 @@
   </a>
 </p>
 
-<br />
-
 <p align="center"> Light <b>2kb</b> library including useful frontend utility functions used in daily work</p>
-
-<br />
 
 <p align="center">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
@@ -27,11 +23,11 @@
 > A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
 
 
-* 🕒 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
-* 💪 Use flow to do the type check work
-* 🔥 Use eslint to lint code
-* 📦 2kb mini library (use `rollup.js` with the technology called `tree-shaking`)
-* 👫 All browsers supported
+* 🚦 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
+* 🚦 Use flow to do the type check work
+* 🚦 Use eslint to lint code
+* 🚦 2kb mini library (use `rollup.js` with the technology called `tree-shaking`)
+* 🚦 All browsers supported
 
 
 ## Usage
