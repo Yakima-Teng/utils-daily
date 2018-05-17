@@ -163,7 +163,7 @@ gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
 })
 
 gulp.task('clearDocsFolder', function () {
-  return del(['docs/_book', 'docs/*.md', '!docs/README.md', '!docs/SUMMARY.md']).then(paths => {
+  return del(['docs/_book', 'docs/*.md', 'docs/package.*', '!docs/README.md', '!docs/SUMMARY.md']).then(paths => {
     console.log('Deleted files and folders:\n', paths.join('\n'))
   })
 })

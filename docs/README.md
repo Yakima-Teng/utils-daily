@@ -1,4 +1,12 @@
-# Introduction
+# utils-daily
+
+<p align="center">
+  <a href="javascript:void(0);" target="_blank" rel="noopener noreferrer">
+    <img width="550" src="https://github.com/Yakima-Teng/utils-daily/raw/master/assets/logo.png" alt="utils-daily.js">
+  </a>
+</p>
+
+<p align="center"> Light <b>3kb</b> library including useful frontend utility functions used in daily work</p>
 
 <p align="center">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
@@ -13,6 +21,13 @@
 </p>
 
 > A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
+
+
+* 🔥 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
+* 🔥 Use flow to do the type check work
+* 🔥 Use eslint to lint code
+* 🔥 3kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
+* 🔥 All browsers supported
 
 
 ## Usage
@@ -34,17 +49,14 @@ npm i -S utils-daily
 Then import it:
 
 ```javascript
+// import while library and use the method you like
 import utils from 'utils-daily'
+utils.getType(123) // 'number'
+
+// or if you only want to import specified function
+import getType from 'utils-daily/getType'
+getType(123) // 'number'
 ```
-
-
-## Features
-
-- Online documetation is available: [utils-daily](http://www.lookmaths.com/) or [utils-daily on github pages](https://yakima-teng.github.io/utils-daily/).
-
-- Use `rollup.js` with the technology called `tree-shaking` in order to make the size of the generated library file as small as possible.
-
-- use flow and eslint to test code.
 
 
 ## Development
@@ -60,6 +72,7 @@ If you want to add a new function called `tryIt`, you should create a file `tryI
 - `npm run docs:dev`: see documentation locally for easy development.
 
 - `npm run deploy`: deploy documentation files to both the `gh-pages` branch and your own server.
+
 
 ## License
 

@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="javascript:void(0);" target="_blank" rel="noopener noreferrer">
-    <img width="550" src="./assets/logo.png" alt="utils-daily.js">
+    <img width="550" src="https://github.com/Yakima-Teng/utils-daily/raw/master/assets/logo.png" alt="utils-daily.js">
   </a>
 </p>
 
