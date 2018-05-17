@@ -1,6 +1,8 @@
 // @flow
 
 import hasValue from './hasValue'
+import cancelScientificNotation from './_cancelScientificNotation'
+import validateNumber, { msgForInvalidNumber } from './_validateNumber'
 
 /**
  * Calculate quotient of members in an Array
@@ -9,10 +11,17 @@ import hasValue from './hasValue'
  * @returns {string} quotient of these numbers (number of decimal places not larger than 10)
  */
 function divide (arr: Array<number> = [], numOfDecimalPlaces: number): string {
+  if (arr.filter(item => !validateNumber(item)).length > 0) {
+    throw new Error(msgForInvalidNumber)
+  }
   const result = arr.reduce((preVal, curVal, curIdx, array) => {
     return floatDivide(preVal, curVal)
   })
-  return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+  const returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+  if (/e/.test(returnResult)) {
+    return cancelScientificNotation(returnResult)
+  }
+  return returnResult
 }
 
 /**

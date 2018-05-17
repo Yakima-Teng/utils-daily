@@ -1,6 +1,8 @@
 // @flow
 
 import hasValue from './hasValue'
+import cancelScientificNotation from './_cancelScientificNotation'
+import validateNumber, { msgForInvalidNumber } from './_validateNumber'
 
 /**
  * Calculate difference of members in an Array
@@ -9,10 +11,21 @@ import hasValue from './hasValue'
  * @returns {string} difference of these numbers
  */
 function subtract (arr: Array<number> = [], numOfDecimalPlaces: number): string {
+  if (arr.filter(item => !validateNumber(item)).length > 0) {
+    throw new Error(msgForInvalidNumber)
+  }
   const result = arr.reduce((preVal, curVal, curIdx, array): string => {
     return floatSubtract(parseFloat(preVal), parseFloat(curVal))
   })
-  return hasValue(numOfDecimalPlaces) ? parseFloat(result).toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test(result) ? parseFloat(result).toFixed(10) : result)
+  const returnResult = hasValue(numOfDecimalPlaces)
+    ? parseFloat(result).toFixed(numOfDecimalPlaces)
+    : /\.[0-9]{10}/.test(result)
+      ? parseFloat(result).toFixed(10)
+      : result
+  if (/e/.test(returnResult)) {
+    return cancelScientificNotation(returnResult)
+  }
+  return returnResult
 }
 
 /**
@@ -36,7 +49,7 @@ function floatSubtract (a: number, b: number): string {
     numOfDecimalPlacesInB = 0
   }
   const m = Math.pow(10, Math.max(numOfDecimalPlacesInA, numOfDecimalPlacesInB))
-  // 动态控制精度长度
+  // control precision length automatically
   let automaticPrecisionForDecimalPlaces = (numOfDecimalPlacesInA >= numOfDecimalPlacesInB) ? numOfDecimalPlacesInA : numOfDecimalPlacesInB
   return ((a * m - b * m) / m).toFixed(automaticPrecisionForDecimalPlaces)
 }

@@ -1,4 +1,5 @@
 import divide from '../../divide'
+import { msgForInvalidNumber } from '../../_validateNumber'
 
 describe('divide', function () {
   it('should calculate out the right result', function () {
@@ -11,7 +12,13 @@ describe('divide', function () {
     expect(divide([1.2, 0.2])).toEqual('6')
   })
 
-  it('should return at most ten decimal places', function () {
+  it('should throw error when handling big/small numbers or number in format of scientific annotation', function () {
     expect(divide([1, 2, 3])).toEqual('0.1666666667')
+    expect(divide([1234567890123456, 1])).toEqual('1234567890123456')
+    expect(() => { divide([12345678901234567, 1]) }).toThrowError(msgForInvalidNumber)
+    expect(divide([1, 1e1])).toEqual('0.1')
+    expect(() => { divide([1, '1e1']) }).toThrowError(msgForInvalidNumber)
+    expect(divide([0.000001, 1])).toEqual('0.000001')
+    expect(() => { divide([0.0000001, 1]) }).toThrowError(msgForInvalidNumber)
   })
 })

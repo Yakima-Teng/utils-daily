@@ -28,6 +28,59 @@
   // 
 
   /**
+   * Transform format of number to normal form instead of scientific notation
+   * @param num {string} number in format of scientific notation
+   * @returns {string} number in format of normal form
+   */
+  function cancelScientificNotation (num) {
+    var numOfDecimalPlaces;
+    try {
+      numOfDecimalPlaces = num.split('.')[1].split(/[eE]/)[0].length;
+    } catch (e) {
+      numOfDecimalPlaces = 0;
+    }
+    var isNumNegative = parseFloat(num) < 0;
+    var exponent = Math.log(parseFloat(isNumNegative ? 0 - parseFloat(num) : num)) / Math.log(10);
+    var positiveExponent = Math.ceil(exponent > 0 ? exponent : 0 - exponent);
+    if (parseFloat(num) > 1) {
+      return parseFloat(num).toFixed(numOfDecimalPlaces)
+    } else if (parseFloat(num) < 0) {
+      return '-' + (0 - parseFloat(num)).toFixed(positiveExponent + numOfDecimalPlaces)
+    } else {
+      return parseFloat(num).toFixed(positiveExponent + numOfDecimalPlaces)
+    }
+  }
+
+  // 
+
+  var msgForInvalidNumber = 'Invalid number: scientific notation, and very big/small number are not allowed.';
+
+  /**
+   * Determine whether the number used in this library is thought as valid
+   * @param num {string | number} number used, usually from user input
+   * @returns {boolean} whether input number is valid
+   */
+  function validateNumber (num) {
+    num = '' + num;
+    // scientific notation is not allowed
+    if (/[eE]/.test(num)) {
+      return false
+    }
+    // must contain digit
+    if (!/[0-9]/.test(num)) {
+      return false
+    }
+    // zero direct after decimal point should not be more than or equal to 5
+    if (/\.0{6}/.test(num)) {
+      return false
+    }
+    // length of the number should be less than 17
+    return num.length < 17
+  }
+
+  // 
+
+  /**
    * Calculate sum of members in an Array
    * @param arr {Array<number>} an array of numbers
    * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
@@ -36,10 +89,17 @@
   function add (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
 
+    if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
+      throw new Error(msgForInvalidNumber)
+    }
     var result = arr.reduce(function (preVal, curVal, curIdx, array) {
       return floatAdd(preVal, curVal)
     }, 0);
-    return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+    var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
+    if (/e/.test(returnResult)) {
+      return cancelScientificNotation(returnResult)
+    }
+    return returnResult
   }
 
   /**
@@ -152,10 +212,17 @@
   function divide (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
 
+    if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
+      throw new Error(msgForInvalidNumber)
+    }
     var result = arr.reduce(function (preVal, curVal, curIdx, array) {
       return floatDivide(preVal, curVal)
     });
-    return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+    var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
+    if (/e/.test(returnResult)) {
+      return cancelScientificNotation(returnResult)
+    }
+    return returnResult
   }
 
   /**
@@ -421,10 +488,17 @@
   function multiply (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
 
+    if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
+      throw new Error(msgForInvalidNumber)
+    }
     var result = arr.reduce(function (preVal, curVal, curIdx, array) {
       return floatMultiply(preVal, curVal)
     });
-    return hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result)
+    var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
+    if (/e/.test(returnResult)) {
+      return cancelScientificNotation(returnResult)
+    }
+    return returnResult
   }
 
   /**
@@ -534,10 +608,21 @@
   function subtract (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
 
+    if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
+      throw new Error(msgForInvalidNumber)
+    }
     var result = arr.reduce(function (preVal, curVal, curIdx, array) {
       return floatSubtract(parseFloat(preVal), parseFloat(curVal))
     });
-    return hasValue(numOfDecimalPlaces) ? parseFloat(result).toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test(result) ? parseFloat(result).toFixed(10) : result)
+    var returnResult = hasValue(numOfDecimalPlaces)
+      ? parseFloat(result).toFixed(numOfDecimalPlaces)
+      : /\.[0-9]{10}/.test(result)
+        ? parseFloat(result).toFixed(10)
+        : result;
+    if (/e/.test(returnResult)) {
+      return cancelScientificNotation(returnResult)
+    }
+    return returnResult
   }
 
   /**
@@ -561,7 +646,7 @@
       numOfDecimalPlacesInB = 0;
     }
     var m = Math.pow(10, Math.max(numOfDecimalPlacesInA, numOfDecimalPlacesInB));
-    // 动态控制精度长度
+    // control precision length automatically
     var automaticPrecisionForDecimalPlaces = (numOfDecimalPlacesInA >= numOfDecimalPlacesInB) ? numOfDecimalPlacesInA : numOfDecimalPlacesInB;
     return ((a * m - b * m) / m).toFixed(automaticPrecisionForDecimalPlaces)
   }
