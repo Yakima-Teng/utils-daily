@@ -1,6 +1,6 @@
 
 /**
- * utils-daily v0.0.6
+ * utils-daily v0.0.7
  * (c) 2018 Yakima Teng
  * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
