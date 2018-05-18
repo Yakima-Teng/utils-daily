@@ -5,9 +5,6 @@
   * [merge](./merge.md)
   * [getType](./getType.md)
   * [hasValue](./hasValue.md)
-  * [fillLeft](./fillLeft.md)
-  * [toDouble](./toDouble.md)
-  * [generateWechatRedirectUrl](./generateWechatRedirectUrl.md)
 * Date
   * [dateToShortString](./dateToShortString.md)
   * [dateToLongString](./dateToLongString.md)
@@ -16,11 +13,16 @@
   * [timestampToShortString](./timestampToShortString.md)
   * [timestampToLongString](./timestampToLongString.md)
   * [getRelativeDateString](./getRelativeDateString.md)
-* Math
+* String
+  * [fillLeft](./fillLeft.md)
+  * [toDouble](./toDouble.md)
+  * [getString](./getString.md)
+* Number
   * [add](./add.md)
   * [subtract](./subtract.md)
   * [multiply](./multiply.md)
   * [divide](./divide.md)
+  * [getInteger](./getInteger.md)
 * Validate
   * [validateCarPlate](./validateCarPlate.md)
   * [validateIdCardNo](./validateIdCardNo.md)
@@ -39,4 +41,7 @@
   * [clearLocalStorage](./clearLocalStorage.md)
   * [getSessionStorage](./getSessionStorage.md)
   * [setSessionStorage](./setSessionStorage.md)
+  * [removeSessionStorage](./removeSessionStorage.md)
   * [clearSessionStorage](./clearSessionStorage.md)
+* Wechat
+  * [generateWechatRedirectUrl](./generateWechatRedirectUrl.md)
