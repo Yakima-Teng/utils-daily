@@ -66,15 +66,7 @@ getType(123) // 'number'
 
 Source code is hoisted in Github: [utils-daily](https://github.com/Yakima-Teng/utils-daily).
 
-Pull requests are welcome. If you want to add a new function called `tryIt`, you should create a file `tryIt.js` under the root directory with appropriate comment, and then update the `Summary.md`. Common commands:
-
-- `npm run generateIndexJSAndBuild`: build the library file.
-
-- `npm run docs:generateSummary`: update `docs/SUMMARY.md`.
-
-- `npm run docs:dev`: see documentation locally for easy development.
-
-- `npm run deploy`: deploy documentation files to both the `gh-pages` branch and your own server.
+Pull requests are welcome ^_^.
 
 
 ## License
