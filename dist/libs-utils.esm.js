@@ -132,6 +132,15 @@ function clearLocalStorage () {
 // 
 
 /**
+ * Clear all session storage items
+ */
+function clearSessionStorage () {
+  window.sessionStorage.clear();
+}
+
+// 
+
+/**
  * fill a string or number to specified length with specified symbol from left on
  * @param val {string|number}
  * @param len {number} target length after filling
@@ -794,6 +803,7 @@ function validatePhone (phone) {
 var index = {
   add: add,
   clearLocalStorage: clearLocalStorage,
+  clearSessionStorage: clearSessionStorage,
   dateToLongString: dateToLongString,
   dateToShortString: dateToShortString,
   divide: divide,

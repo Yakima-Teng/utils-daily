@@ -39,3 +39,4 @@
   * [clearLocalStorage](./clearLocalStorage.md)
   * [getSessionStorage](./getSessionStorage.md)
   * [setSessionStorage](./setSessionStorage.md)
+  * [clearSessionStorage](./clearSessionStorage.md)

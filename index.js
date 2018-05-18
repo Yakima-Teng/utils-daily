@@ -2,6 +2,7 @@
 
 import add from './add.js'
 import clearLocalStorage from './clearLocalStorage.js'
+import clearSessionStorage from './clearSessionStorage.js'
 import dateToLongString from './dateToLongString.js'
 import dateToShortString from './dateToShortString.js'
 import divide from './divide.js'
@@ -35,6 +36,7 @@ import validatePhone from './validatePhone.js'
 export default {
   add,
   clearLocalStorage,
+  clearSessionStorage,
   dateToLongString,
   dateToShortString,
   divide,
