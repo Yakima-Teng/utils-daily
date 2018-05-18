@@ -6,7 +6,7 @@
   </a>
 </p>
 
-<p align="center"> Light <b>3kb</b> library including useful frontend utility functions used in daily work</p>
+<p align="center"> Light <b>3kb</b> library including a collection of frontend utility functions used in daily work</p>
 
 <p align="center">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
