@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="#" rel="noopener noreferrer">
-    <img width="429" src="https://github.com/Yakima-Teng/utils-daily/raw/master/assets/logo.png" alt="utils-daily.js">
+    <img width="300" src="https://github.com/Yakima-Teng/utils-daily/raw/master/assets/logo.png" alt="utils-daily.js">
   </a>
 </p>
 
