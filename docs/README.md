@@ -1,7 +1,7 @@
 # utils-daily
 
 <p align="center">
-  <a href="javascript:void(0);" target="_blank" rel="noopener noreferrer">
+  <a href="#" rel="noopener noreferrer">
     <img width="550" src="https://github.com/Yakima-Teng/utils-daily/raw/master/assets/logo.png" alt="utils-daily.js">
   </a>
 </p>
@@ -24,10 +24,11 @@
 
 
 * 🔥 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
-* 🔥 Use flow to do the type check work
-* 🔥 Use eslint to lint code
 * 🔥 3kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
 * 🔥 All browsers supported
+* 🔥 Use flow to do the type check work
+* 🔥 Use eslint to lint code
+* 🔥 Use jasmine to do unit test
 
 
 ## Usage
@@ -59,12 +60,11 @@ getType(123) // 'number'
 ```
 
 
-## Development
+## Open Source
 
 Source code is hoisted in Github: [utils-daily](https://github.com/Yakima-Teng/utils-daily).
 
-If you want to add a new function called `tryIt`, you should create a file `tryIt.js` under the root directory with appropriate comment. Common commands:
-
+Pull requests are welcome. If you want to add a new function called `tryIt`, you should create a file `tryIt.js` under the root directory with appropriate comment, and then update the `Summary.md`. Common commands:
 - `npm run generateIndexJSAndBuild`: build the library file.
 
 - `npm run docs:generateSummary`: update `docs/SUMMARY.md`.
