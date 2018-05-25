@@ -1,6 +1,6 @@
 
 /**
- * utils-daily v0.0.7
+ * utils-daily v0.0.8
  * (c) 2018 Yakima Teng
  * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
@@ -358,10 +358,6 @@
    * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
    * for details over the differences between `_.debounce` and `_.throttle`.
    *
-   * @static
-   * @memberOf _
-   * @since 0.1.0
-   * @category Function
    * @param {Function} func The function to debounce.
    * @param {number} [wait=0] The number of milliseconds to delay.
    * @param {Object} [options={}] The options object.
@@ -1196,10 +1192,6 @@
    * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
    * for details over the differences between `_.throttle` and `_.debounce`.
    *
-   * @static
-   * @memberOf _
-   * @since 0.1.0
-   * @category Function
    * @param {Function} func The function to throttle.
    * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
    * @param {Object} [options={}] The options object.
