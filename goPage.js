@@ -1,6 +1,6 @@
 // @flow
 
-import serializeParams from './_serializeParams'
+import serializeParams from './serializeParams'
 
 /**
  * Go to specified path with specified query parameters

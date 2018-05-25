@@ -7,13 +7,19 @@
   "plugins": [
     "theme-code",
     "splitter",
-    "prism",
     "folding-chapters",
     "-sharing"
   ],
   "pluginsConfig": {
     "theme-default": {
       "showLevel": false
+    },
+    "prism": {
+      "lang": {
+        "config": {
+          "lang": "javascript"
+        }
+      }
     }
   }
 }

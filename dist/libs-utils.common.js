@@ -125,6 +125,63 @@ function floatAdd (a, b) {
 // 
 
 /**
+ * Copy the values of all enumerable own properties from one or more source objects to a target object
+ * @param target {Object} the target object
+ * @param sources {Array<Object>} the source object(s)
+ * @returns {Object} the target Object
+ */
+function assign (target) {
+  var sources = [], len = arguments.length - 1;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
+
+  return (function () {
+    if (typeof Object.assign === 'function') {
+      return Object.assign.apply(Object, [ target ].concat( sources ))
+    } else {
+      return polyfill.apply(void 0, [ target ].concat( sources ))
+    }
+  })()
+}
+
+/**
+ * Polyfill for Object.assign, code from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+ * @ignore
+ * @param target
+ * @param sources
+ * @returns {any}
+ */
+function polyfill (target) {
+  var sources = [], len = arguments.length - 1;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
+
+  return (function () {
+    // TypeError if undefined or null
+    if (target === null || target === undefined) {
+      throw new TypeError('Cannot convert undefined or null to object')
+    }
+
+    var to = Object(target);
+
+    for (var i = 0, len = sources.length; i < len; i++) {
+      var nextSource = sources[i];
+
+      // Skip over if undefined or null
+      if (nextSource !== null && nextSource !== undefined) {
+        for (var nextKey in nextSource) {
+          // Avoid bugs when hasOwnProperty is shadowed
+          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+            to[nextKey] = nextSource[nextKey];
+          }
+        }
+      }
+    }
+    return to
+  })()
+}
+
+// 
+
+/**
  * Clear all localStorage items
  */
 function clearLocalStorage () {
@@ -138,6 +195,57 @@ function clearLocalStorage () {
  */
 function clearSessionStorage () {
   window.sessionStorage.clear();
+}
+
+// 
+
+/**
+ * Return the index of the first element pass the test function
+ * @param arr {Array<any>} array
+ * @param test {Function} function used to test array element
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
+ * @returns {number}
+ */
+function findIndex (arr, test, fromIndex) {
+  var startIdx = 0;
+  var len = arr.length;
+  if (fromIndex !== void 0) {
+    startIdx = fromIndex >= 0 ? fromIndex : (len + fromIndex);
+  }
+  for (; startIdx < len; startIdx++) {
+    if (test(arr[startIdx], startIdx)) { return startIdx }
+  }
+  return -1
+}
+
+// 
+
+/**
+ * Return the first index of the matched value, -1 if nothing matches
+ * - comparison are done after handling with `JSON.stringify`
+ * - if `fromIndex` is negative, it's counted from the end
+ * @param arr {Array<any>} the array
+ * @param value {any}
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
+ * @returns {number}
+ */
+function indexOf (arr, value, fromIndex) {
+  value = JSON.stringify(value);
+  var testFunc = function (elem) { return JSON.stringify(elem) === value; };
+  return findIndex(arr, testFunc, fromIndex)
+}
+
+// 
+
+/**
+ * Determine if the array contains a given item (using `===` after `JSON.stringify`).
+ * @param arr {Array<any>} an array
+ * @param item {any} a given item
+ * @param fromIndex
+ * @returns {boolean}
+ */
+function contains (arr, item, fromIndex) {
+  return indexOf(arr, item, fromIndex) >= 0
 }
 
 // 
@@ -206,6 +314,143 @@ function dateToLongString (date) {
   return dateToShortString(date) + " " + hour + ":" + minute + ":" + second
 }
 
+/**
+ * In some browsers, typeof returns 'function' for HTML <object> elements
+ * (i.e., `typeof document.createElement( 'object' ) === 'function'`).
+ * We don't want to classify *any* DOM node as a function.
+ * @ignore
+ * @param obj
+ * @returns {boolean}
+ */
+function isFunction (obj) {
+  return typeof obj === 'function' && typeof obj.nodeType !== 'number'
+}
+
+var toString = ({}).toString;
+
+var getProto = Object.getPrototypeOf;
+
+var hasOwn = ({}).hasOwnProperty;
+
+var fnToString = hasOwn.toString;
+
+var ObjectFunctionString = fnToString.call(Object);
+
+function isPlainObject (obj) {
+  var proto;
+  var Ctor;
+
+  // Detect obvious negatives
+  // Use toString instead of jQuery.type to catch host objects
+  if (!obj || toString.call(obj) !== '[object Object]') {
+    return false
+  }
+
+  proto = getProto(obj);
+
+  // Objects with no prototype (e.g., `Object.create( null )`) are plain
+  if (!proto) {
+    return true
+  }
+
+  // Objects with prototype are plain iff they were constructed by a global Object function
+  Ctor = hasOwn.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor === 'function' && fnToString.call(Ctor) === ObjectFunctionString
+}
+
+/**
+ * Merge the contents of two or more objects together into the first object.
+ * - This is the [jQuery.extend](http://api.jquery.com/jQuery.extend/) method
+ * @param [deep] {boolean} Optional; if true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+ * @param target {Object} The object to extend. It will receive the new properties.
+ * @param object1 {Object} An object containing additional properties to merge in.
+ * @param [objectN] {Object} Additional objects containing properties to merge in.
+ * @returns {Object} the modified target object
+ */
+function extend () {
+  var arguments$1 = arguments;
+
+  var options;
+  var name;
+  var src;
+  var copy;
+  var copyIsArray;
+  var clone;
+  var target = arguments[ 0 ] || {};
+  var i = 1;
+  var length = arguments.length;
+  var deep = false;
+
+  // Handle a deep copy situation
+  if (typeof target === 'boolean') {
+    deep = target;
+
+    // Skip the boolean and the target
+    target = arguments[ i ] || {};
+    i++;
+  }
+
+  // Handle case when target is a string or something (possible in deep copy)
+  if (typeof target !== 'object' && !isFunction(target)) {
+    target = {};
+  }
+
+  // Extend jQuery itself if only one argument is passed
+  if (i === length) {
+    target = this;
+    i--;
+  }
+
+  for (; i < length; i++) {
+    // Only deal with non-null/undefined values
+    if ((options = arguments$1[ i ]) != null) {
+      // Extend the base object
+      for (name in options) {
+        src = target[name];
+        copy = options[name];
+
+        // Prevent never-ending loop
+        if (target === copy) {
+          continue
+        }
+
+        // Recurse if we're merging plain objects or arrays
+        if (deep && copy && (isPlainObject(copy) ||
+          (copyIsArray = Array.isArray(copy)))) {
+          if (copyIsArray) {
+            copyIsArray = false;
+            clone = src && Array.isArray(src) ? src : [];
+          } else {
+            clone = src && isPlainObject(src) ? src : {};
+          }
+
+          // Never move original objects, clone them
+          target[name] = extend(deep, clone, copy);
+
+          // Don't bring in undefined values
+        } else if (copy !== undefined) {
+          target[name] = copy;
+        }
+      }
+    }
+  }
+
+  // Return the modified object
+  return target
+}
+
+// 
+
+/**
+ * Clone target object deeply
+ * - The same as `extend(true, {}, obj)`
+ * @param obj {Object} the target object
+ * @returns {Object} a new object cloned from target object, but is not the target object
+ */
+function deepClone (obj) {
+  return extend(true, {}, obj)
+}
+
 // 
 
 /**
@@ -254,6 +499,27 @@ function floatDivide (a, b) {
 // 
 
 /**
+ * Return the index of the first element pass the test function
+ * @param arr {Array<any>} array
+ * @param test {Function} function used to test array element
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
+ * @returns {number}
+ */
+function findLastIndex (arr, test, fromIndex) {
+  var len = arr.length;
+  var startIdx = len - 1;
+  if (fromIndex !== void 0) {
+    startIdx = fromIndex >= 0 ? fromIndex : (len + fromIndex);
+  }
+  for (; startIdx >= 0; startIdx--) {
+    if (test(arr[startIdx], startIdx)) { return startIdx }
+  }
+  return -1
+}
+
+// 
+
+/**
  * Return Wechat redirect Url where Wechat will pass code query parameter to us
  * @param appId {string} appId for the Wechat account
  * @param targetUrl {string} entire url including the preceding `http` or `https`
@@ -289,6 +555,25 @@ function getCookie (name) {
     return ''
   }
   return ''
+}
+
+// 
+
+/**
+ * Transform value to integer (invalue value will be transfered to integer 0)
+ * @param val {any} any value you want to transfer to integer
+ * @returns {number} value in format of integer
+ */
+function getInteger (val) {
+  try {
+    if (isNaN(val)) {
+      return 0
+    }
+    var result = val ? (parseInt(val)) : 0;
+    return isNaN(result) ? 0 : result
+  } catch (e) {
+    return 0
+  }
 }
 
 // 
@@ -395,6 +680,17 @@ function getSessionStorage (key) {
 // 
 
 /**
+ * Transform value to string format
+ * @param val {any} any value you want to transfer to string format
+ * @returns {string} value in string format
+ */
+function getString (val) {
+  return val === 0 ? '0' : (val ? ('' + val) : '')
+}
+
+// 
+
+/**
  * Get the type of a variable
  * @param val {any} the variable
  * @returns {string} 'array', 'object', 'function', 'null', 'undefined', 'string', 'number', 'boolean', 'date', 'regexp' and etc.
@@ -443,6 +739,22 @@ function isIOS () {
 }
 
 // 
+
+/**
+ * Return the last index of the matched value, -1 if nothing matches
+ * - comparison are done after handling with `JSON.stringify`
+ * @param arr {Array<any>} the array
+ * @param value {any} the array
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index and from back to front, negative value is also supported
+ * @returns {number}
+ */
+function lastIndexOf (arr, value, fromIndex) {
+  value = JSON.stringify(value);
+  var testFunc = function (elem) { return JSON.stringify(elem) === value; };
+  return findLastIndex(arr, testFunc, fromIndex)
+}
+
+// 
 /**
  * Transform string in format like `YYYY-MM-DD hh:mm:ss` to date object
  * @param dateString string in format like `YYYY-MM-DD hh:mm:ss`
@@ -456,30 +768,6 @@ function longStringToDate (dateString) {
     return new Date(parseInt(tempArr[0], 10), parseInt(tempArr[1], 10) - 1, parseInt(tempArr[2], 10), parseInt(tempArr[3], 10), parseInt(tempArr[4], 10), parseInt(tempArr[5], 10))
   }
   throw new Error('not valid parameter for function longStringToDate')
-}
-
-// 
-
-/**
- * Merge properties of object B to object A
- * - This will change object A
- * @param objA {object} object A
- * @param objB {object} object B
- * @returns {object} object A after merging
- */
-function merge (objA, objB) {
-  if (objA && objB) {
-    for (var p in objB) {
-      if (objB.hasOwnProperty(p)) {
-        if (getType(objA[p]) === 'object' && getType(objB[p]) === 'object') {
-          merge(objA[p], objB[p]);
-        } else {
-          objA[p] = objB[p];
-        }
-      }
-    }
-  }
-  return objA
 }
 
 // 
@@ -529,11 +817,37 @@ function floatMultiply (a, b) {
 // 
 
 /**
+ * Return a random integer between min and max (inclusive).
+ * @param min {number} the minimum number (inclusive)
+ * @param max {number} the maximum number (inclusive)
+ * @returns {number}
+ */
+function random (min, max) {
+  if (max == null) {
+    max = min;
+    min = 0;
+  }
+  return min + Math.floor(Math.random() * (max - min + 1))
+}
+
+// 
+
+/**
  * Remove the localStorage item of specified key/name
- * @param key the key/name of the localStorage item to remove
+ * @param key {string} the key/name of the localStorage item to remove
  */
 function removeLocalStorage (key) {
   window.localStorage.removeItem(key);
+}
+
+// 
+
+/**
+ * Remove the sessionStorage item of specified key/name
+ * @param key {string} the key/name of the sessionStorage item to remove
+ */
+function removeSessionStorage (key) {
+  window.sessionStorage.removeItem(key);
 }
 
 // 
@@ -585,6 +899,18 @@ function setLocalStorage (key, val) {
  */
 function setSessionStorage (key, val) {
   window.sessionStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
+}
+
+// 
+
+/**
+ * Clone target object shallowly
+ * - The same as `extend({}, obj)`
+ * @param obj {Object} the target object
+ * @returns {Object} a new object cloned from target object, but is not the target object
+ */
+function shallowClone (obj) {
+  return extend({}, obj)
 }
 
 // 
@@ -804,29 +1130,42 @@ function validatePhone (phone) {
 
 var index = {
   add: add,
+  assign: assign,
   clearLocalStorage: clearLocalStorage,
   clearSessionStorage: clearSessionStorage,
+  contains: contains,
   dateToLongString: dateToLongString,
   dateToShortString: dateToShortString,
+  deepClone: deepClone,
   divide: divide,
+  extend: extend,
   fillLeft: fillLeft,
+  findIndex: findIndex,
+  findLastIndex: findLastIndex,
   generateWechatRedirectUrl: generateWechatRedirectUrl,
   getCookie: getCookie,
+  getInteger: getInteger,
   getLocalStorage: getLocalStorage,
   getQueryValue: getQueryValue,
   getRelativeDateString: getRelativeDateString,
   getSessionStorage: getSessionStorage,
+  getString: getString,
   getType: getType,
   goPage: goPage,
   hasValue: hasValue,
+  indexOf: indexOf,
   isIOS: isIOS,
+  lastIndexOf: lastIndexOf,
   longStringToDate: longStringToDate,
-  merge: merge,
   multiply: multiply,
+  random: random,
   removeLocalStorage: removeLocalStorage,
+  removeSessionStorage: removeSessionStorage,
+  serializeParams: serializeParams,
   setCookie: setCookie,
   setLocalStorage: setLocalStorage,
   setSessionStorage: setSessionStorage,
+  shallowClone: shallowClone,
   shortStringToDate: shortStringToDate,
   subtract: subtract,
   timestampToLongString: timestampToLongString,

@@ -1,4 +1,4 @@
-import serializeParams from '../../_serializeParams'
+import serializeParams from '../../serializeParams'
 
 describe('to serialize params object to string', () => {
   it('can transform simple object', () => {

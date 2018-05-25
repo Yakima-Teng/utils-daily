@@ -1,47 +1,59 @@
 # TOC
 
 * [Preface](README.md)
-* Miscellanea
-  * [merge](./merge.md)
-  * [getType](./getType.md)
+* Common
   * [hasValue](./hasValue.md)
+  * [getType](./getType.md)
 * Date
-  * [dateToShortString](./dateToShortString.md)
-  * [dateToLongString](./dateToLongString.md)
-  * [shortStringToDate](./shortStringToDate.md)
-  * [longStringToDate](./longStringToDate.md)
-  * [timestampToShortString](./timestampToShortString.md)
-  * [timestampToLongString](./timestampToLongString.md)
   * [getRelativeDateString](./getRelativeDateString.md)
+  * [dateToLongString](./dateToLongString.md)
+  * [dateToShortString](./dateToShortString.md)
+  * [longStringToDate](./longStringToDate.md)
+  * [shortStringToDate](./shortStringToDate.md)
+  * [timestampToLongString](./timestampToLongString.md)
+  * [timestampToShortString](./timestampToShortString.md)
+* Object
+  * [extend](./extend.md)
+  * [assign](./assign.md)
+  * [deepClone](./deepClone.md)
+  * [shallowClone](./shallowClone.md)
 * String
   * [fillLeft](./fillLeft.md)
   * [toDouble](./toDouble.md)
   * [getString](./getString.md)
+* Array
+  * [findIndex](./findIndex.md)
+  * [findLastIndex](./findLastIndex.md)
+  * [indexOf](./indexOf.md)
+  * [lastIndexOf](./lastIndexOf.md)
+  * [contains](./contains.md)
 * Number
   * [add](./add.md)
   * [subtract](./subtract.md)
   * [multiply](./multiply.md)
   * [divide](./divide.md)
   * [getInteger](./getInteger.md)
+  * [random](./random.md)
+* Storage
+  * [clearLocalStorage](./clearLocalStorage.md)
+  * [clearSessionStorage](./clearSessionStorage.md)
+  * [getCookie](./getCookie.md)
+  * [getLocalStorage](./getLocalStorage.md)
+  * [setCookie](./setCookie.md)
+  * [setLocalStorage](./setLocalStorage.md)
+  * [setSessionStorage](./setSessionStorage.md)
+  * [removeLocalStorage](./removeLocalStorage.md)
+  * [removeSessionStorage](./removeSessionStorage.md)
+  * [getSessionStorage](./getSessionStorage.md)
 * Validate
   * [validateCarPlate](./validateCarPlate.md)
   * [validateIdCardNo](./validateIdCardNo.md)
   * [validatePhone](./validatePhone.md)
 * Url
-  * [getQueryValue](./getQueryValue.md)
   * [goPage](./goPage.md)
+  * [serializeParams](./serializeParams.md)
+  * [getQueryValue](./getQueryValue.md)
 * Device
   * [isIOS](./isIOS.md)
-* Storage
-  * [getCookie](./getCookie.md)
-  * [setCookie](./setCookie.md)
-  * [getLocalStorage](./getLocalStorage.md)
-  * [setLocalStorage](./setLocalStorage.md)
-  * [removeLocalStorage](./removeLocalStorage.md)
-  * [clearLocalStorage](./clearLocalStorage.md)
-  * [getSessionStorage](./getSessionStorage.md)
-  * [setSessionStorage](./setSessionStorage.md)
-  * [removeSessionStorage](./removeSessionStorage.md)
-  * [clearSessionStorage](./clearSessionStorage.md)
 * Wechat
   * [generateWechatRedirectUrl](./generateWechatRedirectUrl.md)

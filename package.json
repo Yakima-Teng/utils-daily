@@ -8,9 +8,9 @@
   "jsdelivr": "dist/libs-utils.js",
   "scripts": {
     "useThisToDev": "npm-run-all --serial test docs:jsdocToMarkdown docs:dev",
-    "useThisToBuildAndDeploy": "npm-run-all --serial test docs:jsdocToMarkdown useThisToBuild useThisToDeploy",
-    "useThisToBuild": "npm-run-all --serial --parallel docs:jsdocToMarkdown generateIndexJSAndBuild",
+    "useThisToBuild": "npm-run-all --serial test --parallel docs:jsdocToMarkdown generateIndexJSAndBuild",
     "useThisToDeploy": "npm-run-all --serial docs:deploy deployToServer",
+    "useThisToBuildAndDeploy": "npm-run-all --serial useThisToBuild useThisToDeploy",
     "docs:installGitbookPlugins": "cd docs && gitbook install",
     "deploy": "npm-run-all --serial docs:deploy deployToServer",
     "generateIndexJSAndBuild": "npm-run-all --serial generateIndexJS build",
@@ -26,7 +26,7 @@
     "flow-init": "flow init",
     "jasmine:init": "jasmine init",
     "jasmine": "babel-node ./spec/run.js",
-    "lint": "standard --fix '*.js' --parser babel-eslint --plugin flowtype",
+    "lint": "standard --verbose --fix '*.js' --parser babel-eslint --plugin flowtype",
     "test": "npm run jasmine && npm run lint"
   },
   "repository": {
