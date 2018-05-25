@@ -6,6 +6,11 @@
   * [getType](./getType.md)
   * [debounce](./debounce.md)
   * [throttle](./throttle.md)
+* Object
+  * [extend](./extend.md)
+  * [assign](./assign.md)
+  * [deepClone](./deepClone.md)
+  * [shallowClone](./shallowClone.md)
 * Date
   * [getRelativeDateString](./getRelativeDateString.md)
   * [dateToLongString](./dateToLongString.md)
@@ -14,11 +19,6 @@
   * [shortStringToDate](./shortStringToDate.md)
   * [timestampToLongString](./timestampToLongString.md)
   * [timestampToShortString](./timestampToShortString.md)
-* Object
-  * [extend](./extend.md)
-  * [assign](./assign.md)
-  * [deepClone](./deepClone.md)
-  * [shallowClone](./shallowClone.md)
 * String
   * [fillLeft](./fillLeft.md)
   * [toDouble](./toDouble.md)
