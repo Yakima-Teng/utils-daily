@@ -332,6 +332,8 @@ function now () {
 }
 
 /**
+ * It's `lodash.debounce` function.
+ *
  * Creates a debounced function that delays invoking `func` until after `wait`
  * milliseconds have elapsed since the last time the debounced function was
  * invoked. The debounced function comes with a `cancel` method to cancel
@@ -364,14 +366,15 @@ function now () {
  * @returns {Function} Returns the new debounced function.
  * @example
  *
+ * ```javascript
  * // Avoid costly calculations while the window size is in flux.
  * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
  *
  * // Invoke `sendMail` when clicked, debouncing subsequent calls.
  * jQuery(element).on('click', _.debounce(sendMail, 300, {
-     *   'leading': true,
-     *   'trailing': false
-     * }));
+ *   'leading': true,
+ *   'trailing': false
+ * }));
  *
  * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
  * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
@@ -380,6 +383,7 @@ function now () {
  *
  * // Cancel the trailing debounced invocation.
  * jQuery(window).on('popstate', debounced.cancel);
+ * ```
  */
 function debounce (func, wait, options) {
   if ( options === void 0 ) options = {};
@@ -1167,6 +1171,8 @@ function floatSubtract (a, b) {
 // 
 
 /**
+ * It's `lodash.throttle` function.
+ *
  * Creates a throttled function that only invokes `func` at most once per
  * every `wait` milliseconds. The throttled function comes with a `cancel`
  * method to cancel delayed `func` invocations and a `flush` method to
@@ -1196,6 +1202,7 @@ function floatSubtract (a, b) {
  * @returns {Function} Returns the new throttled function.
  * @example
  *
+ * ```javascript
  * // Avoid excessively updating the position while scrolling.
  * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
  *
@@ -1205,6 +1212,7 @@ function floatSubtract (a, b) {
  *
  * // Cancel the trailing throttled invocation.
  * jQuery(window).on('popstate', throttled.cancel);
+ * ```
  */
 function throttle (func, wait, options) {
   if ( options === void 0 ) options = {};

@@ -9,6 +9,8 @@ function now (): number {
 }
 
 /**
+ * It's `lodash.debounce` function.
+ *
  * Creates a debounced function that delays invoking `func` until after `wait`
  * milliseconds have elapsed since the last time the debounced function was
  * invoked. The debounced function comes with a `cancel` method to cancel
@@ -41,14 +43,15 @@ function now (): number {
  * @returns {Function} Returns the new debounced function.
  * @example
  *
+ * ```javascript
  * // Avoid costly calculations while the window size is in flux.
  * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
  *
  * // Invoke `sendMail` when clicked, debouncing subsequent calls.
  * jQuery(element).on('click', _.debounce(sendMail, 300, {
-     *   'leading': true,
-     *   'trailing': false
-     * }));
+ *   'leading': true,
+ *   'trailing': false
+ * }));
  *
  * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
  * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
@@ -57,6 +60,7 @@ function now (): number {
  *
  * // Cancel the trailing debounced invocation.
  * jQuery(window).on('popstate', debounced.cancel);
+ * ```
  */
 function debounce (func: Function, wait: number, options?: {
   maxWait?: number,

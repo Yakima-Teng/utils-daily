@@ -4,6 +4,8 @@ import getType from './getType'
 import debounce, { FUNC_ERROR_TEXT } from './debounce'
 
 /**
+ * It's `lodash.throttle` function.
+ *
  * Creates a throttled function that only invokes `func` at most once per
  * every `wait` milliseconds. The throttled function comes with a `cancel`
  * method to cancel delayed `func` invocations and a `flush` method to
@@ -33,6 +35,7 @@ import debounce, { FUNC_ERROR_TEXT } from './debounce'
  * @returns {Function} Returns the new throttled function.
  * @example
  *
+ * ```javascript
  * // Avoid excessively updating the position while scrolling.
  * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
  *
@@ -42,6 +45,7 @@ import debounce, { FUNC_ERROR_TEXT } from './debounce'
  *
  * // Cancel the trailing throttled invocation.
  * jQuery(window).on('popstate', throttled.cancel);
+ * ```
  */
 function throttle (func: Function, wait: number, options?: {
   leading?: boolean,
