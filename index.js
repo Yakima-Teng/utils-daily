@@ -7,6 +7,7 @@ import clearSessionStorage from './clearSessionStorage.js'
 import contains from './contains.js'
 import dateToLongString from './dateToLongString.js'
 import dateToShortString from './dateToShortString.js'
+import debounce from './debounce.js'
 import deepClone from './deepClone.js'
 import divide from './divide.js'
 import extend from './extend.js'
@@ -39,6 +40,7 @@ import setSessionStorage from './setSessionStorage.js'
 import shallowClone from './shallowClone.js'
 import shortStringToDate from './shortStringToDate.js'
 import subtract from './subtract.js'
+import throttle from './throttle.js'
 import timestampToLongString from './timestampToLongString.js'
 import timestampToShortString from './timestampToShortString.js'
 import toDouble from './toDouble.js'
@@ -54,6 +56,7 @@ export default {
   contains,
   dateToLongString,
   dateToShortString,
+  debounce,
   deepClone,
   divide,
   extend,
@@ -86,6 +89,7 @@ export default {
   shallowClone,
   shortStringToDate,
   subtract,
+  throttle,
   timestampToLongString,
   timestampToShortString,
   toDouble,

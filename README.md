@@ -8,7 +8,7 @@
   </a>
 </p>
 
-<p align="center"> Light <b>3.5kb-after-gzipped</b> library including a collection of frontend utility functions used in daily work</p>
+<p align="center"> Light <b>4kb-after-gzipped</b> library including a collection of frontend utility functions used in daily work</p>
 
 <p align="center">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
@@ -26,7 +26,7 @@
 
 
 * 🔥 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
-* 🔥 3.5kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
+* 🔥 4kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
 * 🔥 All browsers supported
 * 🔥 Use flow to do the type check work
 * 🔥 Use eslint to lint code

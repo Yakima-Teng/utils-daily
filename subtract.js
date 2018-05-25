@@ -6,15 +6,15 @@ import validateNumber, { msgForInvalidNumber } from './_validateNumber'
 
 /**
  * Calculate difference of members in an Array
- * @param arr {Array<number>} an array of numbers
+ * @param arr {Array<string>} an array of numbers in string format
  * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
  * @returns {string} difference of these numbers
  */
-function subtract (arr: Array<number> = [], numOfDecimalPlaces: number): string {
+function subtract (arr: Array<string> = [], numOfDecimalPlaces: number): string {
   if (arr.filter(item => !validateNumber(item)).length > 0) {
     throw new Error(msgForInvalidNumber)
   }
-  const result = arr.reduce((preVal, curVal, curIdx, array): string => {
+  const result: string = arr.reduce((preVal: string, curVal: string, curIdx: number, array: Array<string>): string => {
     return floatSubtract(parseFloat(preVal), parseFloat(curVal))
   })
   const returnResult = hasValue(numOfDecimalPlaces)

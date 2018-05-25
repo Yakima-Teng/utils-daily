@@ -4,6 +4,8 @@
 * Common
   * [hasValue](./hasValue.md)
   * [getType](./getType.md)
+  * [debounce](./debounce.md)
+  * [throttle](./throttle.md)
 * Date
   * [getRelativeDateString](./getRelativeDateString.md)
   * [dateToLongString](./dateToLongString.md)
