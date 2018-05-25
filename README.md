@@ -69,11 +69,6 @@ Source code is hoisted in Github: [utils-daily](https://github.com/Yakima-Teng/u
 Pull requests are welcome ^_^.
 
 
-## TODOs
-
-- Study function `_cb`
-
-
 ## License
 
 [MIT](./LICENSE)
