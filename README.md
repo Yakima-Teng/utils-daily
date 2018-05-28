@@ -38,7 +38,7 @@
 ### Via `script` tag in html
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.11/dist/utils-daily.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.12/dist/utils-daily.min.js"></script>
 <script>
   console.log(u.getType('')) // 'string'
 </script>
