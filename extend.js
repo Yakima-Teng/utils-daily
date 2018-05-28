@@ -50,6 +50,24 @@ function isPlainObject (obj) {
  * @param object1 {Object} An object containing additional properties to merge in.
  * @param [objectN] {Object} Additional objects containing properties to merge in.
  * @returns {Object} the modified target object
+ *
+ * @example
+ * ```javascript
+ * const objA = {
+ *   a: '1',
+ *   b: ['1', '2', '3'],
+ *   c: { d: 'e' }
+ * }
+ * const objB = {
+ *   a: 'e'
+ * }
+ * extend({}, objA, objB, { a: objB }) // => { a: { a: 'e' }, b: ['1', '2', '3'], c: { d: 'e' } }
+ * console.log(objA.a === objB) // true
+ * const objC = extend(true, {}, { a: objA })
+ * console.log(objC.a === objA) // false
+ * // objA will be changed
+ * extend(objA, { b: null }) // => { a: '1', b: null, c: { d: 'e' } }
+ * ```
  */
 function extend () {
   let options

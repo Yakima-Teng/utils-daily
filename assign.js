@@ -5,6 +5,14 @@
  * @param target {Object} the target object
  * @param sources {Array<Object>} the source object(s)
  * @returns {Object} the target Object
+ *
+ * @example
+ * ```javascript
+ * const objA = { a: 1 }
+ * assign({}, objA) // { a: 1 }
+ * // objA will be changed
+ * assign(objA, { b: 2 }) // { a: 1, b: 2 }
+ * ```
  */
 function assign (target: Object, ...sources: Array<Object>) {
   return (() => {
