@@ -1,3 +1,7 @@
+---
+description: A light library including a collection of frontend utility functions used in daily work
+---
+
 <br />
 
 <p align="center">
