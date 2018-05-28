@@ -38,7 +38,10 @@
 ### Via `script` tag in html
 
 ```html
-<script src="./dist/libs-utils.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.10/dist/utils-daily.min.js"></script>
+<script>
+  console.log(u.getType('')) // 'string'
+</script>
 ```
 
 ### Via npm
@@ -53,8 +56,8 @@ Then import it:
 
 ```javascript
 // import while library and use the method you like
-import utils from 'utils-daily'
-utils.getType(123) // 'number'
+import u from 'utils-daily'
+u.getType(123) // 'number'
 
 // or if you only want to import specified function
 import getType from 'utils-daily/getType'

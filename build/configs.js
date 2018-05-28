@@ -19,21 +19,21 @@ const resolve = _path => path.resolve(__dirname, '../', _path)
 module.exports = [
   // browser development
   {
-    file: resolve('dist/libs-utils.js'),
+    file: resolve('dist/utils-daily.js'),
     format: 'umd',
     env: 'development'
   },
   {
-    file: resolve('dist/libs-utils.min.js'),
+    file: resolve('dist/utils-daily.min.js'),
     format: 'umd',
     env: 'production'
   },
   {
-    file: resolve('dist/libs-utils.common.js'),
+    file: resolve('dist/utils-daily.common.js'),
     format: 'cjs'
   },
   {
-    file: resolve('dist/libs-utils.esm.js'),
+    file: resolve('dist/utils-daily.esm.js'),
     format: 'es'
   }
 ].map(genConfig)
@@ -54,7 +54,7 @@ function genConfig (opts) {
       file: opts.file,
       format: opts.format,
       banner,
-      name: '$utils'
+      name: 'u'
     }
   }
 

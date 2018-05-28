@@ -5,7 +5,7 @@
   "main": "dist/libs-utils.common.js",
   "module": "dist/libs-utils.esm.js",
   "unpkg": "dist/libs-utils.js",
-  "jsdelivr": "dist/libs-utils.js",
+  "jsdelivr": "dist/utils-daily.min.js",
   "scripts": {
     "useThisToDev": "npm-run-all --serial test docs:jsdocToMarkdown docs:dev",
     "useThisToBuild": "npm-run-all --serial test --parallel docs:jsdocToMarkdown generateIndexJSAndBuild",

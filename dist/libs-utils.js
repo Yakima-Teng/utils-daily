@@ -1,6 +1,6 @@
 
 /**
- * utils-daily v0.0.9
+ * utils-daily v0.0.10
  * (c) 2018 Yakima Teng
  * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
@@ -9,7 +9,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.$utils = factory());
+  (global.u = factory());
 }(this, (function () { 'use strict';
 
   // 
