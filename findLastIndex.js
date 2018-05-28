@@ -6,6 +6,14 @@
  * @param test {Function} function used to test array element
  * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
  * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * const arr = ['1', '2', 'c']
+ * const test = /^[0-9]$/.test
+ * console.log(findLastIndex(arr, test, 0)) // 1
+ * console.log(findLastIndex(arr, test, 2)) // -1
+ * ```
  */
 function findLastIndex (arr: Array<any>, test: (item: any, idx?: number) => boolean, fromIndex?: number): number {
   const len = arr.length

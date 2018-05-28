@@ -10,6 +10,14 @@ import findIndex from './findIndex'
  * @param value {any}
  * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
  * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, '2', 'c', '2']
+ * console.log(indexOf(arr, '2')) // 1
+ * console.log(indexOf(arr, '2', 3)) // 3
+ * console.log(indexOf(arr, 'c', 3)) // -1
+ * ```
  */
 function indexOf (arr: Array<any>, value: any, fromIndex?: number): number {
   value = JSON.stringify(value)

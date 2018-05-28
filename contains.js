@@ -8,6 +8,15 @@ import indexOf from './indexOf'
  * @param item {any} a given item
  * @param fromIndex
  * @returns {boolean}
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, '2', 'c', { a: '4' }]
+ * console.log(contains(arr, { a: '4' })) // true
+ * console.log(contains(arr, { a: '5' })) // false
+ * console.log(contains(arr, '1')) // false
+ * console.log(contains(arr, '2')) // true
+ * ```
  */
 function contains (arr: Array<any>, item: any, fromIndex?: number): boolean {
   return indexOf(arr, item, fromIndex) >= 0
