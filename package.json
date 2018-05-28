@@ -1,6 +1,6 @@
 {
   "name": "utils-daily",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A simple yet useful frontend utility library",
   "main": "dist/libs-utils.common.js",
   "module": "dist/libs-utils.esm.js",
