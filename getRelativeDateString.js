@@ -12,6 +12,12 @@ import toDouble from './toDouble'
  * @param [miDiff] {number} difference in minutes, negative value is acceptable; optional, but if defined, `hDiff` and `sDiff` should also be defined
  * @param [sDiff] {number} difference in seconds, negative value is acceptable; optional, but if defined, `hDiff` and `miDiff` should also be defined
  * @returns {string} date string in format of `yyyy-mm-dd` or `yyyy-mm-dd hh:mm:ss`
+ *
+ * @example
+ * ```javascript
+ * console.log(getRelativeDateString(new Date(2018, 1, 2), 0, 2, 0)) // '2018-04-02'
+ * console.log(getRelativeDateString(new Date(2018, 1, 2), 0, -2, 0)) // '2017-12-02'
+ * ```
  */
 function getRelativeDateString (
   dat: Date = new Date(),

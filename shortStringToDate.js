@@ -7,6 +7,11 @@ import longStringToDate from './longStringToDate'
  * `00:00:00 is used due to hours, minutes and seconds not specified`
  * @param dateString string in format like `YYYY-MM-DD`
  * @returns {Date} date object
+ *
+ * @example
+ * ```javascript
+ * console.log(shortStringToDate('2018-02-01')) // new Date(2018, 1, 1, 0, 0, 0)
+ * ```
  */
 function shortStringToDate (dateString: string): Date {
   if (dateString && dateString.length === 10) {

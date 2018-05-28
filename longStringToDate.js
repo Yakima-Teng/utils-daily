@@ -3,6 +3,11 @@
  * Transform string in format like `YYYY-MM-DD hh:mm:ss` to date object
  * @param dateString string in format like `YYYY-MM-DD hh:mm:ss`
  * @returns {Date} date object
+ *
+ * @example
+ * ```javascript
+ * console.log(longStringToDate('2018-02-01 12:13:14')) // new Date(2018, 1, 1, 12, 13, 14)
+ * ```
  */
 function longStringToDate (dateString: string): Date {
   if (dateString && dateString.length === 19) {
