@@ -135,7 +135,7 @@ gulp.task('generateIndexJS', () => {
     })
 })
 
-gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
+gulp.task('jsdocToMarkdown', function () {
   return gulp.src(jsdocSourceFiles)
     .pipe(through2.obj(function (file, enc, callback) {
       const self = this
@@ -161,6 +161,10 @@ gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
       path.extname = '.md'
     }))
     .pipe(gulp.dest('docs'))
+})
+
+gulp.task('watch:jsdocToMarkdown', function () {
+  gulp.watch(jsdocSourceFiles, ['jsdocToMarkdown'])
 })
 
 gulp.task('clearDocsFolder', function () {

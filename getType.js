@@ -18,6 +18,7 @@
  * console.log(getType(true)) // 'boolean'
  * console.log(getType(new Date())) // 'date'
  * console.log(getType(/^[0-9]{3}/)) // 'regexp'
+ * console.log(getType('test')) // 'string'
  * ```
  */
 function getType (val: any): string {
