@@ -5,7 +5,9 @@
   "language": "zh-hans",
   "plugins": [
     "theme-code",
-    "-sharing"
+    "-sharing",
+    "prism",
+    "-highlight"
   ],
   "pluginsConfig": {
     "theme-default": {
