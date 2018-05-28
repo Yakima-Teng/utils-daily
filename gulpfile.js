@@ -146,7 +146,8 @@ gulp.task('jsdocToMarkdown', ['clearDocsFolder'], function () {
           files: srcFilePath,
           configure: './jsdoc2md.json',
           'heading-depth': 2,
-          'example-lang': 'javascript'
+          'example-lang': 'javascript',
+          template: fs.readFileSync('./jsdoc2md.hbs', 'utf8')
         })
         .then(output => {
           // fsThenNative.writeFile(targetFilePath, output)
