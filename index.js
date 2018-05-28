@@ -14,7 +14,6 @@ import extend from './extend.js'
 import fillLeft from './fillLeft.js'
 import findIndex from './findIndex.js'
 import findLastIndex from './findLastIndex.js'
-import generateWechatRedirectUrl from './generateWechatRedirectUrl.js'
 import getCookie from './getCookie.js'
 import getInteger from './getInteger.js'
 import getLocalStorage from './getLocalStorage.js'
@@ -23,6 +22,7 @@ import getRelativeDateString from './getRelativeDateString.js'
 import getSessionStorage from './getSessionStorage.js'
 import getString from './getString.js'
 import getType from './getType.js'
+import getWechatRedirectUrl from './getWechatRedirectUrl.js'
 import goPage from './goPage.js'
 import hasValue from './hasValue.js'
 import indexOf from './indexOf.js'
@@ -63,7 +63,6 @@ export default {
   fillLeft,
   findIndex,
   findLastIndex,
-  generateWechatRedirectUrl,
   getCookie,
   getInteger,
   getLocalStorage,
@@ -72,6 +71,7 @@ export default {
   getSessionStorage,
   getString,
   getType,
+  getWechatRedirectUrl,
   goPage,
   hasValue,
   indexOf,

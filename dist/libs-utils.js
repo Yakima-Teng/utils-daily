@@ -723,23 +723,6 @@
   // 
 
   /**
-   * Return Wechat redirect Url where Wechat will pass code query parameter to us
-   * @param appId {string} appId for the Wechat account
-   * @param targetUrl {string} entire url including the preceding `http` or `https`
-   * @returns {string}
-   */
-  function generateWechatRedirectUrl (appId, targetUrl) {
-    if (/(^http)|(^https)/.test(targetUrl)) {
-      var encodedUrl = encodeURIComponent(targetUrl);
-      return ("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + encodedUrl + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect")
-    } else {
-      throw new Error('parameter targetUrl for function generateWechatRedirectUrl should be preceding with `http` or `https`')
-    }
-  }
-
-  // 
-
-  /**
    * Get value of the cookie item of specified name
    * @param name name of the cookie item
    * @returns {string} value of the cookie item
@@ -889,6 +872,23 @@
    */
   function getString (val) {
     return val === 0 ? '0' : (val ? ('' + val) : '')
+  }
+
+  // 
+
+  /**
+   * Return Wechat redirect Url where Wechat will pass code query parameter to us
+   * @param appId {string} appId for the Wechat account
+   * @param targetUrl {string} entire url including the preceding `http` or `https`
+   * @returns {string}
+   */
+  function getWechatRedirectUrl (appId, targetUrl) {
+    if (/(^http)|(^https)/.test(targetUrl)) {
+      var encodedUrl = encodeURIComponent(targetUrl);
+      return ("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + encodedUrl + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect")
+    } else {
+      throw new Error('parameter targetUrl for function generateWechatRedirectUrl should be preceding with `http` or `https`')
+    }
   }
 
   // 
@@ -1401,7 +1401,6 @@
     fillLeft: fillLeft,
     findIndex: findIndex,
     findLastIndex: findLastIndex,
-    generateWechatRedirectUrl: generateWechatRedirectUrl,
     getCookie: getCookie,
     getInteger: getInteger,
     getLocalStorage: getLocalStorage,
@@ -1410,6 +1409,7 @@
     getSessionStorage: getSessionStorage,
     getString: getString,
     getType: getType,
+    getWechatRedirectUrl: getWechatRedirectUrl,
     goPage: goPage,
     hasValue: hasValue,
     indexOf: indexOf,

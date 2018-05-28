@@ -36,6 +36,16 @@
   * [divide](./divide.md)
   * [getInteger](./getInteger.md)
   * [random](./random.md)
+* Validate
+  * [validateCarPlate](./validateCarPlate.md)
+  * [validateIdCardNo](./validateIdCardNo.md)
+  * [validatePhone](./validatePhone.md)
+* Url
+  * [goPage](./goPage.md)
+  * [serializeParams](./serializeParams.md)
+  * [getQueryValue](./getQueryValue.md)
+* Device
+  * [isIOS](./isIOS.md)
 * Storage
   * [clearLocalStorage](./clearLocalStorage.md)
   * [clearSessionStorage](./clearSessionStorage.md)
@@ -47,15 +57,5 @@
   * [removeLocalStorage](./removeLocalStorage.md)
   * [removeSessionStorage](./removeSessionStorage.md)
   * [getSessionStorage](./getSessionStorage.md)
-* Validate
-  * [validateCarPlate](./validateCarPlate.md)
-  * [validateIdCardNo](./validateIdCardNo.md)
-  * [validatePhone](./validatePhone.md)
-* Url
-  * [goPage](./goPage.md)
-  * [serializeParams](./serializeParams.md)
-  * [getQueryValue](./getQueryValue.md)
-* Device
-  * [isIOS](./isIOS.md)
 * Wechat
-  * [generateWechatRedirectUrl](./generateWechatRedirectUrl.md)
+  * [getWechatRedirectUrl](./getWechatRedirectUrl.md)

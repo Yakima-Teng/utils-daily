@@ -64,7 +64,7 @@ getType(123) // 'number'
 
 ## Open Source
 
-Source code is hoisted in Github: [utils-daily](https://github.com/Yakima-Teng/utils-daily).
+Source code is hoisted in Github: [Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily).
 
 Pull requests are welcome ^_^.
 

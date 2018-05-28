@@ -6,7 +6,7 @@
  * @param targetUrl {string} entire url including the preceding `http` or `https`
  * @returns {string}
  */
-function generateWechatRedirectUrl (appId: string, targetUrl: string): string {
+function getWechatRedirectUrl (appId: string, targetUrl: string): string {
   if (/(^http)|(^https)/.test(targetUrl)) {
     const encodedUrl: string = encodeURIComponent(targetUrl)
     return `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodedUrl}&response_type=code&scope=snsapi_base&state=1#wechat_redirect`
@@ -15,4 +15,4 @@ function generateWechatRedirectUrl (appId: string, targetUrl: string): string {
   }
 }
 
-export default generateWechatRedirectUrl
+export default getWechatRedirectUrl

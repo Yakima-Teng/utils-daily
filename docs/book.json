@@ -6,20 +6,11 @@
   "language": "zh-hans",
   "plugins": [
     "theme-code",
-    "splitter",
-    "folding-chapters",
     "-sharing"
   ],
   "pluginsConfig": {
     "theme-default": {
       "showLevel": false
-    },
-    "prism": {
-      "lang": {
-        "config": {
-          "lang": "javascript"
-        }
-      }
     }
   }
 }
