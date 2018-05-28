@@ -60,7 +60,7 @@ typings/
 # ignore configuration file for IntelliJ IDEA
 .idea
 
-/examples/libs-utils.*
+/examples/utils-daily.*
 .DS_Store
 /config.js
 /docs

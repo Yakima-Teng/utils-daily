@@ -1,1 +1,1 @@
-console.log($utils)
+console.log(u)
