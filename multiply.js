@@ -9,6 +9,13 @@ import validateNumber, { msgForInvalidNumber } from './_validateNumber'
  * @param  {Array<number>} arr an array of numbers
  * @param  {number} numOfDecimalPlaces number of decimal places to leave; determined automatically if not provided
  * @return {string}  sum of these numbers
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, 2, 3]
+ * console.log(multiply(arr)) // '6'
+ * console.log(multiply(arr, 2)) // '6.00'
+ * ```
  */
 function multiply (arr: Array<number> = [], numOfDecimalPlaces: number) {
   if (arr.filter(item => !validateNumber(item)).length > 0) {

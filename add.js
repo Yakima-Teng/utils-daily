@@ -9,8 +9,15 @@ import validateNumber, { msgForInvalidNumber } from './_validateNumber'
  * @param arr {Array<number>} an array of numbers
  * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
  * @returns {string} sum of these numbers
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, 2, 3, 4]
+ * console.log(add(arr)) // '10'
+ * console.log(add(arr, 2)) // '10.00'
+ * ```
  */
-function add (arr: Array<number> = [], numOfDecimalPlaces: number) {
+function add (arr: Array<number> = [], numOfDecimalPlaces: number): string {
   if (arr.filter(item => !validateNumber(item)).length > 0) {
     throw new Error(msgForInvalidNumber)
   }
@@ -31,7 +38,7 @@ function add (arr: Array<number> = [], numOfDecimalPlaces: number) {
  * @param  {number} b        number b
  * @return {number}    sum of number a and number b
  */
-function floatAdd (a: number, b: number) {
+function floatAdd (a: number, b: number): number {
   let numOfDecimalPlacesInA: number
   let numOfDecimalPlacesInB: number
   try {

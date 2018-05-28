@@ -9,6 +9,11 @@ import validateNumber, { msgForInvalidNumber } from './_validateNumber'
  * @param arr {Array<number>} an array of numbers
  * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
  * @returns {string} quotient of these numbers (number of decimal places not larger than 10)
+ *
+ * @example
+ * const arr = [3, 1, 2]
+ * console.log(divide([1, 2])) // '0.5'
+ * console.log(divide([1, 2, 3], 2)) // '0.17'
  */
 function divide (arr: Array<number> = [], numOfDecimalPlaces: number): string {
   if (arr.filter(item => !validateNumber(item)).length > 0) {

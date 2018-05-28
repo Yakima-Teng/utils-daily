@@ -6,6 +6,12 @@
  * - The validation method is copied from http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx
  * @param plateNo the car plate number
  * @returns {boolean} whether the car plate number is valid
+ *
+ * @example
+ * ```javascript
+ * console.log(validatePlateNo('沪ANC116')) // true
+ * console.log(validatePlateNo('呼呼116')) // false
+ * ```
  */
 function validateCarPlate (plateNo: string): boolean {
   /**

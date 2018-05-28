@@ -5,6 +5,11 @@
  * - This function is only available for Chinese
  * @param idCardNo {string} ID card number
  * @returns {boolean} whether the ID card number is valid
+ *
+ * @example
+ * ```javascript
+ * console.log(validateIdCardNo('123456789012345678')) // false
+ * ```
  */
 function validateIdCardNo (idCardNo: string): boolean {
   let ID = '' + idCardNo

@@ -9,6 +9,13 @@ import validateNumber, { msgForInvalidNumber } from './_validateNumber'
  * @param arr {Array<string>} an array of numbers in string format
  * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
  * @returns {string} difference of these numbers
+ *
+ * @example
+ * ```javascript
+ * const arr [3, 1, 2]
+ * console.log(subtract(arr)) // '0'
+ * console.log(subtract(arr), 2) // '0.00'
+ * ```
  */
 function subtract (arr: Array<string> = [], numOfDecimalPlaces: number): string {
   if (arr.filter(item => !validateNumber(item)).length > 0) {
