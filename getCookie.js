@@ -4,6 +4,11 @@
  * Get value of the cookie item of specified name
  * @param name name of the cookie item
  * @returns {string} value of the cookie item
+ *
+ * @example
+ * ```javascript
+ * getCookie('key')
+ * ```
  */
 function getCookie (name: string): string {
   if (document.cookie.length > 0) {

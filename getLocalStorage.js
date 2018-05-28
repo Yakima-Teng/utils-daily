@@ -3,6 +3,11 @@
  * Get the value of localStorage item of specified key/name
  * @param key the specified key/name of the storage item
  * @returns {object | null} value of localStorage item
+ *
+ * @example
+ * ```javascript
+ * getLocalStorage('localStorageItemName')
+ * ```
  */
 function getLocalStorage (key: string): Object | null {
   if ('localStorage' in window) {

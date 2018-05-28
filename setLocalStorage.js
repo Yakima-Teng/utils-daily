@@ -5,6 +5,11 @@
  * - the value should itself be an object of key:value pairs
  * @param key {string} the key of the storage item
  * @param val {object} the value of the storage item
+ *
+ * @example
+ * ```javascript
+ * setLocalStorage('localStorageItemName', { a: 1, b: '2' })
+ * ```
  */
 function setLocalStorage (key: string, val: Object): void {
   if ('localStorage' in window) {
