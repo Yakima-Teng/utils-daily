@@ -20,6 +20,18 @@
    * - number 0 is regarded as valuable
    * @param val variable
    * @returns {boolean} whether a variable is valuable
+   *
+   * @example
+   *
+   * ```javascript
+   * console.log(hasValue('')) // false
+   * console.log(hasValue(null) // false
+   * console.log(hasValue('null') // false
+   * console.log(hasValue(undefined) // false
+   * console.log(hasValue('undefined') // false
+   * console.log(hasValue(0) // true
+   * console.log(hasValue('none') // true
+   * ```
    */
   function hasValue (val) {
     return val !== '' && val !== null && val !== undefined && val !== 'undefined' && val !== 'null' && val !== 'undefined'
@@ -85,6 +97,13 @@
    * @param arr {Array<number>} an array of numbers
    * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
    * @returns {string} sum of these numbers
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, 2, 3, 4]
+   * console.log(add(arr)) // '10'
+   * console.log(add(arr, 2)) // '10.00'
+   * ```
    */
   function add (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
@@ -133,6 +152,14 @@
    * @param target {Object} the target object
    * @param sources {Array<Object>} the source object(s)
    * @returns {Object} the target Object
+   *
+   * @example
+   * ```javascript
+   * const objA = { a: 1 }
+   * assign({}, objA) // { a: 1 }
+   * // objA will be changed
+   * assign(objA, { b: 2 }) // { a: 1, b: 2 }
+   * ```
    */
   function assign (target) {
     var sources = [], len = arguments.length - 1;
@@ -187,6 +214,11 @@
 
   /**
    * Clear all localStorage items
+   *
+   * @example
+   * ```javascript
+   * clearLocalStorage() // all localStorage items will be removed
+   * ```
    */
   function clearLocalStorage () {
     window.localStorage.clear();
@@ -196,6 +228,11 @@
 
   /**
    * Clear all session storage items
+   *
+   * @example
+   * ```javascript
+   * clearSessionStorage() // all sessionStorage items will be removed
+   * ```
    */
   function clearSessionStorage () {
     window.sessionStorage.clear();
@@ -209,6 +246,14 @@
    * @param test {Function} function used to test array element
    * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
    * @returns {number}
+   *
+   * @example
+   * ```javascript
+   * const arr = ['1', '2', 'c']
+   * const test = /^[0-9]$/.test
+   * console.log(findIndex(arr, test, 0)) // 0
+   * console.log(findIndex(arr, test, 2)) // -1
+   * ```
    */
   function findIndex (arr, test, fromIndex) {
     var startIdx = 0;
@@ -232,6 +277,14 @@
    * @param value {any}
    * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
    * @returns {number}
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, '2', 'c', '2']
+   * console.log(indexOf(arr, '2')) // 1
+   * console.log(indexOf(arr, '2', 3)) // 3
+   * console.log(indexOf(arr, 'c', 3)) // -1
+   * ```
    */
   function indexOf (arr, value, fromIndex) {
     value = JSON.stringify(value);
@@ -247,6 +300,15 @@
    * @param item {any} a given item
    * @param fromIndex
    * @returns {boolean}
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, '2', 'c', { a: '4' }]
+   * console.log(contains(arr, { a: '4' })) // true
+   * console.log(contains(arr, { a: '5' })) // false
+   * console.log(contains(arr, '1')) // false
+   * console.log(contains(arr, '2')) // true
+   * ```
    */
   function contains (arr, item, fromIndex) {
     return indexOf(arr, item, fromIndex) >= 0
@@ -260,6 +322,14 @@
    * @param len {number} target length after filling
    * @param symbol {string} used to fill string/number
    * @returns {string} string after filling
+   *
+   * @example
+   * ```javascript
+   * console.log(fillLeft('a', 2, '$')) // '$a'
+   * console.log(fillLeft('aa', 2, '$')) // 'aa'
+   * console.log(fillLeft('aaa', 2, '$')) // 'aaa'
+   * console.log(fillLeft('aa', 10, '0') // '00000000aa'
+   * ```
    */
   function fillLeft (val, len, symbol) {
     if ( symbol === void 0 ) symbol = '0';
@@ -278,9 +348,15 @@
 
   /**
    * Make a number less than 10 to be prefixed with an '0'
-   * - the same as `fillLeft(m, 2, '0')`
+   * - the same as `fillLeft(val, 2, '0')`
    * @param num {string|number} a number, or number in string format (number should be integer)
    * @returns {string} string after prefixed with '0' is less than 10
+   *
+   * @example
+   * ```javascript
+   * console.log(toDouble('1')) // '01'
+   * console.log(toDouble('11')) // '11'
+   * ```
    */
   function toDouble (num) {
     return fillLeft(num, 2, '0')
@@ -292,6 +368,11 @@
    * Transform a date object to string in format like `YYYY-MM-DD`
    * @param date the date object
    * @returns {string} string in format like `YYYY-MM-DD`
+   *
+   * @example
+   * ```javascript
+   * console.log(dateToShortString(new Date(2018, 1, 2))) // '2018-02-02'
+   * ```
    */
   function dateToShortString (date) {
     if ( date === void 0 ) date = new Date();
@@ -308,6 +389,11 @@
    * Transform a date object to string in format like `YYYY-MM-DD hh:mm:ss`
    * @param date date object
    * @returns {string}  string in format like `YYYY-MM-DD hh:mm:ss`
+   *
+   * @example
+   * ```javascript
+   * console.log(dateToLongString(new Date(2018, 1, 2, 12, 13, 14))) // '2018-02-02 12:13:14'
+   * ```
    */
   function dateToLongString (date) {
     if ( date === void 0 ) date = new Date();
@@ -324,6 +410,22 @@
    * Get the type of a variable
    * @param val {any} the variable
    * @returns {string} 'array', 'object', 'function', 'null', 'undefined', 'string', 'number', 'boolean', 'date', 'regexp' and etc.
+   *
+   * @example
+   *
+   * ```javascript
+   * console.log(getType({}) // 'object'
+   * console.log(getType([]) // 'array'
+   * console.log(getType(() => {})) // 'function'
+   * console.log(getType(null)) // 'null'
+   * console.log(getType(undefined)) // 'undefined'
+   * console.log(getType('')) // 'string'
+   * console.log(getType(123)) // 'number'
+   * console.log(getType(true)) // 'boolean'
+   * console.log(getType(new Date())) // 'date'
+   * console.log(getType(/^[0-9]{3}/)) // 'regexp'
+   * console.log(getType('test')) // 'string'
+   * ```
    */
   function getType (val) {
     return ({}).toString.call(val).slice(8, -1).toLowerCase()
@@ -569,6 +671,24 @@
    * @param object1 {Object} An object containing additional properties to merge in.
    * @param [objectN] {Object} Additional objects containing properties to merge in.
    * @returns {Object} the modified target object
+   *
+   * @example
+   * ```javascript
+   * const objA = {
+   *   a: '1',
+   *   b: ['1', '2', '3'],
+   *   c: { d: 'e' }
+   * }
+   * const objB = {
+   *   a: 'e'
+   * }
+   * extend({}, objA, objB, { a: objB }) // => { a: { a: 'e' }, b: ['1', '2', '3'], c: { d: 'e' } }
+   * console.log(objA.a === objB) // true
+   * const objC = extend(true, {}, { a: objA })
+   * console.log(objC.a === objA) // false
+   * // objA will be changed
+   * extend(objA, { b: null }) // => { a: '1', b: null, c: { d: 'e' } }
+   * ```
    */
   function extend () {
     var arguments$1 = arguments;
@@ -649,6 +769,20 @@
    * - The same as `extend(true, {}, obj)`
    * @param obj {Object} the target object
    * @returns {Object} a new object cloned from target object, but is not the target object
+   *
+   * @example
+   * ```javascript
+   * const objA = {
+   *   a: '1',
+   *   b: ['1', '2', '3'],
+   *   c: { d: 'e' }
+   * }
+   * const objB = {
+   *   a: 'e'
+   * }
+   * const objC = deepClone({}, objA, objB, { a: objB }) // { a: { a: 'e' }, b: ['1', '2', '3'], c: { d: 'e' } }
+   * console.log(objC.a === objB) // false
+   * ```
    */
   function deepClone (obj) {
     return extend(true, {}, obj)
@@ -661,6 +795,11 @@
    * @param arr {Array<number>} an array of numbers
    * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
    * @returns {string} quotient of these numbers (number of decimal places not larger than 10)
+   *
+   * @example
+   * const arr = [3, 1, 2]
+   * console.log(divide([1, 2])) // '0.5'
+   * console.log(divide([1, 2, 3], 2)) // '0.17'
    */
   function divide (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
@@ -707,6 +846,14 @@
    * @param test {Function} function used to test array element
    * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
    * @returns {number}
+   *
+   * @example
+   * ```javascript
+   * const arr = ['1', '2', 'c']
+   * const test = /^[0-9]$/.test
+   * console.log(findLastIndex(arr, test, 0)) // 1
+   * console.log(findLastIndex(arr, test, 2)) // -1
+   * ```
    */
   function findLastIndex (arr, test, fromIndex) {
     var len = arr.length;
@@ -726,6 +873,11 @@
    * Get value of the cookie item of specified name
    * @param name name of the cookie item
    * @returns {string} value of the cookie item
+   *
+   * @example
+   * ```javascript
+   * getCookie('key')
+   * ```
    */
   function getCookie (name) {
     if (document.cookie.length > 0) {
@@ -749,6 +901,14 @@
    * Transform value to integer (invalue value will be transfered to integer 0)
    * @param val {any} any value you want to transfer to integer
    * @returns {number} value in format of integer
+   *
+   * @example
+   * ```javascript
+   * console.log(getInteger('0')) // 0
+   * console.log(getInteger('')) // 0
+   * console.log(getInteger(2)) // 2
+   * console.log(getInteger(0.12)) // 0
+   * ```
    */
   function getInteger (val) {
     try {
@@ -767,6 +927,11 @@
    * Get the value of localStorage item of specified key/name
    * @param key the specified key/name of the storage item
    * @returns {object | null} value of localStorage item
+   *
+   * @example
+   * ```javascript
+   * getLocalStorage('localStorageItemName')
+   * ```
    */
   function getLocalStorage (key) {
     if ('localStorage' in window) {
@@ -783,6 +948,12 @@
    * @param {string} url the url, usually got from window.location.href
    * @param key the parameter
    * @returns {string} the value of specified query parameter
+   *
+   * @example
+   * ```javascript
+   * getQueryValue('http://www.baidu.com?a=1&b=c', 'b') // 'c'
+   * getQueryValue('http://www.baidu.com?a=1&b=c', 'c') // ''
+   * ```
    */
   function getQueryValue (url, key) {
     var search = url.indexOf('?') !== -1 ? url.replace(/^.*\?/, '') : '';
@@ -811,6 +982,12 @@
    * @param [miDiff] {number} difference in minutes, negative value is acceptable; optional, but if defined, `hDiff` and `sDiff` should also be defined
    * @param [sDiff] {number} difference in seconds, negative value is acceptable; optional, but if defined, `hDiff` and `miDiff` should also be defined
    * @returns {string} date string in format of `yyyy-mm-dd` or `yyyy-mm-dd hh:mm:ss`
+   *
+   * @example
+   * ```javascript
+   * console.log(getRelativeDateString(new Date(2018, 1, 2), 0, 2, 0)) // '2018-04-02'
+   * console.log(getRelativeDateString(new Date(2018, 1, 2), 0, -2, 0)) // '2017-12-02'
+   * ```
    */
   function getRelativeDateString (
     dat,
@@ -858,6 +1035,11 @@
    * Get value of sessionStorage item specified the key
    * @param key {string} the name of the sessionStorage item
    * @returns {object | null} value of sessionStorage item
+   *
+   * @example
+   * ```javascript
+   * getSessionStorage('sessionStorageItemName')
+   * ```
    */
   function getSessionStorage (key) {
     return window.sessionStorage.getItem(key) ? JSON.parse(window.decodeURI(window.sessionStorage.getItem(key))) : null
@@ -869,6 +1051,14 @@
    * Transform value to string format
    * @param val {any} any value you want to transfer to string format
    * @returns {string} value in string format
+   *
+   * @example
+   * ```javascript
+   * console.log(getString(1)) // '1'
+   * console.log(getString(0)) // '0'
+   * console.log(getString(null)) // ''
+   * console.log(getString(undefined)) // ''
+   * ```
    */
   function getString (val) {
     return val === 0 ? '0' : (val ? ('' + val) : '')
@@ -881,6 +1071,11 @@
    * @param appId {string} appId for the Wechat account
    * @param targetUrl {string} entire url including the preceding `http` or `https`
    * @returns {string}
+   *
+   * @example
+   * ```javascript
+   * console.log(getWechatRedirectUrl('test', 'http://www.baidu.com?a=b')) // 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=test&redirect_uri=http%3A%2F%2Fwww.baidu.com%3Fa%3Db&response_type=code&scope=snsapi_base&state=1#wechat_redirect'
+   * ```
    */
   function getWechatRedirectUrl (appId, targetUrl) {
     if (/(^http)|(^https)/.test(targetUrl)) {
@@ -895,9 +1090,13 @@
 
   /**
    * Serialize params from object to string
-   * @example serializeParams({ a: 3, b: 4 }) => 'a=3&b=4'
    * @param params an object of key:value pairs
    * @returns {string} serialized params in string format
+   *
+   * @example
+   * ```javascript
+   * serializeParams({ a: 3, b: 4 }) => 'a=3&b=4'
+   * ```
    */
   function serializeParams (params) {
     var str = '';
@@ -913,8 +1112,13 @@
 
   /**
    * Go to specified path with specified query parameters
-   * @param path {string} the target path to go to
+   * @param path {string} the target absolute path to go to
    * @param query {object} the target query parameter in format of object containing key:value pairs
+   *
+   * @example
+   * ```javascript
+   * goPage('http://www.baidu.com', { a: 1, b: 2 })
+   * ```
    */
   function goPage (path, query) {
     window.location.href = path + (query ? ('?' + serializeParams(query)) : '');
@@ -925,6 +1129,11 @@
   /**
    * Judge whether the OS of current device is iOS
    * @returns {boolean} whether the OS of current device is iOS
+   *
+   * @example
+   * ```javascript
+   * console.log(isIOS()) // true or false
+   * ```
    */
   function isIOS () {
     return (/iphone/i).test(window.navigator.userAgent.toLowerCase())
@@ -939,6 +1148,14 @@
    * @param value {any} the array
    * @param [fromIndex] {number} optional, if specified, the search will start at the specified index and from back to front, negative value is also supported
    * @returns {number}
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, '2', 'c', '2']
+   * console.log(lastIndexOf(arr, '2')) // 3
+   * console.log(lastIndexOf(arr, '2', 3)) // 3
+   * console.log(lastIndexOf(arr, '2', 4)) // -1
+   * ```
    */
   function lastIndexOf (arr, value, fromIndex) {
     value = JSON.stringify(value);
@@ -951,6 +1168,11 @@
    * Transform string in format like `YYYY-MM-DD hh:mm:ss` to date object
    * @param dateString string in format like `YYYY-MM-DD hh:mm:ss`
    * @returns {Date} date object
+   *
+   * @example
+   * ```javascript
+   * console.log(longStringToDate('2018-02-01 12:13:14')) // new Date(2018, 1, 1, 12, 13, 14)
+   * ```
    */
   function longStringToDate (dateString) {
     if (dateString && dateString.length === 19) {
@@ -969,6 +1191,13 @@
    * @param  {Array<number>} arr an array of numbers
    * @param  {number} numOfDecimalPlaces number of decimal places to leave; determined automatically if not provided
    * @return {string}  sum of these numbers
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, 2, 3]
+   * console.log(multiply(arr)) // '6'
+   * console.log(multiply(arr, 2)) // '6.00'
+   * ```
    */
   function multiply (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
@@ -1013,6 +1242,12 @@
    * @param min {number} the minimum number (inclusive)
    * @param max {number} the maximum number (inclusive)
    * @returns {number}
+   *
+   * @example
+   * ```javascript
+   * console.log(random(0, 0)) // 0
+   * console.log(random(0, 1)) // 0 or 1
+   * ```
    */
   function random (min, max) {
     if (max == null) {
@@ -1027,6 +1262,11 @@
   /**
    * Remove the localStorage item of specified key/name
    * @param key {string} the key/name of the localStorage item to remove
+   *
+   * @example
+   * ```javascript
+   * removeLocalStorage('localStorageItemName')
+   * ```
    */
   function removeLocalStorage (key) {
     window.localStorage.removeItem(key);
@@ -1037,6 +1277,11 @@
   /**
    * Remove the sessionStorage item of specified key/name
    * @param key {string} the key/name of the sessionStorage item to remove
+   *
+   * @example
+   * ```javascript
+   * removeSessionStorage('sessionStorageItemName')
+   * ```
    */
   function removeSessionStorage (key) {
     window.sessionStorage.removeItem(key);
@@ -1049,6 +1294,12 @@
    * @param name the key/name of the cookie item
    * @param val the value of the cookit item
    * @param expireDays [optional] if set, the cookie item will be outdated after the specified number of days
+   *
+   * @example
+   * ```javascript
+   * setCookie('key', 'value')
+   * setCookie('key', 'value', 5)
+   * ```
    */
   function setCookie (name, val, expireDays) {
     if ( expireDays === void 0 ) expireDays = 0;
@@ -1065,6 +1316,11 @@
    * - the value should itself be an object of key:value pairs
    * @param key {string} the key of the storage item
    * @param val {object} the value of the storage item
+   *
+   * @example
+   * ```javascript
+   * setLocalStorage('localStorageItemName', { a: 1, b: '2' })
+   * ```
    */
   function setLocalStorage (key, val) {
     if ('localStorage' in window) {
@@ -1088,6 +1344,11 @@
    * Set a key:value pair in sessionStorage
    * @param key the key of the sessionStorage item
    * @param val the value of the sessionStorage item, itself should be an object of key:value pairs
+   *
+   * @example
+   * ```javascript
+   * setSessionStorage('sessionStorageItemName', { a: 1, b: '2' })
+   * ```
    */
   function setSessionStorage (key, val) {
     window.sessionStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
@@ -1100,6 +1361,20 @@
    * - The same as `extend({}, obj)`
    * @param obj {Object} the target object
    * @returns {Object} a new object cloned from target object, but is not the target object
+   *
+   * @example
+   * ```javascript
+   * const objA = {
+   *   a: '1',
+   *   b: ['1', '2', '3'],
+   *   c: { d: 'e' }
+   * }
+   * const objB = {
+   *   a: 'e'
+   * }
+   * const objC = shallowClone({}, objA, objB, { a: objB }) // { a: { a: 'e' }, b: ['1', '2', '3'], c: { d: 'e' } }
+   * console.log(objC.a === objB) // true
+   * ```
    */
   function shallowClone (obj) {
     return extend({}, obj)
@@ -1112,6 +1387,11 @@
    * `00:00:00 is used due to hours, minutes and seconds not specified`
    * @param dateString string in format like `YYYY-MM-DD`
    * @returns {Date} date object
+   *
+   * @example
+   * ```javascript
+   * console.log(shortStringToDate('2018-02-01')) // new Date(2018, 1, 1, 0, 0, 0)
+   * ```
    */
   function shortStringToDate (dateString) {
     if (dateString && dateString.length === 10) {
@@ -1127,6 +1407,13 @@
    * @param arr {Array<string>} an array of numbers in string format
    * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
    * @returns {string} difference of these numbers
+   *
+   * @example
+   * ```javascript
+   * const arr [3, 1, 2]
+   * console.log(subtract(arr)) // '0'
+   * console.log(subtract(arr), 2) // '0.00'
+   * ```
    */
   function subtract (arr, numOfDecimalPlaces) {
     if ( arr === void 0 ) arr = [];
@@ -1246,6 +1533,12 @@
    * Transform timestamp to string in format like `YYYY-MM-DD hh:mm:ss`
    * @param ts {number} timestamp
    * @returns {string}
+   *
+   * @example
+   * ```javascript
+   * const dateA = new Date(2018, 0, 1, 12, 13, 14)
+   * console.log(timestampToLongString(+dateA)) // '2018-01-01 12:13:14'
+   * ```
    */
   function timestampToLongString (ts) {
     return dateToLongString(new Date(ts))
@@ -1257,6 +1550,12 @@
    * Transform timestamp to string in format like `YYYY-MM-DD`
    * @param ts timestamp
    * @returns {string}
+   *
+   * @example
+   * ```javascript
+   * const dateA = new Date(2018, 0, 1, 12, 13, 14)
+   * console.log(timestampToShortString(+dateA)) // '2018-01-01'
+   * ```
    */
   function timestampToShortString (ts) {
     return dateToShortString(new Date(ts))
@@ -1270,6 +1569,12 @@
    * - The validation method is copied from http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx
    * @param plateNo the car plate number
    * @returns {boolean} whether the car plate number is valid
+   *
+   * @example
+   * ```javascript
+   * console.log(validatePlateNo('沪ANC116')) // true
+   * console.log(validatePlateNo('呼呼116')) // false
+   * ```
    */
   function validateCarPlate (plateNo) {
     /**
@@ -1309,6 +1614,11 @@
    * - This function is only available for Chinese
    * @param idCardNo {string} ID card number
    * @returns {boolean} whether the ID card number is valid
+   *
+   * @example
+   * ```javascript
+   * console.log(validateIdCardNo('123456789012345678')) // false
+   * ```
    */
   function validateIdCardNo (idCardNo) {
     var ID = '' + idCardNo;
@@ -1379,6 +1689,12 @@
    * - The regular expression is copied from webpage: http://www.cpic.com.cn/market/qcbx/?hit=ShouyeDhCsQcbx
    * @param phone {string} phone number
    * @returns {boolean} whether it's a valid phone number
+   *
+   * @example
+   * ```javascript
+   * console.log(validatePhone('13333333333')) // true
+   * console.log(validatePhone('12333333333')) // false
+   * ```
    */
   function validatePhone (phone) {
     return /^13[0-9]{9}|15[0-9][0-9]{8}|18[0-9][0-9]{8}|147[0-9]{8}|145[0-9]{8}|17[0-9]{9}$/.test(phone)
