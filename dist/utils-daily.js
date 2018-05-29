@@ -845,6 +845,13 @@
    * @param arr {Array<any>} an array
    * @param test {Function} function used to determine whether element in the array should be kept or removed, will be kept if returns true
    * @returns {Array<any>} a new array
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, 2, 3, 4]
+   * const test = item => item % 2 === 0
+   * console.log(filter(arr, test)) // [2, 4]
+   * ```
    */
   function filter (arr, test) {
     if (Array.prototype.filter) {
@@ -1211,8 +1218,15 @@
   /**
    * Alternative method to native Array.prototype.map
    * @param arr {Array<any>} array
-   * @param handler {Function} function used to handler each item in the array
+   * @param handler {Function} function used to handler each element in the array
    * @returns {Array<any>} a new array
+   *
+   * @example
+   * ```javascript
+   * const arr = [1, 2, 3, 4]
+   * const handler = item => item + 1
+   * console.log(map(arr, handler)) // [2, 3, 4, 5]
+   * ```
    */
   function map (arr, handler) {
     if (Array.prototype.map) {
