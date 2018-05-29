@@ -24,6 +24,8 @@
   * [toDouble](./toDouble.md)
   * [getString](./getString.md)
 * Array
+  * [map](./map.md)
+  * [filter](./filter.md)
   * [findIndex](./findIndex.md)
   * [findLastIndex](./findLastIndex.md)
   * [indexOf](./indexOf.md)

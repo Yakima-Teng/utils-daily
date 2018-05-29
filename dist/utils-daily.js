@@ -1,6 +1,6 @@
 
 /**
- * utils-daily v0.0.12
+ * utils-daily v0.0.13
  * (c) 2018 Yakima Teng
  * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
@@ -841,6 +841,28 @@
   // 
 
   /**
+   * Alternative method to native Array.prototype.filter
+   * @param arr {Array<any>} an array
+   * @param test {Function} function used to determine whether element in the array should be kept or removed, will be kept if returns true
+   * @returns {Array<any>} a new array
+   */
+  function filter (arr, test) {
+    if (Array.prototype.filter) {
+      return arr.filter(test)
+    }
+    var tempArr = [];
+    for (var i = 0, len = arr.length; i < len; i++) {
+      var item = arr[i];
+      if (test(item, i)) {
+        tempArr.push(item);
+      }
+    }
+    return tempArr
+  }
+
+  // 
+
+  /**
    * Return the index of the first element pass the test function
    * @param arr {Array<any>} array
    * @param test {Function} function used to test array element
@@ -1182,6 +1204,25 @@
       return new Date(parseInt(tempArr[0], 10), parseInt(tempArr[1], 10) - 1, parseInt(tempArr[2], 10), parseInt(tempArr[3], 10), parseInt(tempArr[4], 10), parseInt(tempArr[5], 10))
     }
     throw new Error('not valid parameter for function longStringToDate')
+  }
+
+  // 
+
+  /**
+   * Alternative method to native Array.prototype.map
+   * @param arr {Array<any>} array
+   * @param handler {Function} function used to handler each item in the array
+   * @returns {Array<any>} a new array
+   */
+  function map (arr, handler) {
+    if (Array.prototype.map) {
+      return arr.map(handler)
+    }
+    var tempArr = [];
+    for (var i = 0, len = arr.length; i < len; i++) {
+      tempArr.push(handler(arr[i], i));
+    }
+    return tempArr
   }
 
   // 
@@ -1715,6 +1756,7 @@
     divide: divide,
     extend: extend,
     fillLeft: fillLeft,
+    filter: filter,
     findIndex: findIndex,
     findLastIndex: findLastIndex,
     getCookie: getCookie,
@@ -1732,6 +1774,7 @@
     isIOS: isIOS,
     lastIndexOf: lastIndexOf,
     longStringToDate: longStringToDate,
+    map: map,
     multiply: multiply,
     random: random,
     removeLocalStorage: removeLocalStorage,

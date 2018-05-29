@@ -12,6 +12,7 @@ import deepClone from './deepClone.js'
 import divide from './divide.js'
 import extend from './extend.js'
 import fillLeft from './fillLeft.js'
+import filter from './filter.js'
 import findIndex from './findIndex.js'
 import findLastIndex from './findLastIndex.js'
 import getCookie from './getCookie.js'
@@ -29,6 +30,7 @@ import indexOf from './indexOf.js'
 import isIOS from './isIOS.js'
 import lastIndexOf from './lastIndexOf.js'
 import longStringToDate from './longStringToDate.js'
+import map from './map.js'
 import multiply from './multiply.js'
 import random from './random.js'
 import removeLocalStorage from './removeLocalStorage.js'
@@ -61,6 +63,7 @@ export default {
   divide,
   extend,
   fillLeft,
+  filter,
   findIndex,
   findLastIndex,
   getCookie,
@@ -78,6 +81,7 @@ export default {
   isIOS,
   lastIndexOf,
   longStringToDate,
+  map,
   multiply,
   random,
   removeLocalStorage,
