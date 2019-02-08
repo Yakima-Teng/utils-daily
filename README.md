@@ -24,14 +24,12 @@
 
 > A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
 
-
 * 🔥 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
 * 🔥 4kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
 * 🔥 All browsers supported
 * 🔥 Use flow to do the type check work
 * 🔥 Use eslint to lint code
 * 🔥 Use jasmine to do unit test
-
 
 ## Usage
 
@@ -64,13 +62,11 @@ import getType from 'utils-daily/getType'
 getType(123) // 'number'
 ```
 
-
 ## Open Source
 
 Source code is hoisted in Github: [Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily).
 
 Pull requests are welcome ^_^.
-
 
 ## License
 
