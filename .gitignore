@@ -65,5 +65,4 @@ typings/
 /config.js
 /docs
 !/docs/book.json
-!/docs/README.md
 !/docs/SUMMARY.md

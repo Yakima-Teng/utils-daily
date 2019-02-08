@@ -8,7 +8,7 @@
   </a>
 </p>
 
-<p align="center"> Light <b>4kb-after-gzipped</b> library including a collection of frontend utility functions used in daily work</p>
+<p align="center"><b>4kb(gzip压缩后)</b>轻量级前端开发常用函数库。</p>
 
 <p align="center">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
@@ -22,18 +22,17 @@
   </a>
 </p>
 
-> A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
+> 一个简单实用的轻量级函数库，用于日常开发。你可以fork该库来实现一套你自己常用的函数库。
 
-* 🔥 Detailed online documentation: [https://yakima-teng.github.io/utils-daily/](https://yakima-teng.github.io/utils-daily/)
-* 🔥 4kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
-* 🔥 All browsers supported
-* 🔥 Use flow to do the type check work
-* 🔥 Use eslint to lint code
-* 🔥 Use jasmine to do unit test
+* 🔥 自动生成的[API文档](https://yakima-teng.github.io/utils-daily/)
+* 🔥 用`rollup`的`tree-shaking`特性来尽可能减少文件体积：gzip压缩后只有4kb
+* 🔥 用`flow`进行类型检查
+* 🔥 用`eslint`进行代码风格检查
+* 🔥 用`jasmine`进行单元测试
 
-## Usage
+## 使用
 
-### Via `script` tag in html
+### 方法1：通过HTML的script标签
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.13/dist/utils-daily.min.js"></script>
@@ -42,32 +41,32 @@
 </script>
 ```
 
-### Via npm
+### 方法2：通过npm
 
-First, install it:
+安装依赖：
 
 ```bash
 npm i -S utils-daily
 ```
 
-Then import it:
+引入：
 
 ```javascript
-// import whole library and use the method you like
+// 引入整个库
 import u from 'utils-daily'
 u.getType(123) // 'number'
 
-// or if you only want to import specified function
+// 或者引入具体的方法
 import { getType } from 'utils-daily'
 getType(123) // 'number'
 ```
 
-## Open Source
+## 开源
 
-Source code is hoisted in Github: [Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily).
+本函数库源码托管于Github：[https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily)。
 
-Pull requests are welcome ^_^.
+大概率你并不需要使用这个库，但是你可以fork该库后在现有架构下开发你自己的常用函数库，如果是这样，你可以阅读[常用开发命令说明](./DEVELOP_GUIDE.md)。
 
-## License
+## 许可协议
 
 [MIT](./LICENSE)
