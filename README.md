@@ -24,7 +24,7 @@
 
 > A simple yet useful frontend utility library for use in daily work. If you find it useful, you can fork it and change the content until it meet the requirements in your daily work.
 
-* 🔥 Detailed online documentation: [utils-daily](http://www.lookmaths.com/)
+* 🔥 Detailed online documentation: [https://yakima-teng.github.io/utils-daily/](https://yakima-teng.github.io/utils-daily/)
 * 🔥 4kb after gzipped (use `rollup.js` with the technology called `tree-shaking`)
 * 🔥 All browsers supported
 * 🔥 Use flow to do the type check work
@@ -53,12 +53,12 @@ npm i -S utils-daily
 Then import it:
 
 ```javascript
-// import while library and use the method you like
+// import whole library and use the method you like
 import u from 'utils-daily'
 u.getType(123) // 'number'
 
 // or if you only want to import specified function
-import getType from 'utils-daily/getType'
+import { getType } from 'utils-daily'
 getType(123) // 'number'
 ```
 

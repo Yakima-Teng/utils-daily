@@ -16,8 +16,8 @@
     "docs:clean": "node build/docs-clean.js",
     "docs:jsdoc2md": "node build/docs-jsdoc2md.js",
     "docs:jsdoc2md:watch": "cross-env WATCH=1 node build/docs-jsdoc2md.js",
-    "docs:dev": "cd docs && gitbook serve",
-    "doc:deploy": "bash build/docs-deploy.sh"
+    "docs:dev": "bash build/docs-dev.sh",
+    "docs:deploy": "bash build/docs-deploy.sh"
   },
   "repository": {
     "type": "git",

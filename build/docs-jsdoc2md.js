@@ -1,9 +1,12 @@
+const fs = require('fs')
 const gulp = require('gulp')
 
 const jsdoc2md = require('./tasks/jsdoc2md')
 const { join, jsdocSrcFiles } = require('./utils')
 
 const { WATCH } = process.env
+
+fs.copyFileSync(join('/README.md'), join('/docs/README.md'))
 
 jsdoc2md()
 
