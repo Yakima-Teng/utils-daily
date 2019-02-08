@@ -1,7 +1,7 @@
 
 /**
  * utils-daily v0.0.13
- * (c) 2018 Yakima Teng
+ * (c) 2019 Yakima Teng
  * Source code: https://github.com/Yakima-Teng/utils-daily
  * @license MIT
  */
@@ -31,373 +31,6 @@
  */
 function hasValue (val) {
   return val !== '' && val !== null && val !== undefined && val !== 'undefined' && val !== 'null' && val !== 'undefined'
-}
-
-// 
-
-/**
- * Transform format of number to normal form instead of scientific notation
- * @param num {string} number in format of scientific notation
- * @returns {string} number in format of normal form
- */
-function cancelScientificNotation (num) {
-  var numOfDecimalPlaces;
-  try {
-    numOfDecimalPlaces = num.split('.')[1].split(/[eE]/)[0].length;
-  } catch (e) {
-    numOfDecimalPlaces = 0;
-  }
-  var isNumNegative = parseFloat(num) < 0;
-  var exponent = Math.log(parseFloat(isNumNegative ? 0 - parseFloat(num) : num)) / Math.log(10);
-  var positiveExponent = Math.ceil(exponent > 0 ? exponent : 0 - exponent);
-  if (parseFloat(num) > 1) {
-    return parseFloat(num).toFixed(numOfDecimalPlaces)
-  } else if (parseFloat(num) < 0) {
-    return '-' + (0 - parseFloat(num)).toFixed(positiveExponent + numOfDecimalPlaces)
-  } else {
-    return parseFloat(num).toFixed(positiveExponent + numOfDecimalPlaces)
-  }
-}
-
-// 
-
-var msgForInvalidNumber = 'Invalid number: scientific notation, and very big/small number are not allowed.';
-
-/**
- * Determine whether the number used in this library is thought as valid
- * @param num {string | number} number used, usually from user input
- * @returns {boolean} whether input number is valid
- */
-function validateNumber (num) {
-  num = '' + num;
-  // scientific notation is not allowed
-  if (/[eE]/.test(num)) {
-    return false
-  }
-  // must contain digit
-  if (!/[0-9]/.test(num)) {
-    return false
-  }
-  // zero direct after decimal point should not be more than or equal to 5
-  if (/\.0{6}/.test(num)) {
-    return false
-  }
-  // length of the number should be less than 17
-  return num.length < 17
-}
-
-// 
-
-/**
- * Calculate sum of members in an Array
- * @param arr {Array<number>} an array of numbers
- * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
- * @returns {string} sum of these numbers
- *
- * @example
- * ```javascript
- * const arr = [1, 2, 3, 4]
- * console.log(add(arr)) // '10'
- * console.log(add(arr, 2)) // '10.00'
- * ```
- */
-function add (arr, numOfDecimalPlaces) {
-  if ( arr === void 0 ) arr = [];
-
-  if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
-    throw new Error(msgForInvalidNumber)
-  }
-  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
-    return floatAdd(preVal, curVal)
-  }, 0);
-  var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
-  if (/e/.test(returnResult)) {
-    return cancelScientificNotation(returnResult)
-  }
-  return returnResult
-}
-
-/**
- * Add two number
- * @ignore
- * @param  {number} a        number a
- * @param  {number} b        number b
- * @return {number}    sum of number a and number b
- */
-function floatAdd (a, b) {
-  var numOfDecimalPlacesInA;
-  var numOfDecimalPlacesInB;
-  try {
-    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
-  } catch (e) {
-    numOfDecimalPlacesInA = 0;
-  }
-  try {
-    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
-  } catch (e) {
-    numOfDecimalPlacesInB = 0;
-  }
-  var m = Math.pow(10, Math.max(numOfDecimalPlacesInA, numOfDecimalPlacesInB));
-  return (a * m + b * m) / m
-}
-
-// 
-
-/**
- * Copy the values of all enumerable own properties from one or more source objects to a target object
- * @param target {Object} the target object
- * @param sources {Array<Object>} the source object(s)
- * @returns {Object} the target Object
- *
- * @example
- * ```javascript
- * const objA = { a: 1 }
- * assign({}, objA) // { a: 1 }
- * // objA will be changed
- * assign(objA, { b: 2 }) // { a: 1, b: 2 }
- * ```
- */
-function assign (target) {
-  var sources = [], len = arguments.length - 1;
-  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
-
-  return (function () {
-    if (typeof Object.assign === 'function') {
-      return Object.assign.apply(Object, [ target ].concat( sources ))
-    } else {
-      return polyfill.apply(void 0, [ target ].concat( sources ))
-    }
-  })()
-}
-
-/**
- * Polyfill for Object.assign, code from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
- * @ignore
- * @param target
- * @param sources
- * @returns {any}
- */
-function polyfill (target) {
-  var sources = [], len = arguments.length - 1;
-  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
-
-  return (function () {
-    // TypeError if undefined or null
-    if (target === null || target === undefined) {
-      throw new TypeError('Cannot convert undefined or null to object')
-    }
-
-    var to = Object(target);
-
-    for (var i = 0, len = sources.length; i < len; i++) {
-      var nextSource = sources[i];
-
-      // Skip over if undefined or null
-      if (nextSource !== null && nextSource !== undefined) {
-        for (var nextKey in nextSource) {
-          // Avoid bugs when hasOwnProperty is shadowed
-          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-            to[nextKey] = nextSource[nextKey];
-          }
-        }
-      }
-    }
-    return to
-  })()
-}
-
-// 
-
-/**
- * Clear all localStorage items
- *
- * @example
- * ```javascript
- * clearLocalStorage() // all localStorage items will be removed
- * ```
- */
-function clearLocalStorage () {
-  window.localStorage.clear();
-}
-
-// 
-
-/**
- * Clear all session storage items
- *
- * @example
- * ```javascript
- * clearSessionStorage() // all sessionStorage items will be removed
- * ```
- */
-function clearSessionStorage () {
-  window.sessionStorage.clear();
-}
-
-// 
-
-/**
- * Return the index of the first element pass the test function
- * @param arr {Array<any>} array
- * @param test {Function} function used to test array element
- * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
- * @returns {number}
- *
- * @example
- * ```javascript
- * const arr = ['1', '2', 'c']
- * const test = /^[0-9]$/.test
- * console.log(findIndex(arr, test, 0)) // 0
- * console.log(findIndex(arr, test, 2)) // -1
- * ```
- */
-function findIndex (arr, test, fromIndex) {
-  var startIdx = 0;
-  var len = arr.length;
-  if (fromIndex !== void 0) {
-    startIdx = fromIndex >= 0 ? fromIndex : (len + fromIndex);
-  }
-  for (; startIdx < len; startIdx++) {
-    if (test(arr[startIdx], startIdx)) { return startIdx }
-  }
-  return -1
-}
-
-// 
-
-/**
- * Return the first index of the matched value, -1 if nothing matches
- * - comparison are done after handling with `JSON.stringify`
- * - if `fromIndex` is negative, it's counted from the end
- * @param arr {Array<any>} the array
- * @param value {any}
- * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
- * @returns {number}
- *
- * @example
- * ```javascript
- * const arr = [1, '2', 'c', '2']
- * console.log(indexOf(arr, '2')) // 1
- * console.log(indexOf(arr, '2', 3)) // 3
- * console.log(indexOf(arr, 'c', 3)) // -1
- * ```
- */
-function indexOf (arr, value, fromIndex) {
-  value = JSON.stringify(value);
-  var testFunc = function (elem) { return JSON.stringify(elem) === value; };
-  return findIndex(arr, testFunc, fromIndex)
-}
-
-// 
-
-/**
- * Determine if the array contains a given item (using `===` after `JSON.stringify`).
- * @param arr {Array<any>} an array
- * @param item {any} a given item
- * @param fromIndex
- * @returns {boolean}
- *
- * @example
- * ```javascript
- * const arr = [1, '2', 'c', { a: '4' }]
- * console.log(contains(arr, { a: '4' })) // true
- * console.log(contains(arr, { a: '5' })) // false
- * console.log(contains(arr, '1')) // false
- * console.log(contains(arr, '2')) // true
- * ```
- */
-function contains (arr, item, fromIndex) {
-  return indexOf(arr, item, fromIndex) >= 0
-}
-
-// 
-
-/**
- * fill a string or number to specified length with specified symbol from left on
- * @param val {string|number}
- * @param len {number} target length after filling
- * @param symbol {string} used to fill string/number
- * @returns {string} string after filling
- *
- * @example
- * ```javascript
- * console.log(fillLeft('a', 2, '$')) // '$a'
- * console.log(fillLeft('aa', 2, '$')) // 'aa'
- * console.log(fillLeft('aaa', 2, '$')) // 'aaa'
- * console.log(fillLeft('aa', 10, '0') // '00000000aa'
- * ```
- */
-function fillLeft (val, len, symbol) {
-  if ( symbol === void 0 ) symbol = '0';
-
-  val = '' + val;
-  var diffInLength = len - val.length;
-  if (diffInLength > 0) {
-    for (var i = 0; i < diffInLength; i++) {
-      val = symbol + val;
-    }
-  }
-  return val
-}
-
-// 
-
-/**
- * Make a number less than 10 to be prefixed with an '0'
- * - the same as `fillLeft(val, 2, '0')`
- * @param num {string|number} a number, or number in string format (number should be integer)
- * @returns {string} string after prefixed with '0' is less than 10
- *
- * @example
- * ```javascript
- * console.log(toDouble('1')) // '01'
- * console.log(toDouble('11')) // '11'
- * ```
- */
-function toDouble (num) {
-  return fillLeft(num, 2, '0')
-}
-
-// 
-
-/**
- * Transform a date object to string in format like `YYYY-MM-DD`
- * @param date the date object
- * @returns {string} string in format like `YYYY-MM-DD`
- *
- * @example
- * ```javascript
- * console.log(dateToShortString(new Date(2018, 1, 2))) // '2018-02-02'
- * ```
- */
-function dateToShortString (date) {
-  if ( date === void 0 ) date = new Date();
-
-  var y = date.getFullYear();
-  var m = date.getMonth() + 1;
-  var d = date.getDate();
-  return (y + "-" + (toDouble(m)) + "-" + (toDouble(d)))
-}
-
-// 
-
-/**
- * Transform a date object to string in format like `YYYY-MM-DD hh:mm:ss`
- * @param date date object
- * @returns {string}  string in format like `YYYY-MM-DD hh:mm:ss`
- *
- * @example
- * ```javascript
- * console.log(dateToLongString(new Date(2018, 1, 2, 12, 13, 14))) // '2018-02-02 12:13:14'
- * ```
- */
-function dateToLongString (date) {
-  if ( date === void 0 ) date = new Date();
-
-  var hour = toDouble(date.getHours());
-  var minute = toDouble(date.getMinutes());
-  var second = toDouble(date.getSeconds());
-  return dateToShortString(date) + " " + hour + ":" + minute + ":" + second
 }
 
 // 
@@ -615,6 +248,72 @@ function debounce (func, wait, options) {
   return debounced
 }
 
+// 
+
+/**
+ * It's `lodash.throttle` function.
+ *
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
+ * result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=true]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * ```javascript
+ * // Avoid excessively updating the position while scrolling.
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+ * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+ * jQuery(element).on('click', throttled);
+ *
+ * // Cancel the trailing throttled invocation.
+ * jQuery(window).on('popstate', throttled.cancel);
+ * ```
+ */
+function throttle (func, wait, options) {
+  if ( options === void 0 ) options = {};
+
+  var leading = true;
+  var trailing = true;
+
+  if (typeof func !== 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT)
+  }
+  if (getType(options) === 'object') {
+    leading = 'leading' in options ? options.leading : leading;
+    trailing = 'trailing' in options ? options.trailing : trailing;
+  }
+  return debounce(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  })
+}
+
 /**
  * In some browsers, typeof returns 'function' for HTML <object> elements
  * (i.e., `typeof document.createElement( 'object' ) === 'function'`).
@@ -761,6 +460,71 @@ function extend () {
 // 
 
 /**
+ * Copy the values of all enumerable own properties from one or more source objects to a target object
+ * @param target {Object} the target object
+ * @param sources {Array<Object>} the source object(s)
+ * @returns {Object} the target Object
+ *
+ * @example
+ * ```javascript
+ * const objA = { a: 1 }
+ * assign({}, objA) // { a: 1 }
+ * // objA will be changed
+ * assign(objA, { b: 2 }) // { a: 1, b: 2 }
+ * ```
+ */
+function assign (target) {
+  var sources = [], len = arguments.length - 1;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
+
+  return (function () {
+    if (typeof Object.assign === 'function') {
+      return Object.assign.apply(Object, [ target ].concat( sources ))
+    } else {
+      return polyfill.apply(void 0, [ target ].concat( sources ))
+    }
+  })()
+}
+
+/**
+ * Polyfill for Object.assign, code from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+ * @ignore
+ * @param target
+ * @param sources
+ * @returns {any}
+ */
+function polyfill (target) {
+  var sources = [], len = arguments.length - 1;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
+
+  return (function () {
+    // TypeError if undefined or null
+    if (target === null || target === undefined) {
+      throw new TypeError('Cannot convert undefined or null to object')
+    }
+
+    var to = Object(target);
+
+    for (var i = 0, len = sources.length; i < len; i++) {
+      var nextSource = sources[i];
+
+      // Skip over if undefined or null
+      if (nextSource !== null && nextSource !== undefined) {
+        for (var nextKey in nextSource) {
+          // Avoid bugs when hasOwnProperty is shadowed
+          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+            to[nextKey] = nextSource[nextKey];
+          }
+        }
+      }
+    }
+    return to
+  })()
+}
+
+// 
+
+/**
  * Clone target object deeply
  * - The same as `extend(true, {}, obj)`
  * @param obj {Object} the target object
@@ -787,212 +551,75 @@ function deepClone (obj) {
 // 
 
 /**
- * Calculate quotient of members in an Array
- * @param arr {Array<number>} an array of numbers
- * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
- * @returns {string} quotient of these numbers (number of decimal places not larger than 10)
+ * Clone target object shallowly
+ * - The same as `extend({}, obj)`
+ * @param obj {Object} the target object
+ * @returns {Object} a new object cloned from target object, but is not the target object
  *
  * @example
- * const arr = [3, 1, 2]
- * console.log(divide([1, 2])) // '0.5'
- * console.log(divide([1, 2, 3], 2)) // '0.17'
+ * ```javascript
+ * const objA = {
+ *   a: '1',
+ *   b: ['1', '2', '3'],
+ *   c: { d: 'e' }
+ * }
+ * const objB = {
+ *   a: 'e'
+ * }
+ * const objC = shallowClone({}, objA, objB, { a: objB }) // { a: { a: 'e' }, b: ['1', '2', '3'], c: { d: 'e' } }
+ * console.log(objC.a === objB) // true
+ * ```
  */
-function divide (arr, numOfDecimalPlaces) {
-  if ( arr === void 0 ) arr = [];
-
-  if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
-    throw new Error(msgForInvalidNumber)
-  }
-  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
-    return floatDivide(preVal, curVal)
-  });
-  var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
-  if (/e/.test(returnResult)) {
-    return cancelScientificNotation(returnResult)
-  }
-  return returnResult
-}
-
-/**
- * Divide number a by number b
- * @ignore
- * @param  {number} a number a
- * @param  {number} b number b
- * @return {number}   quotient of number a divided by number b
- */
-function floatDivide (a, b) {
-  var numOfDecimalPlacesInA = 0;
-  var numOfDecimalPlacesInB = 0;
-  try {
-    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
-  } catch (e) {}
-  try {
-    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
-  } catch (e) {}
-  var newA = Number(a.toString().replace('.', ''));
-  var newB = Number(b.toString().replace('.', ''));
-  return (newA / newB) * Math.pow(10, numOfDecimalPlacesInB - numOfDecimalPlacesInA)
+function shallowClone (obj) {
+  return extend({}, obj)
 }
 
 // 
 
 /**
- * Alternative method to native Array.prototype.filter
- * @param arr {Array<any>} an array
- * @param test {Function} function used to determine whether element in the array should be kept or removed, will be kept if returns true
- * @returns {Array<any>} a new array
+ * fill a string or number to specified length with specified symbol from left on
+ * @param val {string|number}
+ * @param len {number} target length after filling
+ * @param symbol {string} used to fill string/number
+ * @returns {string} string after filling
  *
  * @example
  * ```javascript
- * const arr = [1, 2, 3, 4]
- * const test = item => item % 2 === 0
- * console.log(filter(arr, test)) // [2, 4]
+ * console.log(fillLeft('a', 2, '$')) // '$a'
+ * console.log(fillLeft('aa', 2, '$')) // 'aa'
+ * console.log(fillLeft('aaa', 2, '$')) // 'aaa'
+ * console.log(fillLeft('aa', 10, '0') // '00000000aa'
  * ```
  */
-function filter (arr, test) {
-  if (Array.prototype.filter) {
-    return arr.filter(test)
-  }
-  var tempArr = [];
-  for (var i = 0, len = arr.length; i < len; i++) {
-    var item = arr[i];
-    if (test(item, i)) {
-      tempArr.push(item);
+function fillLeft (val, len, symbol) {
+  if ( symbol === void 0 ) symbol = '0';
+
+  val = '' + val;
+  var diffInLength = len - val.length;
+  if (diffInLength > 0) {
+    for (var i = 0; i < diffInLength; i++) {
+      val = symbol + val;
     }
   }
-  return tempArr
+  return val
 }
 
 // 
 
 /**
- * Return the index of the first element pass the test function
- * @param arr {Array<any>} array
- * @param test {Function} function used to test array element
- * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
- * @returns {number}
+ * Make a number less than 10 to be prefixed with an '0'
+ * - the same as `fillLeft(val, 2, '0')`
+ * @param num {string|number} a number, or number in string format (number should be integer)
+ * @returns {string} string after prefixed with '0' is less than 10
  *
  * @example
  * ```javascript
- * const arr = ['1', '2', 'c']
- * const test = /^[0-9]$/.test
- * console.log(findLastIndex(arr, test, 0)) // 1
- * console.log(findLastIndex(arr, test, 2)) // -1
+ * console.log(toDouble('1')) // '01'
+ * console.log(toDouble('11')) // '11'
  * ```
  */
-function findLastIndex (arr, test, fromIndex) {
-  var len = arr.length;
-  var startIdx = len - 1;
-  if (fromIndex !== void 0) {
-    startIdx = fromIndex >= 0 ? fromIndex : (len + fromIndex);
-  }
-  for (; startIdx >= 0; startIdx--) {
-    if (test(arr[startIdx], startIdx)) { return startIdx }
-  }
-  return -1
-}
-
-// 
-
-/**
- * Get value of the cookie item of specified name
- * @param name name of the cookie item
- * @returns {string} value of the cookie item
- *
- * @example
- * ```javascript
- * getCookie('key')
- * ```
- */
-function getCookie (name) {
-  if (document.cookie.length > 0) {
-    var start = document.cookie.indexOf(name + '=');
-    if (start !== -1) {
-      start = start + name.length + 1;
-      var end = document.cookie.indexOf(';', start);
-      if (end === -1) {
-        end = document.cookie.length;
-      }
-      return window.decodeURI(document.cookie.substring(start, end))
-    }
-    return ''
-  }
-  return ''
-}
-
-// 
-
-/**
- * Transform value to integer (invalue value will be transfered to integer 0)
- * @param val {any} any value you want to transfer to integer
- * @returns {number} value in format of integer
- *
- * @example
- * ```javascript
- * console.log(getInteger('0')) // 0
- * console.log(getInteger('')) // 0
- * console.log(getInteger(2)) // 2
- * console.log(getInteger(0.12)) // 0
- * ```
- */
-function getInteger (val) {
-  try {
-    if (isNaN(val)) {
-      return 0
-    }
-    var result = val ? (parseInt(val)) : 0;
-    return isNaN(result) ? 0 : result
-  } catch (e) {
-    return 0
-  }
-}
-
-// 
-/**
- * Get the value of localStorage item of specified key/name
- * @param key the specified key/name of the storage item
- * @returns {object | null} value of localStorage item
- *
- * @example
- * ```javascript
- * getLocalStorage('localStorageItemName')
- * ```
- */
-function getLocalStorage (key) {
-  if ('localStorage' in window) {
-    return window.localStorage.getItem(key) ? JSON.parse(window.decodeURI(window.localStorage.getItem(key))) : null
-  } else {
-    throw new Error('localStorage is not supported!')
-  }
-}
-
-// 
-
-/**
- * Get value of specified query parameter in specified url
- * @param {string} url the url, usually got from window.location.href
- * @param key the parameter
- * @returns {string} the value of specified query parameter
- *
- * @example
- * ```javascript
- * getQueryValue('http://www.baidu.com?a=1&b=c', 'b') // 'c'
- * getQueryValue('http://www.baidu.com?a=1&b=c', 'c') // ''
- * ```
- */
-function getQueryValue (url, key) {
-  var search = url.indexOf('?') !== -1 ? url.replace(/^.*\?/, '') : '';
-  if (!search) {
-    return ''
-  }
-  var items = search.split('&') || [];
-  for (var i = 0, len = items.length; i < len; i++) {
-    var item = items[i];
-    if (item.split('=')[0] === key) {
-      return item.split('=')[1] || ''
-    }
-  }
-  return ''
+function toDouble (num) {
+  return fillLeft(num, 2, '0')
 }
 
 // 
@@ -1057,135 +684,43 @@ function getRelativeDateString (
 // 
 
 /**
- * Get value of sessionStorage item specified the key
- * @param key {string} the name of the sessionStorage item
- * @returns {object | null} value of sessionStorage item
+ * Transform a date object to string in format like `YYYY-MM-DD`
+ * @param date the date object
+ * @returns {string} string in format like `YYYY-MM-DD`
  *
  * @example
  * ```javascript
- * getSessionStorage('sessionStorageItemName')
+ * console.log(dateToShortString(new Date(2018, 1, 2))) // '2018-02-02'
  * ```
  */
-function getSessionStorage (key) {
-  return window.sessionStorage.getItem(key) ? JSON.parse(window.decodeURI(window.sessionStorage.getItem(key))) : null
+function dateToShortString (date) {
+  if ( date === void 0 ) date = new Date();
+
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  var d = date.getDate();
+  return (y + "-" + (toDouble(m)) + "-" + (toDouble(d)))
 }
 
 // 
 
 /**
- * Transform value to string format
- * @param val {any} any value you want to transfer to string format
- * @returns {string} value in string format
+ * Transform a date object to string in format like `YYYY-MM-DD hh:mm:ss`
+ * @param date date object
+ * @returns {string}  string in format like `YYYY-MM-DD hh:mm:ss`
  *
  * @example
  * ```javascript
- * console.log(getString(1)) // '1'
- * console.log(getString(0)) // '0'
- * console.log(getString(null)) // ''
- * console.log(getString(undefined)) // ''
+ * console.log(dateToLongString(new Date(2018, 1, 2, 12, 13, 14))) // '2018-02-02 12:13:14'
  * ```
  */
-function getString (val) {
-  return val === 0 ? '0' : (val ? ('' + val) : '')
-}
+function dateToLongString (date) {
+  if ( date === void 0 ) date = new Date();
 
-// 
-
-/**
- * Return Wechat redirect Url where Wechat will pass code query parameter to us
- * @param appId {string} appId for the Wechat account
- * @param targetUrl {string} entire url including the preceding `http` or `https`
- * @returns {string}
- *
- * @example
- * ```javascript
- * console.log(getWechatRedirectUrl('test', 'http://www.baidu.com?a=b')) // 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=test&redirect_uri=http%3A%2F%2Fwww.baidu.com%3Fa%3Db&response_type=code&scope=snsapi_base&state=1#wechat_redirect'
- * ```
- */
-function getWechatRedirectUrl (appId, targetUrl) {
-  if (/(^http)|(^https)/.test(targetUrl)) {
-    var encodedUrl = encodeURIComponent(targetUrl);
-    return ("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + encodedUrl + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect")
-  } else {
-    throw new Error('parameter targetUrl for function generateWechatRedirectUrl should be preceding with `http` or `https`')
-  }
-}
-
-// 
-
-/**
- * Serialize params from object to string
- * @param params an object of key:value pairs
- * @returns {string} serialized params in string format
- *
- * @example
- * ```javascript
- * serializeParams({ a: 3, b: 4 }) => 'a=3&b=4'
- * ```
- */
-function serializeParams (params) {
-  var str = '';
-  for (var p in params) {
-    if (params.hasOwnProperty(p)) {
-      str += '&' + p + '=' + params[p];
-    }
-  }
-  return str.replace(/^&/, '')
-}
-
-// 
-
-/**
- * Go to specified path with specified query parameters
- * @param path {string} the target absolute path to go to
- * @param query {object} the target query parameter in format of object containing key:value pairs
- *
- * @example
- * ```javascript
- * goPage('http://www.baidu.com', { a: 1, b: 2 })
- * ```
- */
-function goPage (path, query) {
-  window.location.href = path + (query ? ('?' + serializeParams(query)) : '');
-}
-
-// 
-
-/**
- * Judge whether the OS of current device is iOS
- * @returns {boolean} whether the OS of current device is iOS
- *
- * @example
- * ```javascript
- * console.log(isIOS()) // true or false
- * ```
- */
-function isIOS () {
-  return (/iphone/i).test(window.navigator.userAgent.toLowerCase())
-}
-
-// 
-
-/**
- * Return the last index of the matched value, -1 if nothing matches
- * - comparison are done after handling with `JSON.stringify`
- * @param arr {Array<any>} the array
- * @param value {any} the array
- * @param [fromIndex] {number} optional, if specified, the search will start at the specified index and from back to front, negative value is also supported
- * @returns {number}
- *
- * @example
- * ```javascript
- * const arr = [1, '2', 'c', '2']
- * console.log(lastIndexOf(arr, '2')) // 3
- * console.log(lastIndexOf(arr, '2', 3)) // 3
- * console.log(lastIndexOf(arr, '2', 4)) // -1
- * ```
- */
-function lastIndexOf (arr, value, fromIndex) {
-  value = JSON.stringify(value);
-  var testFunc = function (elem) { return JSON.stringify(elem) === value; };
-  return findLastIndex(arr, testFunc, fromIndex)
+  var hour = toDouble(date.getHours());
+  var minute = toDouble(date.getMinutes());
+  var second = toDouble(date.getSeconds());
+  return dateToShortString(date) + " " + hour + ":" + minute + ":" + second
 }
 
 // 
@@ -1207,6 +742,79 @@ function longStringToDate (dateString) {
     return new Date(parseInt(tempArr[0], 10), parseInt(tempArr[1], 10) - 1, parseInt(tempArr[2], 10), parseInt(tempArr[3], 10), parseInt(tempArr[4], 10), parseInt(tempArr[5], 10))
   }
   throw new Error('not valid parameter for function longStringToDate')
+}
+
+// 
+
+/**
+ * Transform string in format like `YYYY-MM-DD` to date object
+ * `00:00:00 is used due to hours, minutes and seconds not specified`
+ * @param dateString string in format like `YYYY-MM-DD`
+ * @returns {Date} date object
+ *
+ * @example
+ * ```javascript
+ * console.log(shortStringToDate('2018-02-01')) // new Date(2018, 1, 1, 0, 0, 0)
+ * ```
+ */
+function shortStringToDate (dateString) {
+  if (dateString && dateString.length === 10) {
+    return longStringToDate(dateString + ' 00:00:00')
+  }
+  throw new Error('invalid parameter for function shortStringToDate')
+}
+
+// 
+
+/**
+ * Transform timestamp to string in format like `YYYY-MM-DD hh:mm:ss`
+ * @param ts {number} timestamp
+ * @returns {string}
+ *
+ * @example
+ * ```javascript
+ * const dateA = new Date(2018, 0, 1, 12, 13, 14)
+ * console.log(timestampToLongString(+dateA)) // '2018-01-01 12:13:14'
+ * ```
+ */
+function timestampToLongString (ts) {
+  return dateToLongString(new Date(ts))
+}
+
+// 
+
+/**
+ * Transform timestamp to string in format like `YYYY-MM-DD`
+ * @param ts timestamp
+ * @returns {string}
+ *
+ * @example
+ * ```javascript
+ * const dateA = new Date(2018, 0, 1, 12, 13, 14)
+ * console.log(timestampToShortString(+dateA)) // '2018-01-01'
+ * ```
+ */
+function timestampToShortString (ts) {
+  return dateToShortString(new Date(ts))
+}
+
+// 
+
+/**
+ * Transform value to string format
+ * @param val {any} any value you want to transfer to string format
+ * @returns {string} value in string format
+ *
+ * @example
+ * ```javascript
+ * console.log(getString(1)) // '1'
+ * console.log(getString(0)) // '0'
+ * console.log(getString(null)) // ''
+ * console.log(getString(undefined)) // ''
+ * ```
+ */
+function getString (val) {
+  return val === 0 ? '0' : (val ? ('' + val) : '')
 }
 
 // 
@@ -1238,27 +846,238 @@ function map (arr, handler) {
 // 
 
 /**
- * Calculate sum of members in an Array
- * @param  {Array<number>} arr an array of numbers
- * @param  {number} numOfDecimalPlaces number of decimal places to leave; determined automatically if not provided
- * @return {string}  sum of these numbers
+ * Alternative method to native Array.prototype.filter
+ * @param arr {Array<any>} an array
+ * @param test {Function} function used to determine whether element in the array should be kept or removed, will be kept if returns true
+ * @returns {Array<any>} a new array
  *
  * @example
  * ```javascript
- * const arr = [1, 2, 3]
- * console.log(multiply(arr)) // '6'
- * console.log(multiply(arr, 2)) // '6.00'
+ * const arr = [1, 2, 3, 4]
+ * const test = item => item % 2 === 0
+ * console.log(filter(arr, test)) // [2, 4]
  * ```
  */
-function multiply (arr, numOfDecimalPlaces) {
+function filter (arr, test) {
+  if (Array.prototype.filter) {
+    return arr.filter(test)
+  }
+  var tempArr = [];
+  for (var i = 0, len = arr.length; i < len; i++) {
+    var item = arr[i];
+    if (test(item, i)) {
+      tempArr.push(item);
+    }
+  }
+  return tempArr
+}
+
+// 
+
+/**
+ * Return the index of the first element pass the test function
+ * @param arr {Array<any>} array
+ * @param test {Function} function used to test array element
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
+ * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * const arr = ['1', '2', 'c']
+ * const test = /^[0-9]$/.test
+ * console.log(findIndex(arr, test, 0)) // 0
+ * console.log(findIndex(arr, test, 2)) // -1
+ * ```
+ */
+function findIndex (arr, test, fromIndex) {
+  var startIdx = 0;
+  var len = arr.length;
+  if (fromIndex !== void 0) {
+    startIdx = fromIndex >= 0 ? fromIndex : (len + fromIndex);
+  }
+  for (; startIdx < len; startIdx++) {
+    if (test(arr[startIdx], startIdx)) { return startIdx }
+  }
+  return -1
+}
+
+// 
+
+/**
+ * Return the index of the first element pass the test function
+ * @param arr {Array<any>} array
+ * @param test {Function} function used to test array element
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
+ * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * const arr = ['1', '2', 'c']
+ * const test = /^[0-9]$/.test
+ * console.log(findLastIndex(arr, test, 0)) // 1
+ * console.log(findLastIndex(arr, test, 2)) // -1
+ * ```
+ */
+function findLastIndex (arr, test, fromIndex) {
+  var len = arr.length;
+  var startIdx = len - 1;
+  if (fromIndex !== void 0) {
+    startIdx = fromIndex >= 0 ? fromIndex : (len + fromIndex);
+  }
+  for (; startIdx >= 0; startIdx--) {
+    if (test(arr[startIdx], startIdx)) { return startIdx }
+  }
+  return -1
+}
+
+// 
+
+/**
+ * Return the first index of the matched value, -1 if nothing matches
+ * - comparison are done after handling with `JSON.stringify`
+ * - if `fromIndex` is negative, it's counted from the end
+ * @param arr {Array<any>} the array
+ * @param value {any}
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index, negative value is also supported
+ * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, '2', 'c', '2']
+ * console.log(indexOf(arr, '2')) // 1
+ * console.log(indexOf(arr, '2', 3)) // 3
+ * console.log(indexOf(arr, 'c', 3)) // -1
+ * ```
+ */
+function indexOf (arr, value, fromIndex) {
+  value = JSON.stringify(value);
+  var testFunc = function (elem) { return JSON.stringify(elem) === value; };
+  return findIndex(arr, testFunc, fromIndex)
+}
+
+// 
+
+/**
+ * Return the last index of the matched value, -1 if nothing matches
+ * - comparison are done after handling with `JSON.stringify`
+ * @param arr {Array<any>} the array
+ * @param value {any} the array
+ * @param [fromIndex] {number} optional, if specified, the search will start at the specified index and from back to front, negative value is also supported
+ * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, '2', 'c', '2']
+ * console.log(lastIndexOf(arr, '2')) // 3
+ * console.log(lastIndexOf(arr, '2', 3)) // 3
+ * console.log(lastIndexOf(arr, '2', 4)) // -1
+ * ```
+ */
+function lastIndexOf (arr, value, fromIndex) {
+  value = JSON.stringify(value);
+  var testFunc = function (elem) { return JSON.stringify(elem) === value; };
+  return findLastIndex(arr, testFunc, fromIndex)
+}
+
+// 
+
+/**
+ * Determine if the array contains a given item (using `===` after `JSON.stringify`).
+ * @param arr {Array<any>} an array
+ * @param item {any} a given item
+ * @param fromIndex
+ * @returns {boolean}
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, '2', 'c', { a: '4' }]
+ * console.log(contains(arr, { a: '4' })) // true
+ * console.log(contains(arr, { a: '5' })) // false
+ * console.log(contains(arr, '1')) // false
+ * console.log(contains(arr, '2')) // true
+ * ```
+ */
+function contains (arr, item, fromIndex) {
+  return indexOf(arr, item, fromIndex) >= 0
+}
+
+// 
+
+/**
+ * Transform format of number to normal form instead of scientific notation
+ * @param num {string} number in format of scientific notation
+ * @returns {string} number in format of normal form
+ */
+function cancelScientificNotation (num) {
+  var numOfDecimalPlaces;
+  try {
+    numOfDecimalPlaces = num.split('.')[1].split(/[eE]/)[0].length;
+  } catch (e) {
+    numOfDecimalPlaces = 0;
+  }
+  var isNumNegative = parseFloat(num) < 0;
+  var exponent = Math.log(parseFloat(isNumNegative ? 0 - parseFloat(num) : num)) / Math.log(10);
+  var positiveExponent = Math.ceil(exponent > 0 ? exponent : 0 - exponent);
+  if (parseFloat(num) > 1) {
+    return parseFloat(num).toFixed(numOfDecimalPlaces)
+  } else if (parseFloat(num) < 0) {
+    return '-' + (0 - parseFloat(num)).toFixed(positiveExponent + numOfDecimalPlaces)
+  } else {
+    return parseFloat(num).toFixed(positiveExponent + numOfDecimalPlaces)
+  }
+}
+
+// 
+
+var msgForInvalidNumber = 'Invalid number: scientific notation, and very big/small number are not allowed.';
+
+/**
+ * Determine whether the number used in this library is thought as valid
+ * @param num {string | number} number used, usually from user input
+ * @returns {boolean} whether input number is valid
+ */
+function validateNumber (num) {
+  num = '' + num;
+  // scientific notation is not allowed
+  if (/[eE]/.test(num)) {
+    return false
+  }
+  // must contain digit
+  if (!/[0-9]/.test(num)) {
+    return false
+  }
+  // zero direct after decimal point should not be more than or equal to 5
+  if (/\.0{6}/.test(num)) {
+    return false
+  }
+  // length of the number should be less than 17
+  return num.length < 17
+}
+
+// 
+
+/**
+ * Calculate sum of members in an Array
+ * @param arr {Array<number>} an array of numbers
+ * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
+ * @returns {string} sum of these numbers
+ *
+ * @example
+ * ```javascript
+ * const arr = [1, 2, 3, 4]
+ * console.log(add(arr)) // '10'
+ * console.log(add(arr, 2)) // '10.00'
+ * ```
+ */
+function add (arr, numOfDecimalPlaces) {
   if ( arr === void 0 ) arr = [];
 
   if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
     throw new Error(msgForInvalidNumber)
   }
   var result = arr.reduce(function (preVal, curVal, curIdx, array) {
-    return floatMultiply(preVal, curVal)
-  });
+    return floatAdd(preVal, curVal)
+  }, 0);
   var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
   if (/e/.test(returnResult)) {
     return cancelScientificNotation(returnResult)
@@ -1267,188 +1086,27 @@ function multiply (arr, numOfDecimalPlaces) {
 }
 
 /**
- * Multiply two number
+ * Add two number
  * @ignore
- * @param  {number} a number a
- * @param  {number} b number b
- * @return {number}   product of number a and number b
+ * @param  {number} a        number a
+ * @param  {number} b        number b
+ * @return {number}    sum of number a and number b
  */
-function floatMultiply (a, b) {
-  var m = 0;
-  var strA = a.toString();
-  var strB = b.toString();
+function floatAdd (a, b) {
+  var numOfDecimalPlacesInA;
+  var numOfDecimalPlacesInB;
   try {
-    m += strA.split('.')[1].length;
-  } catch (e) {}
+    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
+  } catch (e) {
+    numOfDecimalPlacesInA = 0;
+  }
   try {
-    m += strB.split('.')[1].length;
-  } catch (e) {}
-  return Number(strA.replace('.', '')) * Number(strB.replace('.', '')) / Math.pow(10, m)
-}
-
-// 
-
-/**
- * Return a random integer between min and max (inclusive).
- * @param min {number} the minimum number (inclusive)
- * @param max {number} the maximum number (inclusive)
- * @returns {number}
- *
- * @example
- * ```javascript
- * console.log(random(0, 0)) // 0
- * console.log(random(0, 1)) // 0 or 1
- * ```
- */
-function random (min, max) {
-  if (max == null) {
-    max = min;
-    min = 0;
+    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
+  } catch (e) {
+    numOfDecimalPlacesInB = 0;
   }
-  return min + Math.floor(Math.random() * (max - min + 1))
-}
-
-// 
-
-/**
- * Remove the localStorage item of specified key/name
- * @param key {string} the key/name of the localStorage item to remove
- *
- * @example
- * ```javascript
- * removeLocalStorage('localStorageItemName')
- * ```
- */
-function removeLocalStorage (key) {
-  window.localStorage.removeItem(key);
-}
-
-// 
-
-/**
- * Remove the sessionStorage item of specified key/name
- * @param key {string} the key/name of the sessionStorage item to remove
- *
- * @example
- * ```javascript
- * removeSessionStorage('sessionStorageItemName')
- * ```
- */
-function removeSessionStorage (key) {
-  window.sessionStorage.removeItem(key);
-}
-
-// 
-
-/**
- * Set cookie
- * @param name the key/name of the cookie item
- * @param val the value of the cookit item
- * @param expireDays [optional] if set, the cookie item will be outdated after the specified number of days
- *
- * @example
- * ```javascript
- * setCookie('key', 'value')
- * setCookie('key', 'value', 5)
- * ```
- */
-function setCookie (name, val, expireDays) {
-  if ( expireDays === void 0 ) expireDays = 0;
-
-  var expireDate = new Date();
-  expireDate.setDate(expireDate.getDate() + expireDays);
-  window.document.cookie = name + '=' + window.encodeURI(val) + (expireDays ? ';expires=' + expireDate.toUTCString() : '');
-}
-
-// 
-
-/**
- * Save a key:value pair in localStorage
- * - the value should itself be an object of key:value pairs
- * @param key {string} the key of the storage item
- * @param val {object} the value of the storage item
- *
- * @example
- * ```javascript
- * setLocalStorage('localStorageItemName', { a: 1, b: '2' })
- * ```
- */
-function setLocalStorage (key, val) {
-  if ('localStorage' in window) {
-    try {
-      window.localStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
-    } catch (e) {
-      if (e.name === 'QUOTA_EXCEEDED_ERR' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-        throw new Error('localStorage limit exceeds!')
-      } else {
-        throw e
-      }
-    }
-  } else {
-    throw new Error('localStorage API is not supported!')
-  }
-}
-
-// 
-
-/**
- * Set a key:value pair in sessionStorage
- * @param key the key of the sessionStorage item
- * @param val the value of the sessionStorage item, itself should be an object of key:value pairs
- *
- * @example
- * ```javascript
- * setSessionStorage('sessionStorageItemName', { a: 1, b: '2' })
- * ```
- */
-function setSessionStorage (key, val) {
-  window.sessionStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
-}
-
-// 
-
-/**
- * Clone target object shallowly
- * - The same as `extend({}, obj)`
- * @param obj {Object} the target object
- * @returns {Object} a new object cloned from target object, but is not the target object
- *
- * @example
- * ```javascript
- * const objA = {
- *   a: '1',
- *   b: ['1', '2', '3'],
- *   c: { d: 'e' }
- * }
- * const objB = {
- *   a: 'e'
- * }
- * const objC = shallowClone({}, objA, objB, { a: objB }) // { a: { a: 'e' }, b: ['1', '2', '3'], c: { d: 'e' } }
- * console.log(objC.a === objB) // true
- * ```
- */
-function shallowClone (obj) {
-  return extend({}, obj)
-}
-
-// 
-
-/**
- * Transform string in format like `YYYY-MM-DD` to date object
- * `00:00:00 is used due to hours, minutes and seconds not specified`
- * @param dateString string in format like `YYYY-MM-DD`
- * @returns {Date} date object
- *
- * @example
- * ```javascript
- * console.log(shortStringToDate('2018-02-01')) // new Date(2018, 1, 1, 0, 0, 0)
- * ```
- */
-function shortStringToDate (dateString) {
-  if (dateString && dateString.length === 10) {
-    return longStringToDate(dateString + ' 00:00:00')
-  }
-  throw new Error('invalid parameter for function shortStringToDate')
+  var m = Math.pow(10, Math.max(numOfDecimalPlacesInA, numOfDecimalPlacesInB));
+  return (a * m + b * m) / m
 }
 
 // 
@@ -1515,101 +1173,151 @@ function floatSubtract (a, b) {
 // 
 
 /**
- * It's `lodash.throttle` function.
+ * Calculate sum of members in an Array
+ * @param  {Array<number>} arr an array of numbers
+ * @param  {number} numOfDecimalPlaces number of decimal places to leave; determined automatically if not provided
+ * @return {string}  sum of these numbers
  *
- * Creates a throttled function that only invokes `func` at most once per
- * every `wait` milliseconds. The throttled function comes with a `cancel`
- * method to cancel delayed `func` invocations and a `flush` method to
- * immediately invoke them. Provide `options` to indicate whether `func`
- * should be invoked on the leading and/or trailing edge of the `wait`
- * timeout. The `func` is invoked with the last arguments provided to the
- * throttled function. Subsequent calls to the throttled function return the
- * result of the last `func` invocation.
- *
- * **Note:** If `leading` and `trailing` options are `true`, `func` is
- * invoked on the trailing edge of the timeout only if the throttled function
- * is invoked more than once during the `wait` timeout.
- *
- * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
- * until to the next tick, similar to `setTimeout` with a timeout of `0`.
- *
- * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
- * for details over the differences between `_.throttle` and `_.debounce`.
- *
- * @param {Function} func The function to throttle.
- * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
- * @param {Object} [options={}] The options object.
- * @param {boolean} [options.leading=true]
- *  Specify invoking on the leading edge of the timeout.
- * @param {boolean} [options.trailing=true]
- *  Specify invoking on the trailing edge of the timeout.
- * @returns {Function} Returns the new throttled function.
  * @example
- *
  * ```javascript
- * // Avoid excessively updating the position while scrolling.
- * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
- *
- * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
- * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
- * jQuery(element).on('click', throttled);
- *
- * // Cancel the trailing throttled invocation.
- * jQuery(window).on('popstate', throttled.cancel);
+ * const arr = [1, 2, 3]
+ * console.log(multiply(arr)) // '6'
+ * console.log(multiply(arr, 2)) // '6.00'
  * ```
  */
-function throttle (func, wait, options) {
-  if ( options === void 0 ) options = {};
+function multiply (arr, numOfDecimalPlaces) {
+  if ( arr === void 0 ) arr = [];
 
-  var leading = true;
-  var trailing = true;
+  if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
+    throw new Error(msgForInvalidNumber)
+  }
+  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
+    return floatMultiply(preVal, curVal)
+  });
+  var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
+  if (/e/.test(returnResult)) {
+    return cancelScientificNotation(returnResult)
+  }
+  return returnResult
+}
 
-  if (typeof func !== 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT)
-  }
-  if (getType(options) === 'object') {
-    leading = 'leading' in options ? options.leading : leading;
-    trailing = 'trailing' in options ? options.trailing : trailing;
-  }
-  return debounce(func, wait, {
-    'leading': leading,
-    'maxWait': wait,
-    'trailing': trailing
-  })
+/**
+ * Multiply two number
+ * @ignore
+ * @param  {number} a number a
+ * @param  {number} b number b
+ * @return {number}   product of number a and number b
+ */
+function floatMultiply (a, b) {
+  var m = 0;
+  var strA = a.toString();
+  var strB = b.toString();
+  try {
+    m += strA.split('.')[1].length;
+  } catch (e) {}
+  try {
+    m += strB.split('.')[1].length;
+  } catch (e) {}
+  return Number(strA.replace('.', '')) * Number(strB.replace('.', '')) / Math.pow(10, m)
 }
 
 // 
 
 /**
- * Transform timestamp to string in format like `YYYY-MM-DD hh:mm:ss`
- * @param ts {number} timestamp
- * @returns {string}
+ * Calculate quotient of members in an Array
+ * @param arr {Array<number>} an array of numbers
+ * @param numOfDecimalPlaces {number} number of decimal places to leave; determined automatically if not provided
+ * @returns {string} quotient of these numbers (number of decimal places not larger than 10)
  *
  * @example
- * ```javascript
- * const dateA = new Date(2018, 0, 1, 12, 13, 14)
- * console.log(timestampToLongString(+dateA)) // '2018-01-01 12:13:14'
- * ```
+ * const arr = [3, 1, 2]
+ * console.log(divide([1, 2])) // '0.5'
+ * console.log(divide([1, 2, 3], 2)) // '0.17'
  */
-function timestampToLongString (ts) {
-  return dateToLongString(new Date(ts))
+function divide (arr, numOfDecimalPlaces) {
+  if ( arr === void 0 ) arr = [];
+
+  if (arr.filter(function (item) { return !validateNumber(item); }).length > 0) {
+    throw new Error(msgForInvalidNumber)
+  }
+  var result = arr.reduce(function (preVal, curVal, curIdx, array) {
+    return floatDivide(preVal, curVal)
+  });
+  var returnResult = hasValue(numOfDecimalPlaces) ? result.toFixed(numOfDecimalPlaces) : (/\.[0-9]{10}/.test('' + result) ? result.toFixed(10) : '' + result);
+  if (/e/.test(returnResult)) {
+    return cancelScientificNotation(returnResult)
+  }
+  return returnResult
+}
+
+/**
+ * Divide number a by number b
+ * @ignore
+ * @param  {number} a number a
+ * @param  {number} b number b
+ * @return {number}   quotient of number a divided by number b
+ */
+function floatDivide (a, b) {
+  var numOfDecimalPlacesInA = 0;
+  var numOfDecimalPlacesInB = 0;
+  try {
+    numOfDecimalPlacesInA = a.toString().split('.')[1].length;
+  } catch (e) {}
+  try {
+    numOfDecimalPlacesInB = b.toString().split('.')[1].length;
+  } catch (e) {}
+  var newA = Number(a.toString().replace('.', ''));
+  var newB = Number(b.toString().replace('.', ''));
+  return (newA / newB) * Math.pow(10, numOfDecimalPlacesInB - numOfDecimalPlacesInA)
 }
 
 // 
 
 /**
- * Transform timestamp to string in format like `YYYY-MM-DD`
- * @param ts timestamp
- * @returns {string}
+ * Transform value to integer (invalue value will be transfered to integer 0)
+ * @param val {any} any value you want to transfer to integer
+ * @returns {number} value in format of integer
  *
  * @example
  * ```javascript
- * const dateA = new Date(2018, 0, 1, 12, 13, 14)
- * console.log(timestampToShortString(+dateA)) // '2018-01-01'
+ * console.log(getInteger('0')) // 0
+ * console.log(getInteger('')) // 0
+ * console.log(getInteger(2)) // 2
+ * console.log(getInteger(0.12)) // 0
  * ```
  */
-function timestampToShortString (ts) {
-  return dateToShortString(new Date(ts))
+function getInteger (val) {
+  try {
+    if (isNaN(val)) {
+      return 0
+    }
+    var result = val ? (parseInt(val)) : 0;
+    return isNaN(result) ? 0 : result
+  } catch (e) {
+    return 0
+  }
+}
+
+// 
+
+/**
+ * Return a random integer between min and max (inclusive).
+ * @param min {number} the minimum number (inclusive)
+ * @param max {number} the maximum number (inclusive)
+ * @returns {number}
+ *
+ * @example
+ * ```javascript
+ * console.log(random(0, 0)) // 0
+ * console.log(random(0, 1)) // 0 or 1
+ * ```
+ */
+function random (min, max) {
+  if (max == null) {
+    max = min;
+    min = 0;
+  }
+  return min + Math.floor(Math.random() * (max - min + 1))
 }
 
 // 
@@ -1751,58 +1459,393 @@ function validatePhone (phone) {
   return /^13[0-9]{9}|15[0-9][0-9]{8}|18[0-9][0-9]{8}|147[0-9]{8}|145[0-9]{8}|17[0-9]{9}$/.test(phone)
 }
 
+// 
+
+/**
+ * Serialize params from object to string
+ * @param params an object of key:value pairs
+ * @returns {string} serialized params in string format
+ *
+ * @example
+ * ```javascript
+ * serializeParams({ a: 3, b: 4 }) => 'a=3&b=4'
+ * ```
+ */
+function serializeParams (params) {
+  var str = '';
+  for (var p in params) {
+    if (params.hasOwnProperty(p)) {
+      str += '&' + p + '=' + params[p];
+    }
+  }
+  return str.replace(/^&/, '')
+}
+
+// 
+
+/**
+ * Go to specified path with specified query parameters
+ * @param path {string} the target absolute path to go to
+ * @param query {object} the target query parameter in format of object containing key:value pairs
+ *
+ * @example
+ * ```javascript
+ * goPage('http://www.baidu.com', { a: 1, b: 2 })
+ * ```
+ */
+function goPage (path, query) {
+  window.location.href = path + (query ? ('?' + serializeParams(query)) : '');
+}
+
+// 
+
+/**
+ * Get value of specified query parameter in specified url
+ * @param {string} url the url, usually got from window.location.href
+ * @param key the parameter
+ * @returns {string} the value of specified query parameter
+ *
+ * @example
+ * ```javascript
+ * getQueryValue('http://www.baidu.com?a=1&b=c', 'b') // 'c'
+ * getQueryValue('http://www.baidu.com?a=1&b=c', 'c') // ''
+ * ```
+ */
+function getQueryValue (url, key) {
+  var search = url.indexOf('?') !== -1 ? url.replace(/^.*\?/, '') : '';
+  if (!search) {
+    return ''
+  }
+  var items = search.split('&') || [];
+  for (var i = 0, len = items.length; i < len; i++) {
+    var item = items[i];
+    if (item.split('=')[0] === key) {
+      return item.split('=')[1] || ''
+    }
+  }
+  return ''
+}
+
+// 
+
+/**
+ * Judge whether the OS of current device is iOS
+ * @returns {boolean} whether the OS of current device is iOS
+ *
+ * @example
+ * ```javascript
+ * console.log(isIOS()) // true or false
+ * ```
+ */
+function isIOS () {
+  return (/iphone/i).test(window.navigator.userAgent.toLowerCase())
+}
+
+// 
+
+/**
+ * Clear all localStorage items
+ *
+ * @example
+ * ```javascript
+ * clearLocalStorage() // all localStorage items will be removed
+ * ```
+ */
+function clearLocalStorage () {
+  window.localStorage.clear();
+}
+
+// 
+
+/**
+ * Clear all session storage items
+ *
+ * @example
+ * ```javascript
+ * clearSessionStorage() // all sessionStorage items will be removed
+ * ```
+ */
+function clearSessionStorage () {
+  window.sessionStorage.clear();
+}
+
+// 
+
+/**
+ * Get value of the cookie item of specified name
+ * @param name name of the cookie item
+ * @returns {string} value of the cookie item
+ *
+ * @example
+ * ```javascript
+ * getCookie('key')
+ * ```
+ */
+function getCookie (name) {
+  if (document.cookie.length > 0) {
+    var start = document.cookie.indexOf(name + '=');
+    if (start !== -1) {
+      start = start + name.length + 1;
+      var end = document.cookie.indexOf(';', start);
+      if (end === -1) {
+        end = document.cookie.length;
+      }
+      return window.decodeURI(document.cookie.substring(start, end))
+    }
+    return ''
+  }
+  return ''
+}
+
+// 
+/**
+ * Get the value of localStorage item of specified key/name
+ * @param key the specified key/name of the storage item
+ * @returns {object | null} value of localStorage item
+ *
+ * @example
+ * ```javascript
+ * getLocalStorage('localStorageItemName')
+ * ```
+ */
+function getLocalStorage (key) {
+  if ('localStorage' in window) {
+    return window.localStorage.getItem(key) ? JSON.parse(window.decodeURI(window.localStorage.getItem(key))) : null
+  } else {
+    throw new Error('localStorage is not supported!')
+  }
+}
+
+// 
+
+/**
+ * Get value of sessionStorage item specified the key
+ * @param key {string} the name of the sessionStorage item
+ * @returns {object | null} value of sessionStorage item
+ *
+ * @example
+ * ```javascript
+ * getSessionStorage('sessionStorageItemName')
+ * ```
+ */
+function getSessionStorage (key) {
+  return window.sessionStorage.getItem(key) ? JSON.parse(window.decodeURI(window.sessionStorage.getItem(key))) : null
+}
+
+// 
+
+/**
+ * Set cookie
+ * @param name the key/name of the cookie item
+ * @param val the value of the cookit item
+ * @param expireDays [optional] if set, the cookie item will be outdated after the specified number of days
+ *
+ * @example
+ * ```javascript
+ * setCookie('key', 'value')
+ * setCookie('key', 'value', 5)
+ * ```
+ */
+function setCookie (name, val, expireDays) {
+  if ( expireDays === void 0 ) expireDays = 0;
+
+  var expireDate = new Date();
+  expireDate.setDate(expireDate.getDate() + expireDays);
+  window.document.cookie = name + '=' + window.encodeURI(val) + (expireDays ? ';expires=' + expireDate.toUTCString() : '');
+}
+
+// 
+
+/**
+ * Save a key:value pair in localStorage
+ * - the value should itself be an object of key:value pairs
+ * @param key {string} the key of the storage item
+ * @param val {object} the value of the storage item
+ *
+ * @example
+ * ```javascript
+ * setLocalStorage('localStorageItemName', { a: 1, b: '2' })
+ * ```
+ */
+function setLocalStorage (key, val) {
+  if ('localStorage' in window) {
+    try {
+      window.localStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
+    } catch (e) {
+      if (e.name === 'QUOTA_EXCEEDED_ERR' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+        throw new Error('localStorage limit exceeds!')
+      } else {
+        throw e
+      }
+    }
+  } else {
+    throw new Error('localStorage API is not supported!')
+  }
+}
+
+// 
+
+/**
+ * Set a key:value pair in sessionStorage
+ * @param key the key of the sessionStorage item
+ * @param val the value of the sessionStorage item, itself should be an object of key:value pairs
+ *
+ * @example
+ * ```javascript
+ * setSessionStorage('sessionStorageItemName', { a: 1, b: '2' })
+ * ```
+ */
+function setSessionStorage (key, val) {
+  window.sessionStorage.setItem(key, window.encodeURI(JSON.stringify(val)));
+}
+
+// 
+
+/**
+ * Remove the localStorage item of specified key/name
+ * @param key {string} the key/name of the localStorage item to remove
+ *
+ * @example
+ * ```javascript
+ * removeLocalStorage('localStorageItemName')
+ * ```
+ */
+function removeLocalStorage (key) {
+  window.localStorage.removeItem(key);
+}
+
+// 
+
+/**
+ * Remove the sessionStorage item of specified key/name
+ * @param key {string} the key/name of the sessionStorage item to remove
+ *
+ * @example
+ * ```javascript
+ * removeSessionStorage('sessionStorageItemName')
+ * ```
+ */
+function removeSessionStorage (key) {
+  window.sessionStorage.removeItem(key);
+}
+
+// 
+
+/**
+ * Return Wechat redirect Url where Wechat will pass code query parameter to us
+ * @param appId {string} appId for the Wechat account
+ * @param targetUrl {string} entire url including the preceding `http` or `https`
+ * @returns {string}
+ *
+ * @example
+ * ```javascript
+ * console.log(getWechatRedirectUrl('test', 'http://www.baidu.com?a=b')) // 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=test&redirect_uri=http%3A%2F%2Fwww.baidu.com%3Fa%3Db&response_type=code&scope=snsapi_base&state=1#wechat_redirect'
+ * ```
+ */
+function getWechatRedirectUrl (appId, targetUrl) {
+  if (/(^http)|(^https)/.test(targetUrl)) {
+    var encodedUrl = encodeURIComponent(targetUrl);
+    return ("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + encodedUrl + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect")
+  } else {
+    throw new Error('parameter targetUrl for function generateWechatRedirectUrl should be preceding with `http` or `https`')
+  }
+}
+
 // this file is generated by gulp task ^_^
 
 var index = {
-  add: add,
+  /**
+   * Common
+   */
+  hasValue: hasValue,
+  getType: getType,
+  debounce: debounce,
+  throttle: throttle,
+
+  /**
+   * Object
+   */
+  extend: extend,
   assign: assign,
-  clearLocalStorage: clearLocalStorage,
-  clearSessionStorage: clearSessionStorage,
-  contains: contains,
+  deepClone: deepClone,
+  shallowClone: shallowClone,
+
+  /**
+   * Date
+   */
+  getRelativeDateString: getRelativeDateString,
   dateToLongString: dateToLongString,
   dateToShortString: dateToShortString,
-  debounce: debounce,
-  deepClone: deepClone,
-  divide: divide,
-  extend: extend,
+  longStringToDate: longStringToDate,
+  shortStringToDate: shortStringToDate,
+  timestampToLongString: timestampToLongString,
+  timestampToShortString: timestampToShortString,
+
+  /**
+   * String
+   */
   fillLeft: fillLeft,
+  toDouble: toDouble,
+  getString: getString,
+
+  /**
+   * Array
+   */
+  map: map,
   filter: filter,
   findIndex: findIndex,
   findLastIndex: findLastIndex,
-  getCookie: getCookie,
-  getInteger: getInteger,
-  getLocalStorage: getLocalStorage,
-  getQueryValue: getQueryValue,
-  getRelativeDateString: getRelativeDateString,
-  getSessionStorage: getSessionStorage,
-  getString: getString,
-  getType: getType,
-  getWechatRedirectUrl: getWechatRedirectUrl,
-  goPage: goPage,
-  hasValue: hasValue,
   indexOf: indexOf,
-  isIOS: isIOS,
   lastIndexOf: lastIndexOf,
-  longStringToDate: longStringToDate,
-  map: map,
+  contains: contains,
+
+  /**
+   * Number
+   */
+  add: add,
+  subtract: subtract,
   multiply: multiply,
+  divide: divide,
+  getInteger: getInteger,
   random: random,
-  removeLocalStorage: removeLocalStorage,
-  removeSessionStorage: removeSessionStorage,
+
+  /**
+   * Validate
+   */
+  validateCarPlate: validateCarPlate,
+  validateIdCardNo: validateIdCardNo,
+  validatePhone: validatePhone,
+
+  /**
+   * Url
+   */
+  goPage: goPage,
   serializeParams: serializeParams,
+  getQueryValue: getQueryValue,
+
+  /**
+   * Device
+   */
+  isIOS: isIOS,
+
+  /**
+   * Storage
+   */
+  clearLocalStorage: clearLocalStorage,
+  clearSessionStorage: clearSessionStorage,
+  getCookie: getCookie,
+  getLocalStorage: getLocalStorage,
+  getSessionStorage: getSessionStorage,
   setCookie: setCookie,
   setLocalStorage: setLocalStorage,
   setSessionStorage: setSessionStorage,
-  shallowClone: shallowClone,
-  shortStringToDate: shortStringToDate,
-  subtract: subtract,
-  throttle: throttle,
-  timestampToLongString: timestampToLongString,
-  timestampToShortString: timestampToShortString,
-  toDouble: toDouble,
-  validateCarPlate: validateCarPlate,
-  validateIdCardNo: validateIdCardNo,
-  validatePhone: validatePhone
+  removeLocalStorage: removeLocalStorage,
+  removeSessionStorage: removeSessionStorage,
+
+  /**
+   * Wechat
+   */
+  getWechatRedirectUrl: getWechatRedirectUrl
 }
 
 module.exports = index;
