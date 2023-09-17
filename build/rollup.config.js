@@ -11,11 +11,13 @@ const license = require('rollup-plugin-license')
 const pkg = require('../package.json')
 /* eslint-enable @typescript-eslint/no-var-requires */
 
-const isProd = process.env.NODE_ENV === 'production'
 const { version } = pkg
 
 module.exports = (config) => {
-  const { input, fileName, name } = config
+  const {
+    input, fileName, name, env, format
+  } = config
+  const isProd = env === 'production'
   return {
     input: {
       input,
@@ -39,7 +41,7 @@ module.exports = (config) => {
     },
     output: {
       file: fileName,
-      format: 'umd',
+      format,
       name,
       globals: {
         $utils: '$utils'

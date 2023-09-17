@@ -15,6 +15,8 @@ const fsPromises = fs.promises
 async function build(option) {
   const bundle = await rollup.rollup(option.input)
   await bundle.write(option.output)
+  // eslint-disable-next-line no-console
+  console.log(`成功生成文件：${option.output.file}`)
 }
 
 const pkgName = pkg.name
@@ -24,15 +26,39 @@ const buildLib = async () => {
     // eslint-disable-next-line no-console
     console.log('开始：构建JS SDK')
 
-    /**
-     * 生成utils-daily.min.js和utils-daily.d.ts
-     */
+    // 生成utils-daily.js
+    await build(configFactory({
+      input: './src/index.ts',
+      fileName: `./dist/library/${pkgName}.js`,
+      name: 'u',
+      format: 'umd',
+      env: 'development'
+    }))
+    // 生成utils-daily.min.js
     await build(configFactory({
       input: './src/index.ts',
       fileName: `./dist/library/${pkgName}.min.js`,
-      name: '$utils'
+      name: 'u',
+      format: 'umd',
+      env: 'production'
     }))
-
+    // 生成utils-daily.common.js
+    await build(configFactory({
+      input: './src/index.ts',
+      fileName: `./dist/library/${pkgName}.common.js`,
+      name: 'u',
+      format: 'cjs',
+      env: 'production'
+    }))
+    // 生成utils-daily.esm.js
+    await build(configFactory({
+      input: './src/index.ts',
+      fileName: `./dist/library/${pkgName}.esm.js`,
+      name: 'u',
+      format: 'es',
+      env: 'production'
+    }))
+    // 生成utils-daily.d.ts
     await fsPromises.writeFile(
       path.join(__dirname, `../dist/library/${pkgName}.d.ts`),
       definitionFileContent.replace('{{ version }}', pkg.version)
