@@ -1,6 +1,6 @@
 {
   "name": "utils-daily",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "util functions with statistic ability",
   "types": "dist/library/utils-daily.d.ts",
   "main": "dist/library/utils-daily.common.js",
