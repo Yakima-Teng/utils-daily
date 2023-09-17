@@ -55,7 +55,7 @@ const buildLib = async () => {
       input: './src/index.ts',
       fileName: `./dist/library/${pkgName}.esm.js`,
       name: 'u',
-      format: 'es',
+      format: 'esm',
       env: 'development'
     }))
     // 生成utils-daily.d.ts
