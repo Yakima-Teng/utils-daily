@@ -48,7 +48,7 @@ const buildLib = async () => {
       fileName: `./dist/library/${pkgName}.common.js`,
       name: 'u',
       format: 'cjs',
-      env: 'production'
+      env: 'development'
     }))
     // 生成utils-daily.esm.js
     await build(configFactory({
@@ -56,7 +56,7 @@ const buildLib = async () => {
       fileName: `./dist/library/${pkgName}.esm.js`,
       name: 'u',
       format: 'es',
-      env: 'production'
+      env: 'development'
     }))
     // 生成utils-daily.d.ts
     await fsPromises.writeFile(
