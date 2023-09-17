@@ -68,3 +68,10 @@ getType(123) // 'number'
 ## 许可协议
 
 MIT LICENSE
+
+## 发版常用命令
+
+```bash
+npm --registry=https://registry.npmjs.org login
+npm --registry=https://registry.npmjs.org publish
+```

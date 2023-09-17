@@ -14,10 +14,10 @@ then
   # commit
   git add -A
   git commit -m "[build] $VERSION"
-  npm version $VERSION --message "[release] $VERSION"
+  npm --registry=https://registry.npmjs.org version $VERSION --message "[release] $VERSION"
 
   # publish
   git push origin refs/tags/v$VERSION
   git push
-  npm publish
+  npm --registry=https://registry.npmjs.org publish
 fi
