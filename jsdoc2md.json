@@ -1,7 +1,0 @@
-{
-  "plugins": ["node_modules/jsdoc-babel"],
-  "babel": {
-    "presets": ["env", "stage-2", "flow"],
-    "plugins": ["transform-flow-strip-types"]
-  }
-}
