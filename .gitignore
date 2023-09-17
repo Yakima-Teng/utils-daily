@@ -18,3 +18,4 @@ coverage
 demo.js
 /docs
 /dist
+/build/deploy.js
