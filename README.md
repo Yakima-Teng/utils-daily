@@ -10,7 +10,7 @@
 
 <p align="center">前端开发<b>常用函数库</b>。</p>
 
-<p style="display: flex;align-items: center;justify-content: center;">
+<p align="center" style="display: flex;align-items: center;justify-content: center;">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
     <img src="https://img.shields.io/npm/dm/utils-daily.svg" alt="Downloads">
   </a>
