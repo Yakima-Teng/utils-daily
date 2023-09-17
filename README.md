@@ -1,4 +1,4 @@
-# utils-daily.js
+# utils-daily
 
 <br />
 
@@ -35,6 +35,7 @@
 ### 方法1：通过HTML的script标签
 
 ```html
+<!-- 0.0.14是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
 <script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.14/dist/utils-daily.min.js"></script>
 <script>
   console.log(u.getType('')) // 'string'
