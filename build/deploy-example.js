@@ -59,7 +59,7 @@ const putDirectory = async (fromDirectory, toDirectory) => {
 
 const execCommand = async (command) => {
   await ssh.execCommand(command, {
-    cwd: subProjectRoot,
+    cwd: projectRoot,
     onStdout(chunk) {
       // eslint-disable-next-line no-console
       console.log('onStdout')

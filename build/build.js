@@ -6,7 +6,6 @@ const { generateDocs } = require('./generate-docs')
 const { buildDocs } = require('./build-docs')
 const { buildLib } = require('./build-lib')
 const { copyHomepage } = require('./copy-homepage')
-const { moveDist } = require('./moveDist')
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 // eslint-disable-next-line no-void
@@ -17,7 +16,6 @@ void (async () => {
   await generateDocs()
   await buildDocs()
   await buildLib()
-  await moveDist()
   const endTime = dayjs()
   const duration = endTime.diff(startTime, 'seconds')
   // eslint-disable-next-line no-console
