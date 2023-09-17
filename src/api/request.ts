@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, ResponseType } from 'axios'
 import isFunction from '@/common/isFunction'
 import isString from '@/common/isString'
-import getLocalStorage from '@/storage/getLocalStorage'
 
 /**
  * @apiAnalyze
@@ -58,17 +57,6 @@ const request = async <T = unknown>(payload: $utils.IPayloadRequest): Promise<$u
         return result
       }
     }
-  }
-
-  let token = localStorage.getItem('token')
-  if (!token) {
-    const user = getLocalStorage('user')
-    if (user && user.token) {
-      token = <string>user.token
-    }
-  }
-  if (token) {
-    headers.authorization = token
   }
 
   // @ts-ignore
