@@ -66,10 +66,6 @@ getType(123) // 'number'
 
 本函数库源码托管于Github：[https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily)。
 
-## 许可协议
-
-MIT LICENSE
-
 ## 发版常用命令
 
 发版直接执行`npm run release`即可。如果提示没登录的话，执行下面的命令登录即可。
@@ -77,3 +73,7 @@ MIT LICENSE
 ```bash
 npm --registry=https://registry.npmjs.org login
 ```
+
+## 许可协议
+
+MIT LICENSE
