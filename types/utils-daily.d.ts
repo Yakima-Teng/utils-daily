@@ -34,7 +34,7 @@ declare namespace $utils {
     request?: any
   }
 
-  function request<T = unknown>(payload: IPayloadRequest): Promise<IAxiosResponse<T>>
+  export function request<T = unknown>(payload: IPayloadRequest): Promise<IAxiosResponse<T>>
 
   type TRequest = typeof request
 
@@ -50,101 +50,156 @@ declare namespace $utils {
     wait?: number,
     options?: IDebounceOptions
   ) => (...args: any[]) => any
+  export function debounce(
+    func: (...args: any[]) => any,
+    wait?: number,
+    options?: IDebounceOptions
+  ): (...args: any[]) => any
 
   type TType = 'object' | 'array' | 'function' | 'null' | 'undefined' | 'number' | 'boolean' | 'date' | 'regexp' | 'string'
-  type TGetType = (val: any) => TType
+  export function getType (val: any): TType
+  type TGetType = typeof getType
 
-  type THasValue = (val: any) => boolean
+  export function hasValue(val: any): boolean
+  type THasValue = typeof hasValue
 
-  type TIsArray = (val: unknown) => val is any[]
+  export function isArray (val: unknown): val is any[]
+  type TIsArray = typeof isArray
 
-  type TIsBoolean = (val: unknown) => val is boolean
+  export function isBoolean (val: unknown): val is boolean
+  type TIsBoolean = typeof isBoolean
 
-  type TIsDate = (val: unknown) => val is Date
+  export function isDate (val: unknown): val is Date
+  type TIsDate = typeof isDate
 
-  type TIsFunction = (val: unknown) => val is (...args: any[]) => any
+  export function isFunction (val: unknown): val is (...args: any[]) => any
+  type TIsFunction = typeof isFunction
 
-  type TIsNull = (val: unknown) => val is null
+  export function isNull(val: unknown): val is null
+  type TIsNull = typeof isNull
 
-  type TIsNumber = (val: unknown) => val is number
+  export function isNumber (val: unknown): val is number
+  type TIsNumber = typeof isNumber
 
-  type TIsObject = (val: unknown) => val is object
+  export function isObject(val: unknown): val is object
+  type TIsObject = typeof isObject
 
-  type TIsRegExp = (val: unknown) => val is RegExp
+  export function isRegExp (val: unknown): val is RegExp
+  type TIsRegExp = typeof isRegExp
 
-  type TIsString = (val: unknown) => val is string
+  export function isString(val: unknown): val is string
+  type TIsString = typeof isString
 
-  type TIsUndefined = (val: unknown) => val is undefined
+  export function isUndefined (val: unknown): val is undefined
+  type TIsUndefined = typeof isUndefined
 
   type TThrottle = (
     func: (...args: any[]) => any,
     wait: number,
     options?: { leading?: boolean; trailing?: boolean }
   ) => (...args: any[]) => any
+  export function throttle(
+    func: (...args: any[]) => any,
+    wait: number,
+    options?: { leading?: boolean; trailing?: boolean }
+  ): (...args: any[]) => any
 
-  type TDateToLongString = (date: Date) => string
+  export function dateToLongString(date: Date): string
+  type TDateToLongString = typeof dateToLongString
 
-  type TDateToShortString = (date: Date) => string
+  export function dateToShortString(date: Date): string
+  type TDateToShortString = typeof dateToShortString
 
-  type TGetRelativeDateString = (dat: Date, yDiff: number, mDiff: number, dDiff: number, hDiff?: number, miDiff?: number, sDiff?: number) => string
+  // eslint-disable-next-line max-len
+  export function getRelativeDateString(dat: Date, yDiff: number, mDiff: number, dDiff: number, hDiff?: number, miDiff?: number, sDiff?: number): string
+  type TGetRelativeDateString = typeof getRelativeDateString
 
-  type TLongStringToDate = (dateString: string) => Date
+  export function TLongStringToDate (dateString: string): Date
+  type TLongStringToDate = typeof TLongStringToDate
 
-  type TShortStringToDate = (dateString: string) => Date
+  export function shortStringToDate (dateString: string): Date
+  type TShortStringToDate = typeof shortStringToDate
 
-  type TTimestampToLongString = (ts: number) => string
+  export function timestampToLongString (ts: number): string
+  type TTimestampToLongString = typeof timestampToLongString
 
-  type TTimestampToShortString = (ts: number) => string
+  export function timestampToShortString (ts: number): string
+  type TTimestampToShortString = typeof timestampToShortString
 
-  type TIsIOS = () => boolean
+  export function isIOS (): boolean
+  type TIsIOS = typeof isIOS
 
-  type TAdd = (arr: number[], numOfDecimalPlaces?: number) => string
+  export function add (arr: number[], numOfDecimalPlaces?: number): string
+  type TAdd = typeof add
 
-  type TDivide = (arr: number[], numOfDecimalPlaces?: number) => string
+  export function divide (arr: number[], numOfDecimalPlaces?: number): string
+  type TDivide = typeof divide
 
-  type TGetInteger = (val: string | number) => number
+  export function getInteger (val: string | number): number
+  type TGetInteger = typeof getInteger
 
-  type TMultiply = (arr: number[], numOfDecimalPlaces?: number) => string
+  export function multiply (arr: number[], numOfDecimalPlaces?: number): string
+  type TMultiply = typeof multiply
 
-  type TRandom = (min: number, max: number) => number
+  export function random (min: number, max: number): number
+  type TRandom = typeof random
 
-  type TSubtract = (rawArr: Array<string | number>, numOfDecimalPlaces?: number) => string
+  export function subtract (rawArr: Array<string | number>, numOfDecimalPlaces?: number): string
+  type TSubtract = typeof subtract
 
-  type TCloneDeep = (obj: any) => any
+  export function cloneDeep (obj: any): any
+  type TCloneDeep = typeof cloneDeep
 
-  type TIsEmpty = (val: unknown) => boolean
+  export function isEmpty (val: unknown): boolean
+  type TIsEmpty = typeof isEmpty
 
-  type TMerge = (target: Record<string, unknown>, ...arg: Record<string, unknown>[]) => Record<string, unknown>
+  export function merge (target: Record<string, unknown>, ...arg: Record<string, unknown>[]): Record<string, unknown>
+  type TMerge = typeof merge
 
-  type TClearLocalStorage = () => void
+  export function clearLocalStorage (): void
+  type TClearLocalStorage = typeof clearLocalStorage
 
-  type TClearSessionStorage = () => void
+  export function clearSessionStorage () : void
+  type TClearSessionStorage = typeof clearSessionStorage
 
-  type TGetCookie = (name: string) => string
+  export function getCookie (name: string) : string
+  type TGetCookie = typeof getCookie
 
-  type TGetLocalStorage = (key: string) => Record<string, unknown> | null
+  export function getLocalStorage (key: string) : Record<string, unknown> | null
+  type TGetLocalStorage = typeof getLocalStorage
 
-  type TGetSessionStorage = (key: string) => Record<string, string> | null
+  export function getSessionStorage (key: string) : Record<string, string> | null
+  type TGetSessionStorage = typeof getSessionStorage
 
-  type TRemoveLocalStorage = (key: string) => void
+  export function removeLocalStorage (key: string) : void
+  type TRemoveLocalStorage = typeof removeLocalStorage
 
-  type TRemoveSessionStorage = (key: string) => void
+  export function removeSessionStorage (key: string) : void
+  type TRemoveSessionStorage = typeof removeSessionStorage
 
-  type TSetCookie = (name: string, val: string, expireDays?: number) => void
+  export function setCookie (name: string, val: string, expireDays?: number) : void
+  type TSetCookie = typeof setCookie
 
-  type TSetLocalStorage = (key: string, val: Record<string, unknown>) => void
+  export function setLocalStorage (key: string, val: Record<string, unknown>) : void
+  type TSetLocalStorage = typeof setLocalStorage
 
-  type TSetSessionStorage = (key: string, val: Record<string, unknown>) => void
+  export function setSessionStorage (key: string, val: Record<string, unknown>) : void
+  type TSetSessionStorage = typeof setSessionStorage
 
-  type TUpdateLocalStorage = (key: string, val: Record<string, unknown>) => void
+  export function updateLocalStorage (key: string, val: Record<string, unknown>) : void
+  type TUpdateLocalStorage = typeof updateLocalStorage
 
-  type TUpdateSessionStorage = (key: string, val: Record<string, unknown>) => void
+  export function updateSessionStorage (key: string, val: Record<string, unknown>): void
+  type TUpdateSessionStorage = typeof updateSessionStorage
 
-  type TFillLeft = (val: string | number, len: number, symbol: string) => string
+  export function fillLeft (val: string | number, len: number, symbol: string): string
+  type TFillLeft = typeof fillLeft
 
-  type TGetString = (val: unknown) => string
+  export function getString (val: unknown): string
+  type TGetString = typeof getString
 
-  type TToDouble = (num: string | number) => string
+  export function toDouble (num: string | number): string
+  type TToDouble = typeof toDouble
 
   interface IParamsAttachParamsToUrl {
     url: string
@@ -152,23 +207,34 @@ declare namespace $utils {
     // 指定是加到location.search中，还是location.hash中
     position: TUrlParamPosition
   }
-  type TAttachParamsToUrl = (payload: IParamsAttachParamsToUrl) => string
+  export function attachParamsToUrl (payload: IParamsAttachParamsToUrl): string
+  type TAttachParamsToUrl = typeof attachParamsToUrl
 
   type TGetParamFromUrlPart = (partName: 'search' | 'hash', keyName: string) => string
-  type TGetParamFromUrlHash = (name: string) => string
-  type TGetParamFromUrlQuery = (name: string) => string
 
-  type TGoPage = (path: string, query?: Record<string, string | number>) => void
+  export function getParamFromUrlHash (name: string): string
+  type TGetParamFromUrlHash = typeof getParamFromUrlHash
 
-  type TParseSearchString = (url: string) => Record<string, string>
+  export function getParamFromUrlQuery (name: string): string
+  type TGetParamFromUrlQuery = typeof getParamFromUrlQuery
 
-  type TSerializeParams = (params: Record<string, string | number>) => string
+  export function goPage (path: string, query?: Record<string, string | number>): void
+  type TGoPage = typeof goPage
 
-  type TValidateCarPlate = (plateNo: string) => boolean
+  export function parseSearchString (url: string): Record<string, string>
+  type TParseSearchString = typeof parseSearchString
 
-  type TValidateIdCardNo = (idCardNo: string) => boolean
+  export function serializeParams (params: Record<string, string | number>): string
+  type TSerializeParams = typeof serializeParams
 
-  type TValidatePhone = (phone: string) => boolean
+  export function validateCarPlate (plateNo: string): boolean
+  type TValidateCarPlate = typeof validateCarPlate
+
+  export function TValidateIdCardNo (idCardNo: string): boolean
+  type TValidateIdCardNo = typeof TValidateIdCardNo
+
+  export function validatePhone (phone: string): boolean
+  type TValidatePhone = typeof validatePhone
 
   interface IStore {
     projectId: string
