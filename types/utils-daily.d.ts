@@ -218,7 +218,20 @@ declare namespace $utils {
   export function getParamFromUrlQuery (name: string): string
   type TGetParamFromUrlQuery = typeof getParamFromUrlQuery
 
-  export function goPage (path: string, query?: Record<string, string | number>): void
+  interface TPayloadGoPage {
+    // 跳转路径
+    url: string
+    // url query查询参数
+    query?: Record<string, string | number>
+    // url hash中的参数
+    hash?: Record<string, string | number>
+    // 配置项
+    config?: {
+      // 是否替换当前访问历史，默认false（不替换）
+      replace?: boolean
+    }
+  }
+  export function goPage (payload: TPayloadGoPage): void
   type TGoPage = typeof goPage
 
   export function parseSearchString (url: string): Record<string, string>
