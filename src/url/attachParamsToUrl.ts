@@ -39,9 +39,9 @@ const attachParamsToUrl: $utils.TAttachParamsToUrl = (payload) => {
     })
     str = str.replace(/&$/, '')
     if (urlInstance.hash === '') {
-      urlInstance.hash = `#/?${str}`
+      urlInstance.hash = str ? `#/?${str}` : ''
     } else if (urlInstance.hash.includes('?')) {
-      urlInstance.hash = `${urlInstance.hash}&${str}`
+      urlInstance.hash = str ? `${urlInstance.hash}&${str}` : urlInstance.hash
       // 对整个#/?后面的部分转对象，处理下避免出现重复的key（以后出现的为准）
       const searchStringInHash = urlInstance.hash.split('?')[1]
       const strBeforeQuestionMark = urlInstance.hash.split('?')[0]
@@ -57,7 +57,7 @@ const attachParamsToUrl: $utils.TAttachParamsToUrl = (payload) => {
       })
       urlInstance.hash = `${strBeforeQuestionMark}?${searchString}`.replace(/&$/, '')
     } else {
-      urlInstance.hash = `${urlInstance.hash}?${str}`
+      urlInstance.hash = str ? `${urlInstance.hash}?${str}` : urlInstance.hash
     }
   }
   return urlInstance.href

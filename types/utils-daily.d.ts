@@ -231,7 +231,7 @@ declare namespace $utils {
       replace?: boolean
     }
   }
-  export function goPage (payload: TPayloadGoPage): void
+  export function goPage (payload: TPayloadGoPage): string
   type TGoPage = typeof goPage
 
   export function parseSearchString (url: string): Record<string, string>

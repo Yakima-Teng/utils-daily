@@ -52,6 +52,8 @@ const goPage: $utils.TGoPage = (payload) => {
   } else {
     window.location.href = newUrl
   }
+
+  return newUrl
 }
 
 export default goPage
