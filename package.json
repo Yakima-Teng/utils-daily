@@ -1,6 +1,6 @@
 {
   "name": "utils-daily",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "util functions with typescript support",
   "types": "dist/library/utils-daily.d.ts",
   "main": "dist/library/utils-daily.common.js",
