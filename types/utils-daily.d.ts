@@ -249,16 +249,33 @@ declare namespace $utils {
   export function validatePhone (phone: string): boolean
   type TValidatePhone = typeof validatePhone
 
+  type TLogLevel = 'log' | 'warn' | 'error'
+  function getLogColorByLevel (level: TLogLevel): string
+  type TGetLogColorByLevel = typeof getLogColorByLevel
+
+  function doLog (level: TLogLevel, ...args: any[]): void
+  type TDoLog = typeof doLog
+
+  export function printLog (...args: any[]): void
+  type TPrintLog = typeof printLog
+
+  export function printWarn (...args: any[]): void
+  type TPrintWarn = typeof printWarn
+
+  export function printError (...args: any[]): void
+  type TPrintError = typeof printError
+
+  export function printLog (...args: any[]): void
+  type TPrintLog = typeof printLog
+
+  export function logTime (label: string): void
+  type TLogTime = typeof logTime
+
+  export function logTimeEnd (label: string): void
+  type TLogTimeEnd = typeof logTimeEnd
+
   interface IStore {
-    projectId: string
-    pv: boolean
-    uv: boolean
-    bv: boolean
-    log: boolean
-    jsError: boolean
-    blackList: Array<string | RegExp>
-    whiteList: Array<string | RegExp>
-    queuedLogs: IParamsAddLog[]
+    timeLogMap: Map<string, number>
   }
 
   type TUpdateStore = (config: Partial<IStore>) => IStore
@@ -360,6 +377,15 @@ declare namespace $utils {
      * api
      */
     request: $utils.TRequest
+
+    /**
+     * 日志打印
+     */
+    printLog: $utils.TPrintLog
+    printWarn: $utils.TPrintWarn
+    printError: $utils.TPrintError
+    logTime: $utils.TLogTime
+    logTimeEnd: $utils.TLogTimeEnd
   }
 }
 

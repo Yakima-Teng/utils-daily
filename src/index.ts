@@ -93,6 +93,15 @@ import updateSessionStorage from '@/storage/updateSessionStorage'
  */
 import request from '@/api/request'
 
+/**
+ * 打印日志
+ */
+import printLog from '@/log/printLog'
+import printWarn from '@/log/printWarn'
+import printError from '@/log/printError'
+import logTime from '@/log/logTime'
+import logTimeEnd from '@/log/logTimeEnd'
+
 const returnObj: $utils.IUtils = {
   /**
    * Common
@@ -187,7 +196,16 @@ const returnObj: $utils.IUtils = {
   /**
    * api
    */
-  request
+  request,
+
+  /**
+   * 日志打印
+   */
+  printLog,
+  printWarn,
+  printError,
+  logTime,
+  logTimeEnd
 }
 
 export default returnObj
