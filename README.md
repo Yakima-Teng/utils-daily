@@ -10,7 +10,7 @@
 
 <p align="center">前端开发<b>常用函数库</b>。</p>
 
-<p align="center" style="display: flex;align-items: center;justify-content: center;">
+<p align="center" style="display: flex;align-items: center;justify-content: center;gap:8px;">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
     <img src="https://img.shields.io/npm/dm/utils-daily.svg" alt="Downloads">
   </a>
@@ -24,19 +24,22 @@
 
 > 一个简单实用的常用函数库，用于日常开发。
 
-* 🔥 自动生成的[API文档](https://yakima-teng.github.io/utils-daily/)
 * 🔥 用`rollup`的`tree-shaking`特性来尽可能减少文件体积。
 * 🔥 用`typescript`进行类型检查
 * 🔥 用`eslint`进行代码风格检查
 * 🔥 用`jest`进行单元测试
+
+## 文档
+
+该库配有详细的接口文档，具体见：[接口文档](https://yakima-teng.github.io/utils-daily/)。
 
 ## 使用
 
 ### 方法1：通过HTML的script标签
 
 ```html
-<!-- 0.0.14是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
-<script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.14/dist/utils-daily.min.js"></script>
+<!-- 0.0.24是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
+<script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.24/dist/library/utils-daily.min.js"></script>
 <script>
   console.log(u.getType('')) // 'string'
 </script>
@@ -65,14 +68,6 @@ getType(123) // 'number'
 ## 开源
 
 本函数库源码托管于Github：[https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily)。
-
-## 发版常用命令
-
-发版直接执行`npm run release`即可。如果提示没登录的话，执行下面的命令登录即可。
-
-```bash
-npm --registry=https://registry.npmjs.org login
-```
 
 ## 许可协议
 
