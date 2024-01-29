@@ -10,7 +10,12 @@ const configFactory = require('./rollup.config')
 const definitionFilePath = path.join(__dirname, '../src/all.d.ts')
 const definitionFileContent = fs.readFileSync(definitionFilePath, 'utf8')
 
+const readmeFilePath = path.join(__dirname, '../README.md')
+const readmeFileContent = fs.readFileSync(readmeFilePath, 'utf8')
+
 const fsPromises = fs.promises
+
+const version = process.env.VERSION || pkg.version
 
 async function build(option) {
   const bundle = await rollup.rollup(option.input)
@@ -61,7 +66,13 @@ const buildLib = async () => {
     // 生成utils-daily.d.ts
     await fsPromises.writeFile(
       path.join(__dirname, `../dist/library/${pkgName}.d.ts`),
-      definitionFileContent.replace('{{ version }}', pkg.version)
+      definitionFileContent.replace('{{ version }}', version)
+    )
+
+    // 更新README.md中的版本号
+    await fsPromises.writeFile(
+      readmeFilePath,
+      readmeFileContent.replace(/1\.0\.0/mg, version)
     )
 
     // eslint-disable-next-line no-console

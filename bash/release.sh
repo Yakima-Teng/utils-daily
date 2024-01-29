@@ -13,7 +13,9 @@ then
 
   # commit
   git add -A
-  git commit -m "[build] $VERSION"
+  echo "Enter commit comment: "
+  read COMMENT
+  git commit -m "[build] $VERSION: $COMMENT"
   npm --registry=https://registry.npmjs.org version $VERSION --message "[release] $VERSION"
 
   # publish
