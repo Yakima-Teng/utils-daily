@@ -13,12 +13,13 @@
     "dev": "cross-env BABEL_ENV=build NODE_ENV=development node build/dev.js",
     "prebuild": "npm run lint",
     "build": "cross-env BABEL_ENV=build NODE_ENV=production node build/build.js",
-    "buildAndDeploy": "npm run build && npm run deploy:server && npm run deploy:gh-pages",
+    "buildAndDeploy": "npm run build && npm run deploy:gh-pages",
     "test": "cross-env BABEL_ENV=test jest",
     "lint": "npm run test && eslint src/**/* test/**/* build/**/*",
     "lint:fix": "npm run test && eslint --fix src/**/* test/**/* build/**/*",
     "deploy:server": "node build/deploy.js",
     "deploy:gh-pages": "bash bash/gh-pages-deploy.sh",
+    "deploy": "npm run deploy:gh-pages",
     "release": "bash bash/release.sh"
   },
   "pre-commit": [
