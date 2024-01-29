@@ -7,7 +7,7 @@ const pkg = require('../package.json')
 const configFactory = require('./rollup.config')
 /* eslint-enable @typescript-eslint/no-var-requires */
 
-const definitionFilePath = path.join(__dirname, '../types/utils-daily.d.ts')
+const definitionFilePath = path.join(__dirname, '../src/all.d.ts')
 const definitionFileContent = fs.readFileSync(definitionFilePath, 'utf8')
 
 const fsPromises = fs.promises

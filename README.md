@@ -38,10 +38,10 @@
 ### 方法1：通过HTML的script标签
 
 ```html
-<!-- 0.0.24是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
-<script src="https://cdn.jsdelivr.net/npm/utils-daily@0.0.24/dist/library/utils-daily.min.js"></script>
+<!-- 1.0.0是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
+<script src="https://cdn.jsdelivr.net/npm/utils-daily@1.0.0/dist/library/utils-daily.min.js"></script>
 <script>
-  console.log(u.getType('')) // 'string'
+  console.log(u.add([1, 2, 3, 4])) // '10'
 </script>
 ```
 
@@ -56,13 +56,9 @@ npm i -S utils-daily
 引入：
 
 ```javascript
-// 引入整个库
-import u from 'utils-daily'
-u.getType(123) // 'number'
-
-// 或者引入具体的方法
-import { getType } from 'utils-daily'
-getType(123) // 'number'
+// 按需引入具体的方法
+import { add } from 'utils-daily'
+add([1, 2, 3, 4]) // '10'
 ```
 
 ## 开源

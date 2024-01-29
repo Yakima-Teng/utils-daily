@@ -102,7 +102,7 @@ import printError from '@/log/printError'
 import logTime from '@/log/logTime'
 import logTimeEnd from '@/log/logTimeEnd'
 
-const returnObj: $utils.IUtils = {
+export {
   /**
    * Common
    */
@@ -207,5 +207,3 @@ const returnObj: $utils.IUtils = {
   logTime,
   logTimeEnd
 }
-
-export default returnObj
