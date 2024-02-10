@@ -15,17 +15,17 @@ export default defineConfig({
     [
       'script',
       {},
-      `console.log('%c 你可以在控制台直接使用window.u变量进行尝试 😃', 'background: #222; color: #EE6A55');`
+      `console.log('%c You can try to use window.u (e.g. u.add([1, 2, 3, 4])) in the console 😃', 'background: #222; color: #EE6A55');`
     ],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    outlineTitle: '本页目录',
+    outlineTitle: 'Table of Content',
     outline: [2, 6],
     nav: [
-      { text: '首页', link: 'https://www.verysystems.com' },
-      { text: '发布历史', link: '/changelog' },
-      { text: '贡献代码', link: '/contributing' },
+      { text: 'Home', link: '/' },
+      { text: 'Change Log', link: '/changelog' },
+      { text: 'Contribute', link: '/contributing' },
     ],
 
     sidebar: [],

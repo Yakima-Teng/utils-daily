@@ -22,3 +22,8 @@
 ## 1.0.2
 
 - Add English version of README.md
+
+## 1.0.3
+
+- Add favicon.ico
+- Add more English text

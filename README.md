@@ -22,7 +22,7 @@
   </a>
 </p>
 
-> Utils functions for daily frontend work.
+> Utils functions for daily frontend coding.
 
 * 🔥 Size is minimized by `tree-shaking` ability from `rollup`
 * 🔥 Support `TypeScript`

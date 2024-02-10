@@ -1,7 +1,7 @@
 {
   "name": "utils-daily",
   "version": "1.0.2",
-  "description": "util functions with typescript support",
+  "description": "utils functions for daily frontend coding",
   "types": "dist/library/utils-daily.d.ts",
   "main": "dist/library/utils-daily.common.js",
   "module": "dist/library/utils-daily.esm.js",

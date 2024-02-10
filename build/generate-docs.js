@@ -125,12 +125,12 @@ const generateDocs = () => {
         throw new Error(`${fileName}缺少'@since'注解，请补充`)
       }
       tempArr.push('')
-      tempArr.push(`> 该方法在${mapApiMatches.since}及以上版本中可用`)
+      tempArr.push(`> Available since version (可用版本) ${mapApiMatches.since}`)
       tempArr.push('')
 
       tempArr.push('')
       // eslint-disable-next-line max-len
-      tempArr.push(`> 源码：[src${relativePathAndName}](https://github.com/Yakima-Teng/utils-daily/blob/master/src${relativePathAndName})`)
+      tempArr.push(`> [Source code (源码)](https://github.com/Yakima-Teng/utils-daily/blob/master/src${relativePathAndName})`)
       tempArr.push('')
 
       tempArr.push('')
@@ -139,7 +139,7 @@ const generateDocs = () => {
 
       // 高亮的说明文案
       if (mapApiMatches.note) {
-        tempArr.push('::: tip 说明')
+        tempArr.push('::: tip Note (说明)')
         tempArr.push(mapApiMatches.note)
         tempArr.push(':::')
       }
@@ -150,10 +150,10 @@ const generateDocs = () => {
         }
         if (mapApiMatches.param.length > 0) {
           tempArr.push('')
-          tempArr.push('## 入参')
+          tempArr.push('## Params (入参)')
           tempArr.push('')
 
-          tempArr.push('|字段|类型|可选|说明|')
+          tempArr.push('|Field (字段)|Type (类型)|Optional (可选)|Note (说明)|')
           tempArr.push('|----|----|----|----|')
           mapApiMatches.param.forEach((str) => {
             try {
@@ -174,10 +174,10 @@ const generateDocs = () => {
 
       if (mapApiMatches.return) {
         tempArr.push('')
-        tempArr.push('## 返回')
+        tempArr.push('## Return (返回)')
         tempArr.push('')
 
-        tempArr.push('|类型|说明|')
+        tempArr.push('|Type (类型)|Note (说明)|')
         tempArr.push('|----|----|')
         const str = mapApiMatches.return
         const fieldNameWrapper = str.match(/[{[][a-zA-Z\s?:,|<>$.]+[}\]]/)?.[0]
@@ -188,7 +188,7 @@ const generateDocs = () => {
 
       if (mapApiMatches.example) {
         tempArr.push('')
-        tempArr.push('## 举例')
+        tempArr.push('## Examples (举例)')
         tempArr.push('')
 
         tempArr.push(mapApiMatches.example)
@@ -196,7 +196,7 @@ const generateDocs = () => {
 
       if (fse.pathExistsSync(pathTestFile)) {
         tempArr.push('')
-        tempArr.push('## 测试用例')
+        tempArr.push('## Test cases (测试用例)')
         tempArr.push('')
 
         tempArr.push('```typescript')
@@ -207,12 +207,10 @@ const generateDocs = () => {
 
       tempArr.push('')
 
-      // 对所有二级标题，依次添加中文序号：一、二、三、四、五等
-      const arrOrderText = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
       let orderIdx = 0
       tempArr.forEach((arrItem, arrItemIdx) => {
         if (/^##\s/.test(arrItem)) {
-          tempArr[arrItemIdx] = arrItem.replace(/^##\s/, `## ${arrOrderText[orderIdx]}、`)
+          tempArr[arrItemIdx] = arrItem.replace(/^##\s/, `## ${orderIdx + 1}. `)
           orderIdx += 1
         }
       })
