@@ -9,7 +9,7 @@ export default defineConfig({
     [
       'script',
       {
-        src: `/utils-daily/library/utils-daily.min.js@latest`
+        src: `/utils-daily/library/utils-daily.min.js?t=${Date.now()}`
       }
     ],
     [

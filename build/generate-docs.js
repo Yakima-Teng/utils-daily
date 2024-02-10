@@ -5,7 +5,10 @@ const glob = require('glob')
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const generateDocs = () => {
-  const sourceFiles = glob.sync(path.join(__dirname, '../src/**/*.ts'))
+  const sourceFiles = glob.sync(
+    path.join(__dirname, '../src/**/*.ts')
+      .replace(/\\/g, '/')
+  ).map((targetPath) => targetPath.replace(/\\/g, '/'))
 
   const configFiles = (() => {
     const arr = []
@@ -59,7 +62,7 @@ const generateDocs = () => {
   const sidebar = []
 
   const pathRoot = path.join(__dirname, '../')
-  const pathSrc = path.join(pathRoot, 'src')
+  const pathSrc = path.join(pathRoot, 'src').replace(/\\/g, '/')
   const pathDocs = path.join(pathRoot, 'docs')
   const pathRawVitePressConfig = path.join(pathRoot, '.doc.config.ts')
   const pathVitePressConfig = path.join(pathDocs, '.vitepress/config.ts')
