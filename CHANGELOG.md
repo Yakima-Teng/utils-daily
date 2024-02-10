@@ -18,3 +18,7 @@
 ## 1.0.1
 
 - 修复编译产物中的版本号与实际版本号差一个版本号的bug。
+
+## 1.0.2
+
+- Add English version of README.md

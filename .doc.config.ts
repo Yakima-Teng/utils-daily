@@ -31,7 +31,7 @@ export default defineConfig({
     sidebar: [],
 
     socialLinks: [
-      { icon: 'github', link: `https://github.com/Yakima-Teng/utils-daily/-/tree/packages/utils` }
+      { icon: 'github', link: 'https://github.com/Yakima-Teng/utils-daily' }
     ]
   }
 })

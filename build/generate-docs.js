@@ -225,7 +225,11 @@ const generateDocs = () => {
   // 将README.md拷贝到docs目录下
   fse.copySync(path.join(pathRoot, 'README.md'), path.join(pathDocs, 'index.md'))
   const readMeContent = fse.readFileSync(path.join(pathDocs, 'index.md'), 'utf8')
-  fse.outputFileSync(path.join(pathDocs, 'index.md'), readMeContent)
+  fse.outputFileSync(path.join(pathDocs, 'index.md'), readMeContent.replace('./README_zh-CN.md', './index_zh-cn.md'))
+
+  fse.copySync(path.join(pathRoot, 'README_zh-CN.md'), path.join(pathDocs, 'index_zh-cn.md'))
+  const readMeContentCN = fse.readFileSync(path.join(pathDocs, 'index_zh-cn.md'), 'utf8')
+  fse.outputFileSync(path.join(pathDocs, 'index_zh-cn.md'), readMeContentCN.replace('./README.md', './index.md'))
 
   // 将CHANGELOG.md拷贝到docs目录下，并更名为changelog.md
   fse.copySync(path.join(pathRoot, 'CHANGELOG.md'), path.join(pathDocs, 'changelog.md'))

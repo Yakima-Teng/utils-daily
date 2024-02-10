@@ -1,6 +1,6 @@
 # utils-daily
 
-[中文文档](./README_zh-CN.md)
+[English document](./README.md)
 
 <br />
 
@@ -22,49 +22,49 @@
   </a>
 </p>
 
-> Utils functions for daily frontend work.
+> 一个简单实用的常用函数库，用于前端日常开发。
 
-* 🔥 Size is minimized by `tree-shaking` ability from `rollup`
-* 🔥 Support `TypeScript`
-* 🔥 Code style is kept by `eslint`
-* 🔥 Code quality is kept by unit test (`jest`)
+* 🔥 用`rollup`的`tree-shaking`特性来尽可能减少文件体积。
+* 🔥 支持`TypeScript`
+* 🔥 用`eslint`进行代码风格检查
+* 🔥 用`jest`进行单元测试
 
-## Document
+## 文档
 
-We have a detailed online [api document](https://yakima-teng.github.io/utils-daily/).
+该库配有详细的接口文档，具体见：[接口文档](https://yakima-teng.github.io/utils-daily/)。
 
-## Usage
+## 使用
 
-### Usage 1: use HTML Script tag
+### 方法1：通过HTML的script标签
 
 ```html
-<!-- 1.0.1 is version number of our sdk, change it to your preference -->
+<!-- 1.0.1是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
 <script src="https://cdn.jsdelivr.net/npm/utils-daily@1.0.1/dist/library/utils-daily.min.js"></script>
 <script>
   console.log(u.add([1, 2, 3, 4])) // '10'
 </script>
 ```
 
-### Usage 2: use npm
+### 方法2：通过npm
 
-Install:
+安装依赖：
 
 ```bash
 npm i -S utils-daily
 ```
 
-Use:
+引入：
 
 ```javascript
-// directly import functions you need
+// 按需引入具体的方法
 import { add } from 'utils-daily'
 add([1, 2, 3, 4]) // '10'
 ```
 
-## Open source
+## 开源
 
-This project is open sourced, and you can see code in Github: [https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily)。
+本函数库源码托管于Github：[https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily)。
 
-## License
+## 许可协议
 
-MIT LICENSE
+MIT
