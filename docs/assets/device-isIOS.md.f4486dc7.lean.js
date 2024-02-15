@@ -1,0 +1,1 @@
+import{_ as e,o as a,c as t,Q as s}from"./chunks/framework.5018bd8e.js";const b=JSON.parse('{"title":"isIOS","description":"","frontmatter":{},"headers":[],"relativePath":"device-isIOS.md","filePath":"device-isIOS.md"}'),o={name:"device-isIOS.md"},r=s("",8),l=[r];function i(n,c,p,d,h,_){return a(),t("div",null,l)}const m=e(o,[["render",i]]);export{b as __pageData,m as default};
