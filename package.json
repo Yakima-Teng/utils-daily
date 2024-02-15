@@ -1,6 +1,6 @@
 {
   "name": "utils-daily",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "utils functions for daily frontend coding",
   "types": "dist/library/utils-daily.d.ts",
   "main": "dist/library/utils-daily.common.js",
