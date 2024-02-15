@@ -38,8 +38,7 @@ We have a detailed online [api document](https://yakima-teng.github.io/utils-dai
 ### Usage 1: use HTML Script tag
 
 ```html
-<!-- 1.0.1 is version number of our sdk, change it to your preference -->
-<script src="https://cdn.jsdelivr.net/npm/utils-daily@1.0.1/dist/library/utils-daily.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/utils-daily@1.0.5/dist/library/utils-daily.min.js"></script>
 <script>
   console.log(u.add([1, 2, 3, 4])) // '10'
 </script>

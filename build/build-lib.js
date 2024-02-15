@@ -72,7 +72,7 @@ const buildLib = async () => {
     // 更新README.md中的版本号
     await fsPromises.writeFile(
       readmeFilePath,
-      readmeFileContent.replace(/1\.0\.0/mg, version)
+      readmeFileContent.replace(/(utils-daily@)[^/]+(\/)/m, `$1${version}$2`)
     )
 
     // eslint-disable-next-line no-console

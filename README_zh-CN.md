@@ -38,8 +38,7 @@
 ### 方法1：通过HTML的script标签
 
 ```html
-<!-- 1.0.1是版本号，需要换成你自己需要的版本，一般换成最新版本 -->
-<script src="https://cdn.jsdelivr.net/npm/utils-daily@1.0.1/dist/library/utils-daily.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/utils-daily@1.0.5/dist/library/utils-daily.min.js"></script>
 <script>
   console.log(u.add([1, 2, 3, 4])) // '10'
 </script>

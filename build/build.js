@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const fs = require('fs')
 const fse = require('fs-extra')
 const dayjs = require('dayjs')
 const { generateDocs } = require('./generate-docs')
@@ -12,6 +13,20 @@ const { copyHomepage } = require('./copy-homepage')
 void (async () => {
   const startTime = dayjs()
   fse.removeSync(path.join(__dirname, '../dist'))
+
+  // 更新README.md中的版本号
+  const versionNumber = process.env.VERSION
+  function updateVersionNumber(fileName) {
+    const pathFile = path.join(__dirname, `../${fileName}`)
+    const content = fs.readFileSync(pathFile, { encoding: 'utf-8' })
+    const newContent = content.replace(/(utils-daily@)[^/]+(\/)/m, `$1${versionNumber}$2`)
+    fs.writeFileSync(pathFile, newContent, { encoding: 'utf-8' })
+  }
+  if (versionNumber) {
+    updateVersionNumber('README.md')
+    updateVersionNumber('README_zh-CN.md')
+  }
+
   await copyHomepage()
   await generateDocs()
   await buildDocs()
