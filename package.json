@@ -41,6 +41,14 @@
   "author": "yakima",
   "license": "MIT",
   "private": false,
+  "files": [
+    "dist/library",
+    "README.md",
+    "README_zh-CN.md",
+    "LICENSE",
+    "package.json",
+    "package-lock.json"
+  ],
   "devDependencies": {
     "@babel/cli": "7.22.9",
     "@babel/core": "7.22.9",
