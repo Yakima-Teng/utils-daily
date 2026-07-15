@@ -1,11 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const fs = require('fs')
-const rollup = require('rollup')
+import path from 'path'
+import fs from 'fs'
+import { createRequire } from 'module'
+import rollup from 'rollup'
+import { getDirname } from 'nsuite'
+import configFactory from './rollup.config'
+
+const require = createRequire(import.meta.url)
 // eslint-disable-next-line import/extensions
 const pkg = require('../package.json')
-const configFactory = require('./rollup.config')
-/* eslint-enable @typescript-eslint/no-var-requires */
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
 
 const definitionFilePath = path.join(__dirname, '../src/all.d.ts')
 const definitionFileContent = fs.readFileSync(definitionFilePath, 'utf8')
@@ -82,6 +87,4 @@ const buildLib = async () => {
   }
 }
 
-module.exports = {
-  buildLib
-}
+export { buildLib }

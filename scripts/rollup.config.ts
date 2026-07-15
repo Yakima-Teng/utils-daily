@@ -1,19 +1,20 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const resolve = require('@rollup/plugin-node-resolve')
-const terser = require('@rollup/plugin-terser')
-const json = require('@rollup/plugin-json')
-const { babel } = require('@rollup/plugin-babel')
-const typescript = require('@rollup/plugin-typescript')
-const commonjs = require('@rollup/plugin-commonjs')
-const bundleSize = require('rollup-plugin-bundle-size')
-const license = require('rollup-plugin-license')
+import resolve from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
+import json from '@rollup/plugin-json'
+import { babel } from '@rollup/plugin-babel'
+import typescript from '@rollup/plugin-typescript'
+import commonjs from '@rollup/plugin-commonjs'
+import bundleSize from 'rollup-plugin-bundle-size'
+import license from 'rollup-plugin-license'
+import { createRequire } from 'module'
+
+const require = createRequire(import.meta.url)
 // eslint-disable-next-line import/extensions
 const pkg = require('../package.json')
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const version = process.env.VERSION || pkg.version
 
-module.exports = (config) => {
+export default (config) => {
   const {
     input, fileName, name, env, format
   } = config

@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const fse = require('fs-extra')
-const glob = require('glob')
-/* eslint-enable @typescript-eslint/no-var-requires */
+import path from 'path'
+import fse from 'fs-extra'
+import glob from 'glob'
+import { getDirname } from 'nsuite'
 
-const generateDocs = () => {
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
+
+export const generateDocs = () => {
   const sourceFiles = glob.sync(
     path.join(__dirname, '../src/**/*.ts')
       .replace(/\\/g, '/')
@@ -241,8 +243,4 @@ const generateDocs = () => {
 
   // eslint-disable-next-line no-console
   console.log('结束：解析代码，生成markdown文档')
-}
-
-module.exports = {
-  generateDocs
 }

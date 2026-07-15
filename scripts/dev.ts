@@ -1,13 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const fse = require('fs-extra')
-const gulp = require('gulp')
-const browserSync = require('browser-sync').create()
-const { generateDocs } = require('./generate-docs')
-const { buildDocs } = require('./build-docs')
-const { buildLib } = require('./build-lib')
-const { copyHomepage } = require('./copy-homepage')
-/* eslint-enable @typescript-eslint/no-var-requires */
+import path from 'path'
+import fse from 'fs-extra'
+import gulp from 'gulp'
+import { getDirname } from 'nsuite'
+import { create as createBrowserSync } from 'browser-sync'
+import { generateDocs } from './generate-docs'
+import { buildDocs } from './build-docs'
+import { buildLib } from './build-lib'
+import { copyHomepage } from './copy-homepage'
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
+const browserSync = createBrowserSync()
 
 // eslint-disable-next-line no-void
 void (async () => {

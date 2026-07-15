@@ -1,11 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const gulp = require('gulp')
-const path = require('path')
-const ejs = require('gulp-ejs')
-const dayjs = require('dayjs')
+import path from 'path'
+import { createRequire } from 'module'
+import gulp from 'gulp'
+import ejs from 'gulp-ejs'
+import dayjs from 'dayjs'
+import { getDirname } from 'nsuite'
+
+const require = createRequire(import.meta.url)
 // eslint-disable-next-line import/extensions
 const pkg = require('../package.json')
-/* eslint-enable @typescript-eslint/no-var-requires */
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
 
 const { version } = pkg
 
@@ -42,6 +47,4 @@ const copyHomepage = () => new Promise((resolve) => {
     })
 })
 
-module.exports = {
-  copyHomepage
-}
+export { copyHomepage }

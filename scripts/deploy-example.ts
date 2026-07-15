@@ -1,8 +1,14 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const { NodeSSH } = require('node-ssh')
+import path from 'path'
+import { createRequire } from 'module'
+import { NodeSSH } from 'node-ssh'
+import { getDirname } from 'nsuite'
+
+const require = createRequire(import.meta.url)
 // eslint-disable-next-line import/extensions
 const pkg = require('../package.json')
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
 
 const config = {
   sshConfig: {
@@ -17,7 +23,6 @@ const config = {
 const { sshConfig, projectRoot } = config
 
 const subProjectRoot = path.join(projectRoot, `/${pkg.name}`)
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 const ssh = new NodeSSH()
 const join = (relativePath) => path.join(__dirname, '..', relativePath)

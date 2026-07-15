@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const fse = require('fs-extra')
-const childProcess = require('child_process')
-/* eslint-enable @typescript-eslint/no-var-requires */
+import path from 'path'
+import fse from 'fs-extra'
+import { exec } from 'child_process'
+import { getDirname } from 'nsuite'
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
 
 // 用vitepress编译文档并将结果拷贝到/dist/docs目录下
 const buildDocs = () => new Promise((resolve) => {
@@ -11,7 +13,7 @@ const buildDocs = () => new Promise((resolve) => {
     console.log('开始：编译/docs目录下的文件')
     fse.removeSync(path.join(__dirname, '../dist/docs'))
     fse.removeSync(path.join(__dirname, '../docs/.vitepress/dist'))
-    const cp = childProcess.exec('vitepress build ./docs', (error) => {
+    const cp = exec('vitepress build ./docs', (error) => {
       if (error) {
         // eslint-disable-next-line no-console
         console.log(`error: ${error.message}`)
@@ -37,6 +39,6 @@ const buildDocs = () => new Promise((resolve) => {
   }
 })
 
-module.exports = {
+export {
   buildDocs
 }

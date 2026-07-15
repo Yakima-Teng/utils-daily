@@ -1,13 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const fs = require('fs')
-const fse = require('fs-extra')
-const dayjs = require('dayjs')
-const { generateDocs } = require('./generate-docs')
-const { buildDocs } = require('./build-docs')
-const { buildLib } = require('./build-lib')
-const { copyHomepage } = require('./copy-homepage')
-/* eslint-enable @typescript-eslint/no-var-requires */
+import path from 'path'
+import fs from 'fs'
+import fse from 'fs-extra'
+import dayjs from 'dayjs'
+import { getDirname } from 'nsuite'
+import { generateDocs } from './generate-docs'
+import { buildDocs } from './build-docs'
+import { buildLib } from './build-lib'
+import { copyHomepage } from './copy-homepage'
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = getDirname(import.meta.url)
 
 // eslint-disable-next-line no-void
 void (async () => {
