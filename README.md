@@ -54,4 +54,4 @@ add([1, 2, 3, 4]) // '10'
 
 ## License
 
-📄 [Apache License 2.0](https://github.com/Yakima-Teng/jmock/blob/master/LICENSE)
+📄 [Apache License 2.0](https://github.com/Yakima-Teng/utils-daily/blob/master/LICENSE)
