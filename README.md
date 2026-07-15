@@ -1,15 +1,5 @@
 # utils-daily
 
-[中文文档](./README_zh-CN.md)
-
-<br />
-
-<p align="center">
-  <a href="#" rel="noopener noreferrer">
-    <img width="300" src="https://github.com/Yakima-Teng/utils-daily/raw/master/assets/logo.png" alt="utils-daily.js">
-  </a>
-</p>
-
 <p align="center" style="display: flex;align-items: center;justify-content: center;gap:8px;">
   <a href="https://npmcharts.com/compare/utils-daily?minimal=true">
     <img src="https://img.shields.io/npm/dm/utils-daily.svg" alt="Downloads">
@@ -28,6 +18,8 @@
 * 🔥 Support `TypeScript`
 * 🔥 Code style is kept by `eslint`
 * 🔥 Code quality is kept by unit test (`jest`)
+
+Open source at: [https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily).
 
 ## Document
 
@@ -60,10 +52,6 @@ import { add } from 'utils-daily'
 add([1, 2, 3, 4]) // '10'
 ```
 
-## Open source
-
-This project is open sourced, and you can see code in Github: [https://github.com/Yakima-Teng/utils-daily](https://github.com/Yakima-Teng/utils-daily)。
-
 ## License
 
-MIT LICENSE
+📄 [Apache License 2.0](https://github.com/Yakima-Teng/jmock/blob/master/LICENSE)

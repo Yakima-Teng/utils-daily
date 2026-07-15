@@ -2,6 +2,7 @@
   "name": "utils-daily",
   "version": "1.0.5",
   "description": "utils functions for daily frontend coding",
+  "type": "module",
   "types": "dist/library/utils-daily.d.ts",
   "main": "dist/library/utils-daily.common.js",
   "module": "dist/library/utils-daily.esm.js",
@@ -10,17 +11,16 @@
   "scripts": {
     "ready": "npm install",
     "predev": "npm run test",
-    "dev": "cross-env BABEL_ENV=build NODE_ENV=development node build/dev.js",
+    "dev": "cross-env BABEL_ENV=build NODE_ENV=development node scripts/dev.ts",
     "prebuild": "npm run lint",
-    "build": "cross-env BABEL_ENV=build NODE_ENV=production node build/build.js",
+    "build": "cross-env BABEL_ENV=build NODE_ENV=production node scripts/build.ts",
     "buildAndDeploy": "npm run build && npm run deploy:gh-pages",
     "test": "cross-env BABEL_ENV=test jest",
-    "lint": "npm run test && eslint src/**/* test/**/* build/**/*",
-    "lint:fix": "npm run test && eslint --fix src/**/* test/**/* build/**/*",
-    "deploy:qiniu": "node build/deploy.mjs",
+    "lint": "npm run test && eslint src/**/*.ts test/**/*.ts scripts/**/*.ts",
+    "lint:fix": "npm run test && eslint --fix src/**/*.ts test/**/*.ts scripts/**/*.ts",
     "deploy:github": "bash bash/github-deploy.sh",
     "deploy:npm": "npm --registry=https://registry.npmjs.org publish",
-    "deploy": "npm run deploy:qiniu && npm run deploy:github && npm run deploy:npm"
+    "deploy": "npm run deploy:github && npm run deploy:npm"
   },
   "pre-commit": [
     "lint"
@@ -39,7 +39,7 @@
     "utils-daily"
   ],
   "author": "yakima",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": false,
   "files": [
     "dist/library",
