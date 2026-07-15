@@ -44,7 +44,6 @@
   "files": [
     "dist/library",
     "README.md",
-    "README_zh-CN.md",
     "LICENSE",
     "package.json",
     "package-lock.json"
